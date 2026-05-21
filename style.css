@@ -467,8 +467,7 @@ nav {
     font-size: clamp(1.8rem, 1.8vw, 2.0rem);
     font-weight: 100;
     text-transform: uppercase;
-    text-shadow: 0px 0px 80px wheat;
-    color: #37281c;
+    color: #533e34;
     letter-spacing: 0.1em;
     margin-bottom: 18px;
     text-align: center;
