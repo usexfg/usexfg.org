@@ -27,8 +27,9 @@
     --gray-800: #262626;
     --gray-900: #171717;
     --gray-950: #0a0a0a;
-    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+    --font-display: "Orbitron", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "DM Mono", "SF Mono", "Fira Code", monospace;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -199,6 +200,7 @@ nav {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-family: var(--font-display);
     font-weight: 600;
     color: var(--white);
     font-size: 15px;
@@ -328,8 +330,9 @@ nav {
 }
 
 .hero h1 {
+    font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 600;
+    font-weight: 700;
     color: var(--white);
     line-height: 1.08;
     letter-spacing: -0.03em;
@@ -450,20 +453,25 @@ nav {
 
 .section-label {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
-    letter-spacing: 0.1em;
+    letter-spacing: 1.1em;
     text-transform: uppercase;
     color: var(--fire);
     margin-bottom: 16px;
+    padding-top: 12px;
 }
 
 .section h2 {
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: -0.025em;
-    margin-bottom: 16px;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 1.8vw, 2.0rem);
+    font-weight: 100;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 80px wheat;
+    color: #33261c;
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+    text-align: center;
 }
 
 .section-sub {
@@ -493,6 +501,7 @@ nav {
 }
 
 .pillar h3 {
+    font-family: var(--font-display);
     font-size: 20px;
     font-weight: 600;
     color: var(--white);
@@ -673,6 +682,7 @@ a.eco-card-link:hover {
 }
 
 .eco-card h3 {
+    font-family: var(--font-display);
     font-size: 18px;
     font-weight: 600;
     color: var(--white);
@@ -786,6 +796,7 @@ a.eco-card-link:hover {
 }
 
 .cd-card h3 {
+    font-family: var(--font-display);
     font-size: 20px;
     font-weight: 600;
     color: var(--white);
@@ -904,6 +915,7 @@ a.eco-card-link:hover {
 }
 
 .swap-card h3 {
+    font-family: var(--font-display);
     font-size: 18px;
     font-weight: 600;
     color: var(--white);
@@ -1236,6 +1248,20 @@ footer {
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
+    .page-section {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .page-dots {
+        right: 12px;
+        gap: 8px;
+    }
+
+    .page-dot {
+        width: 6px;
+        height: 6px;
+    }
+
     .nav-links {
         display: none;
         position: fixed;
@@ -1260,40 +1286,84 @@ footer {
         display: block;
     }
 
+    .hero-glow {
+        width: 280px;
+        height: 280px;
+        top: -140px;
+    }
+
     .hero {
-        min-height: auto;
-        padding: 140px 24px 80px;
+        min-height: 100dvh;
+        padding: 100px 16px 60px;
     }
 
     .hero h1 {
-        font-size: 2.22rem;
+        font-size: 2rem;
+        line-height: 1.15;
+    }
+
+    .hero-sub {
+        font-size: 15px;
+        max-width: 100%;
+        margin: 0 auto 32px;
     }
 
     .hero-stats {
         flex-wrap: wrap;
-        gap: 24px;
+        gap: 16px;
         margin-top: 48px;
+        padding-top: 32px;
     }
 
     .stat {
-        min-width: 120px;
+        min-width: 80px;
+        flex: 1 1 calc(50% - 8px);
+    }
+
+    .stat-value {
+        font-size: 16px;
+    }
+
+    .stat-label {
+        font-size: 10px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .section {
+        padding: 60px 0;
+        min-height: auto;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+    }
+
+    .section-sub {
+        font-size: 14px;
+        margin-bottom: 32px;
     }
 
     .pillars {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 24px;
     }
 
     .wallet-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .eco-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .swap-pairs {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .swap-steps {
@@ -1303,7 +1373,7 @@ footer {
 
     .ef-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+        gap: 12px;
     }
 
     .ef-flow {
@@ -1313,10 +1383,6 @@ footer {
 
     .ef-arrow {
         transform: rotate(90deg);
-    }
-
-    .section {
-        padding: 80px 0;
     }
 
     .footer-inner {
@@ -1333,11 +1399,42 @@ footer {
 
 @media (max-width: 480px) {
     .hero h1 {
-        font-size: 1.875rem;
+        font-size: 1.75rem;
+    }
+
+    .hero-sub {
+        font-size: 14px;
+    }
+
+    .hero-stats {
+        gap: 12px;
+    }
+
+    .stat {
+        min-width: 70px;
+    }
+
+    .section h2 {
+        font-size: 1.35rem;
+    }
+
+    .section-sub {
+        font-size: 13px;
+    }
+
+    .eco-card,
+    .wallet-card,
+    .swap-card,
+    .pillar {
+        padding: 24px 20px;
     }
 
     .ef-grid {
         grid-template-columns: 1fr;
+    }
+
+    .page-dots {
+        display: none;
     }
 }
 
