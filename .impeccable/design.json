@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-23T12:30:00Z",
+  "title": "Design System: Bank of XFG",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Fuego Fire",
+        "canonical": "oklch(60.4% 0.231 28.5)",
+        "tonalRamp": [
+          "oklch(15% 0.231 28.5)",
+          "oklch(25% 0.231 28.5)",
+          "oklch(40% 0.231 28.5)",
+          "oklch(60.4% 0.231 28.5)",
+          "oklch(75% 0.15 28.5)",
+          "oklch(85% 0.1 28.5)",
+          "oklch(92% 0.05 28.5)",
+          "oklch(97% 0.01 28.5)"
+        ]
+      },
+      "amber-glow": {
+        "role": "secondary",
+        "displayName": "Hearth Amber",
+        "canonical": "#f59e0b"
+      },
+      "blue-glow": {
+        "role": "secondary",
+        "displayName": "Yield Blue",
+        "canonical": "#3b82f6"
+      },
+      "purple-glow": {
+        "role": "secondary",
+        "displayName": "Staking Purple",
+        "canonical": "#a855f7"
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Sovereign Black",
+        "canonical": "oklch(0% 0 0)",
+        "tonalRamp": [
+          "oklch(5% 0 0)",
+          "oklch(15% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(40% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(75% 0 0)",
+          "oklch(85% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Primary section headings."
+      },
+      "technical": {
+        "displayName": "Technical",
+        "purpose": "Labels and mono-spaced data."
+      }
+    },
+    "shadows": [
+      {
+        "name": "brand-glow",
+        "value": "0 0 80px rgba(255, 69, 0, 0.15)",
+        "purpose": "Suggest underlying network heat."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default exponential easing."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-contrast action trigger.",
+      "html": "<button class=\"ds-btn-primary\">DOWNLOAD WALLET</button>",
+      "css": ".ds-btn-primary { background: #ffffff; color: #000000; padding: 12px 24px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 14px; border: none; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; } .ds-btn-primary:hover { background: #e5e5e5; transform: translateY(-1px); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action or secondary trigger.",
+      "html": "<button class=\"ds-btn-ghost\">VIEW SOURCE</button>",
+      "css": ".ds-btn-ghost { background: transparent; color: #737373; padding: 12px 24px; border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 14px; border: 1px solid #262626; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; } .ds-btn-ghost:hover { border-color: #404040; color: #ffffff; transform: translateY(-1px); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Magnificent Vault / The Sovereign Terminal",
+    "overview": "Fuego Bank's visual system balances the grandeur of high-end luxury with the raw precision of a technical terminal.",
+    "keyCharacteristics": [
+      "Magnificent Minimalism",
+      "Sovereign Seclusion",
+      "Technical Sincerity",
+      "Kinetic Precision"
+    ],
+    "rules": [
+      {
+        "name": "The Rarity Rule",
+        "body": "The Fuego Fire accent (#ff4500) must occupy ≤10% of any view.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do use Orbitron strictly for primary section headings.",
+      "Do use DM Mono for all technical stats, numbers, and mechanism details.",
+      "Do center section labels and headings."
+    ],
+    "donts": [
+      "Don't use Childish sci-fi fonts like Audiowide or Chakra Petch.",
+      "Don't use gradient text or neon glow effects on body copy."
+    ]
+  }
+}

@@ -27,6 +27,13 @@
     --gray-800: #262626;
     --gray-900: #171717;
     --gray-950: #0a0a0a;
+    --blue-glow: #3b82f6;
+    --purple-glow: #a855f7;
+    --amber-glow: #f59e0b;
+    --eth-blue: #627eea;
+    --sol-purple: #9945ff;
+    --xmr-orange: #ff6600;
+    --bch-green: #0ac18e;
     --font-display: "Orbitron", -apple-system, BlinkMacSystemFont, sans-serif;
     --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: "DM Mono", "SF Mono", "Fira Code", monospace;
@@ -51,6 +58,11 @@ body {
     font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
+}
+
+:focus-visible {
+    outline: 2px solid var(--fire);
+    outline-offset: 4px;
 }
 
 /* Subtle noise texture */
@@ -164,13 +176,9 @@ code {
 }
 
 .container {
-    max-width: 1080px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    box-sizing: border-box;
+    padding: 0 40px;
 }
 
 /* --- NAV --- */
@@ -310,9 +318,35 @@ nav {
 }
 
 .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
+    max-width: 800px;
+    text-align: left;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    text-align: left;
+}
+
+.hero-sub {
+    font-size: 18px;
+    color: var(--gray-400);
+    max-width: 600px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    text-align: left;
+    justify-content: flex-start;
 }
 
 .hero-badge {
@@ -460,7 +494,7 @@ nav {
     color: var(--fire);
     margin-bottom: 16px;
     padding-top: 12px;
-    text-align: center;
+    text-align: left;
 }
 
 .section h2 {
@@ -471,7 +505,7 @@ nav {
     color: #533e34;
     letter-spacing: 0.1em;
     margin-bottom: 48px;
-    text-align: center;
+    text-align: left;
 }
 
 .section-sub {
@@ -480,6 +514,7 @@ nav {
     max-width: 560px;
     line-height: 1.65;
     margin-bottom: 56px;
+    text-align: left;
 }
 
 /* --- PILLARS (Why Fuego) --- */
@@ -488,6 +523,7 @@ nav {
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     margin-top: 56px;
+    text-align: left;
 }
 
 .pillar {
@@ -537,6 +573,7 @@ nav {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
+    text-align: left;
 }
 
 .wallet-card {
@@ -608,23 +645,54 @@ nav {
 
 .eco-grid.two-cols {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
 }
 
 .eco-grid.one-col {
     grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 0 auto;
+    max-width: 600px;
+    margin: 0;
 }
 
 .eco-card {
     border: 1px solid var(--gray-800);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 32px;
     transition: border-color 0.3s var(--ease);
     position: relative;
     overflow: hidden;
+}
+
+.eco-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-right: 1px solid var(--gray-700);
+    border-bottom: 1px solid var(--gray-700);
+}
+
+.wallet-card {
+    background: var(--gray-950);
+    border: 1px solid var(--gray-800);
+    border-radius: 0;
+    padding: 36px;
+    transition: border-color 0.3s var(--ease);
+    position: relative;
+}
+
+.wallet-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid var(--gray-700);
+    border-top: 1px solid var(--gray-700);
 }
 
 .eco-card::before {
@@ -637,7 +705,7 @@ nav {
 }
 
 .eco-cold::before {
-    background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+    background: linear-gradient(90deg, transparent, var(--blue-glow), transparent);
 }
 
 .eco-heat::before {
@@ -645,11 +713,11 @@ nav {
 }
 
 .eco-codle::before {
-    background: linear-gradient(90deg, transparent, #a855f7, transparent);
+    background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
 }
 
 .eco-hearth::before {
-    background: linear-gradient(90deg, transparent, #f59e0b, transparent);
+    background: linear-gradient(90deg, transparent, var(--amber-glow), transparent);
 }
 
 .eco-card:hover {
@@ -657,7 +725,7 @@ nav {
 }
 
 .eco-hearth:hover {
-    border-color: #f59e0b;
+    border-color: var(--amber-glow);
 }
 
 a.eco-card-link {
@@ -681,16 +749,16 @@ a.eco-card-link:hover {
 }
 
 .eco-cold .eco-tag {
-    color: #3b82f6;
+    color: var(--blue-glow);
 }
 .eco-heat .eco-tag {
     color: var(--fire);
 }
 .eco-codle .eco-tag {
-    color: #a855f7;
+    color: var(--purple-glow);
 }
 .eco-hearth .eco-tag {
-    color: #f59e0b;
+    color: var(--amber-glow);
 }
 
 .eco-card h3 {
@@ -791,7 +859,7 @@ a.eco-card-link:hover {
 }
 
 .cd-heat::before {
-    background: linear-gradient(90deg, transparent, #ff6600, transparent);
+    background: linear-gradient(90deg, transparent, var(--fire), transparent);
 }
 
 .cd-card:hover {
@@ -885,19 +953,19 @@ a.eco-card-link:hover {
 }
 
 .swap-xmr::before {
-    background: linear-gradient(90deg, transparent, #ff6600, transparent);
+    background: linear-gradient(90deg, transparent, var(--xmr-orange), transparent);
 }
 
 .swap-eth::before {
-    background: linear-gradient(90deg, transparent, #627eea, transparent);
+    background: linear-gradient(90deg, transparent, var(--eth-blue), transparent);
 }
 
 .swap-bch::before {
-    background: linear-gradient(90deg, transparent, #0ac18e, transparent);
+    background: linear-gradient(90deg, transparent, var(--bch-green), transparent);
 }
 
 .swap-sol::before {
-    background: linear-gradient(90deg, transparent, #9945ff, transparent);
+    background: linear-gradient(90deg, transparent, var(--sol-purple), transparent);
 }
 
 .swap-card:hover {
@@ -914,16 +982,16 @@ a.eco-card-link:hover {
 }
 
 .swap-xmr .swap-pair-badge {
-    color: #ff6600;
+    color: var(--xmr-orange);
 }
 .swap-eth .swap-pair-badge {
-    color: #627eea;
+    color: var(--eth-blue);
 }
 .swap-bch .swap-pair-badge {
-    color: #0ac18e;
+    color: var(--bch-green);
 }
 .swap-sol .swap-pair-badge {
-    color: #9945ff;
+    color: var(--sol-purple);
 }
 
 .swap-card h3 {
@@ -1113,8 +1181,8 @@ a.eco-card-link:hover {
 
 /* --- SPECS TABLE --- */
 .specs-table {
-    max-width: 560px;
-    margin-top: 48px;
+    max-width: 800px;
+    margin-left: 0;
 }
 
 .spec-row {
@@ -1139,9 +1207,9 @@ a.eco-card-link:hover {
 
 /* --- ROADMAP --- */
 .roadmap {
-    margin-top: 48px;
     position: relative;
-    padding-left: 32px;
+    max-width: 900px;
+    margin-left: 0;
 }
 
 .roadmap::before {
