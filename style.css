@@ -460,6 +460,7 @@ nav {
     color: var(--fire);
     margin-bottom: 16px;
     padding-top: 12px;
+    text-align: center;
 }
 
 .section h2 {
@@ -469,7 +470,7 @@ nav {
     text-transform: uppercase;
     color: #533e34;
     letter-spacing: 0.1em;
-    margin-bottom: 18px;
+    margin-bottom: 48px;
     text-align: center;
 }
 
@@ -607,7 +608,7 @@ nav {
 
 .eco-grid.two-cols {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
