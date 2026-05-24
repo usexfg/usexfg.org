@@ -68,7 +68,7 @@
                     <a href="#vault">Vault</a>
                     <a href="#heat">HEAT</a>
                     <a href="#yield">Yield</a>
-                    <a href="#swaps">Swaps</a>
+                    <a href="#swaps">SwapXFG</a>
                     <a href="#specs">Specs</a>
                     <a href="#roadmap">Roadmap</a>
                     <a
@@ -355,18 +355,74 @@
                 <section class="section" id="heat">
                     <div class="container">
                         <div class="section-label">Sound Money</div>
-                        <h2>HEAT</h2>
+                        <div class="heat-title-svg" style="max-width: 333px; margin-bottom: 33px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 100">
+                                <defs>
+                                    <linearGradient id="hg" x1="10" y1="50" x2="450" y2="50" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#FF4D00"/>
+                                    <stop offset="100%" stop-color="#FF8040"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Back plane: blue-shift lines, offset right +10 -->
+                                <g stroke="#7080EE" stroke-width="1.5" stroke-linecap="round" opacity="0.30" fill="none">
+                                    <path d="M 20 25 C 57 18, 93 18, 130 25 C 167 32, 203 32, 240 25 C 277 18, 313 18, 350 25 C 387 32, 423 32, 460 25"/>
+                                    <path d="M 20 45 C 57 38, 93 38, 130 45 C 167 52, 203 52, 240 45 C 277 38, 313 38, 350 45 C 387 52, 423 52, 460 45"/>
+                                    <path d="M 20 65 C 57 58, 93 58, 130 65 C 167 72, 203 72, 240 65 C 277 58, 313 58, 350 65 C 387 72, 423 72, 460 65"/>
+                                    <path d="M 20 85 C 57 78, 93 78, 130 85 C 167 92, 203 92, 240 85 C 277 78, 313 78, 350 85 C 387 92, 423 92, 460 85"/>
+                                </g>
+                                <!-- Front plane: orange lines -->
+                                <g stroke="url(#hg)" stroke-width="3" stroke-linecap="round" opacity="0.38" fill="none">
+                                    <path d="M 10 15 C 47 8, 83 8, 120 15 C 157 22, 193 22, 230 15 C 267 8, 303 8, 340 15 C 377 22, 413 22, 450 15"/>
+                                    <path d="M 10 35 C 47 28, 83 28, 120 35 C 157 42, 193 42, 230 35 C 267 28, 303 28, 340 35 C 377 42, 413 42, 450 35"/>
+                                    <path d="M 10 55 C 47 48, 83 48, 120 55 C 157 62, 193 62, 230 55 C 267 48, 303 48, 340 55 C 377 62, 413 62, 450 55"/>
+                                    <path d="M 10 75 C 47 68, 83 68, 120 75 C 157 82, 193 82, 230 75 C 267 68, 303 68, 340 75 C 377 82, 413 82, 450 75"/>
+                                </g>
+                                <!-- H -->
+                                <rect x="15" y="5" width="14" height="90" fill="#FFFDF8"/>
+                                <rect x="75" y="5" width="14" height="90" fill="#FFFDF8"/>
+                                <rect x="29" y="43" width="46" height="14" fill="#FFFDF8"/>
+                                <!-- E -->
+                                <rect x="139" y="5" width="14" height="90" fill="#FFFDF8"/>
+                                <rect x="153" y="5" width="46" height="14" fill="#FFFDF8"/>
+                                <rect x="153" y="43" width="38" height="14" fill="#FF4D00"/>
+                                <rect x="153" y="81" width="46" height="14" fill="#FFFDF8"/>
+                                <!-- A -->
+                                <path fill-rule="evenodd" d="M 249 95 L 289 5 L 329 95 Z M 268 83 L 289 35 L 310 83 Z" fill="#FFFDF8"/>
+                                <!-- T -->
+                                <rect x="379" y="5" width="66" height="14" fill="#FFFDF8"/>
+                                <rect x="405" y="19" width="14" height="76" fill="#FFFDF8"/>
+                            </svg>
+                        </div>
                         <div class="eco-grid two-cols">
                             <div class="eco-card eco-heat">
                                 <div class="eco-tag">Stablecoin</div>
                                 <div class="card-icon">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+                                    <svg width="40" height="40" viewBox="0 0 200 200" fill="none">
+                                        <defs>
+                                            <linearGradient id="hg" x1="10" y1="100" x2="190" y2="100" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#FF4D00"/>
+                                            <stop offset="100%" stop-color="#FF8040"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <!-- Back plane: 4 blue-shift lines, offset right +8 — holographic depth -->
+                                        <g stroke="#7080EE" stroke-width="3.5" stroke-linecap="round" opacity="0.45">
+                                            <path d="M 18 45 C 48 29, 78 29, 108 45 C 138 61, 168 61, 198 45"/>
+                                            <path d="M 18 89 C 48 73, 78 73, 108 89 C 138 105, 168 105, 198 89"/>
+                                            <path d="M 18 133 C 48 117, 78 117, 108 133 C 138 149, 168 149, 198 133"/>
+                                            <path d="M 18 177 C 48 161, 78 161, 108 177 C 138 193, 168 193, 198 177"/>
+                                        </g>
+                                        <!-- Front plane: 4 primary orange lines -->
+                                        <g stroke="url(#hg)" stroke-width="8" stroke-linecap="round">
+                                            <path d="M 10 23 C 40 7, 70 7, 100 23 C 130 39, 160 39, 190 23"/>
+                                            <path d="M 10 67 C 40 51, 70 51, 100 67 C 130 83, 160 83, 190 67"/>
+                                            <path d="M 10 111 C 40 95, 70 95, 100 111 C 130 127, 160 127, 190 111"/>
+                                            <path d="M 10 155 C 40 139, 70 139, 100 155 C 130 171, 160 171, 190 155"/>
+                                        </g>
                                     </svg>
                                 </div>
-                                <h3>HEAT — The Asset</h3>
+                                <h3>HⲶ∆T — The Enthalpy</h3>
                                 <p>
-                                    Algorithmic floating supply-based colored coin on Fuego L1. Designed to provide stable value that specifically accounts for the hidden tax &amp; dilution of purchasing power caused by fiat inflation. Burn XFG to mint.
+                                    Designed to provide stable value specifically regarding purchasing power- the &lsquo;hidden&rsquo; tax in all fiat currencies caused by massive inflation. HEAT&rsquo;s algorithmic supply tracks Consumer Price Index to make sure your value is protected, not extracted. Burn XFG to mint.
                                 </p>
                                 <div class="eco-detail">
                                     <span>Algorithmic</span>
@@ -378,8 +434,34 @@
                             <div class="eco-card eco-heat">
                                 <div class="eco-tag">Mechanism</div>
                                 <div class="card-icon">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    <svg width="40" height="40" viewBox="0 0 200 200">
+                                        <!-- Center -->
+                                        <circle cx="100" cy="100" r="14" fill="#FF4D00"/>
+                                        <!-- Cardinal ring 1 -->
+                                        <circle cx="100" cy="68" r="9" fill="#FFFDF8"/>
+                                        <circle cx="132" cy="100" r="9" fill="#FFFDF8"/>
+                                        <circle cx="100" cy="132" r="9" fill="#FFFDF8"/>
+                                        <circle cx="68" cy="100" r="9" fill="#FFFDF8"/>
+                                        <!-- Cardinal ring 2 -->
+                                        <circle cx="100" cy="40" r="6" fill="#FFFDF8"/>
+                                        <circle cx="160" cy="100" r="6" fill="#FFFDF8"/>
+                                        <circle cx="100" cy="160" r="6" fill="#FFFDF8"/>
+                                        <circle cx="40" cy="100" r="6" fill="#FFFDF8"/>
+                                        <!-- Cardinal ring 3 -->
+                                        <circle cx="100" cy="18" r="4" fill="#FFFDF8"/>
+                                        <circle cx="182" cy="100" r="4" fill="#FFFDF8"/>
+                                        <circle cx="100" cy="182" r="4" fill="#FFFDF8"/>
+                                        <circle cx="18" cy="100" r="4" fill="#FFFDF8"/>
+                                        <!-- Diagonal ring 1 -->
+                                        <circle cx="123" cy="77" r="5" fill="#FFFDF8"/>
+                                        <circle cx="123" cy="123" r="5" fill="#FFFDF8"/>
+                                        <circle cx="77" cy="123" r="5" fill="#FFFDF8"/>
+                                        <circle cx="77" cy="77" r="5" fill="#FFFDF8"/>
+                                        <!-- Diagonal ring 2 -->
+                                        <circle cx="142" cy="58" r="3.5" fill="#FFFDF8"/>
+                                        <circle cx="142" cy="142" r="3.5" fill="#FFFDF8"/>
+                                        <circle cx="58" cy="142" r="3.5" fill="#FFFDF8"/>
+                                        <circle cx="58" cy="58" r="3.5" fill="#FFFDF8"/>
                                     </svg>
                                 </div>
                                 <h3>The PI Controller</h3>
@@ -619,7 +701,7 @@
                             <div class="spec-row">
                                 <span class="spec-key">Launch</span>
                                 <span class="spec-val"
-                                    >Fair. Proof of work since block 0.</span
+                                    >Semi⋆Stealth - Proof of work since block 0.</span
                                 >
                             </div>
                         </div>
@@ -631,7 +713,7 @@
             <div class="page-section" data-section="roadmap">
                 <section class="section section-dark" id="roadmap">
                     <div class="container">
-                        <h2 style="color:#37281c !important;text-shadow:0px 0px 80px wheat;">Guarding The Shield That <br>Guards The Realms Of Men</h2>
+                        <h2 style="color:#37281c !important;text-shadow:0px 0px 80px wheat;text-align:center;">Guarding The Shield That <br>Guards The Realms Of Men</h2>
                         <div class="section-label" style="text-transform:none;font-size:11px;line-height:1.7;max-width:680px;margin-left:auto;margin-right:auto;white-space:normal;">
                             Privacy is the final threshold of which every God-given freedom stands behind. Lose it, and they all fall.<br><br>
                             We build Fuego to hold that line. The 8P approach to R&amp;D is the mechanism: Preserve Pillars of Privacy Plus P2P Purchasing Power. Not a slogan, but a vow. Every roadmap feature must continue preserving at least one or both pillars. No exceptions. No apologies. That&rsquo;s 8P R&amp;D baby..Freedom isn&rsquo;t free.

@@ -317,38 +317,6 @@ nav {
     }
 }
 
-.hero-content {
-    max-width: 800px;
-    text-align: left;
-    margin-left: 0;
-    margin-right: auto;
-}
-
-.hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 24px;
-    letter-spacing: -0.02em;
-    text-align: left;
-}
-
-.hero-sub {
-    font-size: 18px;
-    color: var(--gray-400);
-    max-width: 600px;
-    margin-bottom: 40px;
-    text-align: left;
-}
-
-.hero-actions {
-    display: flex;
-    gap: 16px;
-    text-align: left;
-    justify-content: flex-start;
-}
-
 .hero-badge {
     display: inline-block;
     font-family: var(--font-mono);
@@ -363,6 +331,14 @@ nav {
     margin-bottom: 32px;
 }
 
+.hero-content {
+    max-width: 800px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
 .hero h1 {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -371,6 +347,7 @@ nav {
     line-height: 1.08;
     letter-spacing: -0.03em;
     margin-bottom: 24px;
+    text-align: center;
 }
 
 .hero-sub {
@@ -379,11 +356,12 @@ nav {
     color: var(--gray-500);
     max-width: 520px;
     margin: 0 auto 40px;
+    text-align: center;
 }
 
 .hero-actions {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -476,7 +454,7 @@ nav {
 
 /* --- SECTIONS --- */
 .section {
-    padding: 120px 0;
+    padding: 60px 0;
     position: relative;
     min-height: 100vh;
 }
@@ -492,9 +470,196 @@ nav {
     letter-spacing: 1.1em;
     text-transform: uppercase;
     color: var(--fire);
-    margin-bottom: 16px;
+    margin-bottom: 9px;
     padding-top: 12px;
     text-align: left;
+}
+
+.section-sub {
+    font-size: 16px;
+    color: var(--gray-500);
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 9px;
+    text-align: left;
+}
+
+/* --- PILLARS (Why Fuego) --- */
+.pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 56px;
+    text-align: left;
+}
+
+.pillar {
+    padding: 32px 0;
+}
+
+.pillar-icon {
+    color: var(--fire);
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.pillar h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.pillar p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+}
+
+.pillar-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pillar-detail span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-800);
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+}
+
+/* --- WALLET CARDS --- */
+.wallet-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    text-align: left;
+}
+
+.wallet-card {
+    background: var(--gray-950);
+    border: 1px solid var(--gray-800);
+    border-radius: 0;
+    padding: 36px;
+    transition: border-color 0.3s var(--ease);
+    position: relative;
+}
+
+.wallet-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid var(--gray-700);
+    border-top: 1px solid var(--gray-700);
+}
+
+.section-dark .wallet-card {
+    background: var(--black);
+}
+
+.wallet-card:hover {
+    border-color: #355888;
+}
+
+.wallet-icon {
+    color: var(--gray-600);
+    margin-bottom: 20px;
+}
+
+.wallet-card h3 {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 4px;
+}
+
+.wallet-type {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gray-600);
+    margin-bottom: 16px;
+}
+
+.wallet-card > p:not(.wallet-type) {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+}
+
+.wallet-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+.wallet-features span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gray-500);
+    background: var(--gray-900);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+/* --- ECOSYSTEM CARDS --- */
+.eco-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.eco-grid.two-cols {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    margin: 0;
+}
+
+.eco-grid.one-col {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin: 0;
+}
+
+.eco-card {
+    border: 1px solid var(--gray-800);
+    border-radius: 0;
+    padding: 32px;
+    transition: border-color 0.3s var(--ease);
+    position: relative;
+    overflow: hidden;
+}
+
+.eco-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-right: 1px solid var(--gray-700);
+    border-bottom: 1px solid var(--gray-700);
+}
+
+.eco-card:hover {
+    border-color: #355888;
+}
+
+.eco-hearth:hover {
+    border-color: #355888;
 }
 
 .section h2 {
@@ -502,9 +667,18 @@ nav {
     font-size: clamp(1.8rem, 1.8vw, 2.0rem);
     font-weight: 100;
     text-transform: uppercase;
-    color: #533e34;
+    color: #664a3c;
     letter-spacing: 0.1em;
-    margin-bottom: 48px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.section-sub {
+    font-size: 16px;
+    color: var(--gray-500);
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 9px;
     text-align: left;
 }
 
@@ -579,9 +753,21 @@ nav {
 .wallet-card {
     background: var(--gray-950);
     border: 1px solid var(--gray-800);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 36px;
     transition: border-color 0.3s var(--ease);
+    position: relative;
+}
+
+.wallet-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid var(--gray-700);
+    border-top: 1px solid var(--gray-700);
 }
 
 .section-dark .wallet-card {
@@ -673,26 +859,6 @@ nav {
     height: 10px;
     border-right: 1px solid var(--gray-700);
     border-bottom: 1px solid var(--gray-700);
-}
-
-.wallet-card {
-    background: var(--gray-950);
-    border: 1px solid var(--gray-800);
-    border-radius: 0;
-    padding: 36px;
-    transition: border-color 0.3s var(--ease);
-    position: relative;
-}
-
-.wallet-card::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
-    border-left: 1px solid var(--gray-700);
-    border-top: 1px solid var(--gray-700);
 }
 
 .eco-card::before {
