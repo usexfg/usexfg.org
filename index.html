@@ -66,7 +66,8 @@
                 <div class="nav-links">
                     <a href="#why">Why</a>
                     <a href="#vault">Vault</a>
-                    <a href="#ecosystem">CDs</a>
+                    <a href="#heat">HEAT</a>
+                    <a href="#yield">Yield</a>
                     <a href="#swaps">Swaps</a>
                     <a href="#specs">Specs</a>
                     <a href="#roadmap">Roadmap</a>
@@ -349,211 +350,38 @@
                 </section>
             </div>
 
-            <!-- 3: CERTIFICATE DEPOSITS, HEAT & HEARTH -->
-            <div class="page-section" data-section="ecosystem">
-                <section class="section" id="ecosystem">
+            <!-- 3: HEAT -->
+            <div class="page-section" data-section="heat">
+                <section class="section" id="heat">
                     <div class="container">
-                        <div class="section-label">Ecosystem</div>
-                        <h2>Burn. Mint. Earn.</h2>
-                        <p class="section-sub">
-                            Burn XFG mint HEAT — an algorithmic floating
-                            supply-rate stablecoin based on XFG, governed by
-                            a PI controller. Add liquidity to
-                            <strong>Fuego&rsquo;s Hearth</strong> (XFG/HEAT)
-                            and earn LP rewards. Lock HEAT in on-chain
-                            epoch-based CDs for higher yield.
-                            Preserve purchasing power with privacy.
-                        </p>
-
-                        <div class="eco-grid">
+                        <div class="section-label">Sound Money</div>
+                        <h2>HEAT</h2>
+                        <div class="eco-grid one-col">
                             <div class="eco-card eco-heat">
-                                <div class="eco-tag">HEAT</div>
+                                <div class="eco-tag">Stablecoin</div>
                                 <div class="card-icon">
-                                    <svg
-                                        width="40"
-                                        height="40"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path
-                                            d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"
-                                        />
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
                                     </svg>
                                 </div>
-                                <h3>HEAT — Stablecoin</h3>
+                                <h3>Algorithmic Colored Coin</h3>
                                 <p>
-                                    Floating supply-rate XFG-colored coin governed
-                                    by an algorithmic PI controller. Stabilizes
-                                    value against XFG using Hearth market activity
-                                    &amp; atomic swap data. No convertibility, no
-                                    dollar peg, no price oracles. Just
-                                    self-sovereign stability...burn XFG to mint.
-                                </p>
+                                    The algorithmic floating supply-based colored coin on Fuego L1 blockchain network, anchored to sound money by XFG. Designed to provide stable value that specifically accounts for the hidden tax &amp; dilution of purchasing power caused by massive inflation of fiat currencies. Just self-sovereign stability...burn XFG to mint.
                                 </p>
                                 <div class="eco-tiers">
                                     <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >Launch Rate</span
-                                        >
-                                        <span class="tier-heat"
-                                            >1 HEAT = 0.2 XFG</span
-                                        >
+                                        <span class="tier-amount">Mechanism</span>
+                                        <span class="tier-heat">PI Controller</span>
                                     </div>
                                     <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >Mechanism</span
-                                        >
-                                        <span class="tier-heat"
-                                            >PI Controller</span
-                                        >
-                                    </div>
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >Supply</span
-                                        >
-                                        <span class="tier-heat"
-                                            >Algorithmic floating</span
-                                        >
-                                    </div>
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount">Backing</span>
-                                        <span class="tier-heat"
-                                            >Burned XFG</span
-                                        >
+                                        <span class="tier-amount">Anchored to</span>
+                                        <span class="tier-heat">XFG</span>
                                     </div>
                                 </div>
                                 <div class="eco-detail">
+                                    <span>Algorithmic</span>
+                                    <span>Colored Coin</span>
                                     <span>PI Controller</span>
-                                    <span>ERC-20 (Soon)</span>
-                                    <span>SPL</span>
-                                    <span>Privacy Stablecoin</span>
-                                </div>
-                            </div>
-
-                            <div class="eco-card eco-hearth">
-                                <div class="eco-tag">AMM</div>
-                                <div class="card-icon">
-                                    <svg
-                                        width="40"
-                                        height="40"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <!-- Hearth stones -->
-                                        <path d="M8 19 Q10 22 12 19 Q14 22 16 19" />
-                                        <!-- Crossed logs -->
-                                        <line x1="6" y1="18" x2="18" y2="13.5" />
-                                        <line x1="18" y1="18" x2="6" y2="13.5" />
-                                        <!-- Flame -->
-                                        <path d="M12 2 C9 3.5 5 6 5 9.5 C5 12.5 8 15 10.5 15 C10 14 10 13 11 12 C11.5 14 11 15.5 12 15.5 C13 15.5 12.5 14 13 12 C14 13 14 14 13.5 15 C16 15 19 12.5 19 9.5 C19 6 15 3.5 12 2 Z" />
-                                    </svg>
-                                </div>
-                                <h3>The HEARTH</h3>
-                                <p>
-                                    Fuego's on-chain AMM liquidity pool for XFG/HEAT.
-                                    Deposit both sides to earn LP rewards
-                                    from all swap activity on HEARTH.
-                                    Claim yield on exit, claim without exiting, or auto-compounding
-                                    as new private transaction types. No locking terms, exit anytime.
-                                </p>
-                                <div class="eco-tiers">
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >Pool Pair</span
-                                        >
-                                        <span class="tier-hearth"
-                                            >XFG / HEAT</span
-                                        >
-                                    </div>
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >LP Rewards</span
-                                        >
-                                        <span class="tier-hearth"
-                                            >Auto-compounding</span
-                                        >
-                                    </div>
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >Lockup</span
-                                        >
-                                        <span class="tier-hearth"
-                                            >None</span
-                                        >
-                                    </div>
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >Frontend</span
-                                        >
-                                        <span class="tier-hearth"
-                                            >CLI first, GUI later</span
-                                        >
-                                    </div>
-                                </div>
-                                <div class="eco-detail">
-                                    <span>AMM</span>
-                                    <span>Liquidity Pool</span>
-                                    <span>XFG/HEAT</span>
-                                </div>
-                            </div>
-
-                            <div class="eco-card eco-cold">
-                                <div class="eco-tag">CD</div>
-                                <div class="card-icon">
-                                    <svg
-                                        width="40"
-                                        height="40"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                    </svg>
-                                </div>
-                                <h3>Certificates Of Deposit</h3>
-                                <p>
-                                    Time-locked HEAT deposits earn yield from
-                                    protocol activity. Choose your term, lock your
-                                    HEAT, earn yield.
-                                </p>
-                                <div class="eco-tiers">
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >Denomination</span
-                                        >
-                                        <span class="tier-apy">HEAT</span>
-                                    </div>
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount"
-                                            >Term Options</span
-                                        >
-                                        <span class="tier-apy"
-                                            >5 days, 3mo, 6mo, 1 year</span
-                                        >
-                                    </div>
-                                    <div class="eco-tier-row">
-                                        <span class="tier-amount">APR</span>
-                                        <span class="tier-apy"
-                                            >Variable, per epoch</span
-                                        >
-                                    </div>
-                                </div>
-                                <div class="eco-detail">
-                                    <span>Non-inflationary</span>
-                                    <span>time-locked</span>
-                                    <span>On-chain</span>
                                 </div>
                             </div>
                         </div>
@@ -561,6 +389,61 @@
                 </section>
             </div>
 
+            <!-- 4: YIELD -->
+            <div class="page-section" data-section="yield">
+                <section class="section section-dark" id="yield">
+                    <div class="container">
+                        <div class="section-label">Financial Flywheel</div>
+                        <h2>YIELD</h2>
+                        <div class="eco-grid two-cols">
+                            <div class="eco-card eco-hearth">
+                                <div class="eco-tag">Liquidity</div>
+                                <div class="card-icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2c-4 0-7 3-7 7 0 3.5 2 6.5 5 8v3h4v-3c3-1.5 5-4.5 5-8 0-4-3-7-7-7z"/>
+                                        <path d="M9 21h6"/>
+                                        <path d="M10 17l1 1h2l1-1"/>
+                                    </svg>
+                                </div>
+                                <h3>Hearth AMM</h3>
+                                <p>
+                                    Automated swap pools with protocol-owned liquidity. Liquidity providers earn a share of swap fees, while the protocol splits fee revenue between XFG burners and CD stakers. Sovereign yield through utility.
+                                </p>
+                                <div class="eco-detail">
+                                    <span>Swap Fees</span>
+                                    <span>LP Rewards</span>
+                                    <span>Protocol Revenue</span>
+                                </div>
+                            </div>
+
+                            <div class="eco-card eco-cd">
+                                <div class="eco-tag">Staking</div>
+                                <div class="card-icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="16" rx="2"/>
+                                        <path d="M3 10h18"/>
+                                        <path d="M7 14h.01"/>
+                                        <path d="M11 14h.01"/>
+                                        <path d="M15 14h.01"/>
+                                        <path d="M7 18h.01"/>
+                                        <path d="M11 18h.01"/>
+                                        <path d="M15 18h.01"/>
+                                    </svg>
+                                </div>
+                                <h3>HEAT CDs</h3>
+                                <p>
+                                    Time-locked Certificates of Deposit. Stake HEAT to earn yield from the protocol's financial flywheel. Real yield generated from network activity and automated liquidity management, not just dilution.
+                                </p>
+                                <div class="eco-detail">
+                                    <span>Time-locked</span>
+                                    <span>Real Yield</span>
+                                    <span>CD Mechanism</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
             <!-- 5: ATOMIC SWAPS -->
             <div class="page-section" data-section="swaps">
                 <section class="section section-dark" id="swaps">

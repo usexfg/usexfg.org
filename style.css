@@ -605,6 +605,18 @@ nav {
     gap: 20px;
 }
 
+.eco-grid.two-cols {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.eco-grid.one-col {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 .eco-card {
     border: 1px solid var(--gray-800);
     border-radius: 12px;
@@ -1355,7 +1367,8 @@ footer {
         gap: 16px;
     }
 
-    .eco-grid {
+    .eco-grid,
+    .eco-grid.two-cols {
         grid-template-columns: 1fr;
         gap: 16px;
     }
