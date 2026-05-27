@@ -6,12 +6,21 @@
         <title>Bank of 𝐗𝐅𝐆</title>
         <meta
             name="description"
-            content="Fuego (XFG) is a private blockchain bank. Ring signatures, fixed supply, zero premine. Send, deposit, and earn — privately."
+            content="Fuego (XFG) is a private decentralized blockchain bank. Ring signatures, fixed supply, zero premine. Send, deposit, and earn real yield— privately."
         />
         <meta name="theme-color" content="#000000" />
-        <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
+        <link
+            rel="icon"
+            type="image/png"
+            href="favicons/favicon-96x96.png"
+            sizes="96x96"
+        />
         <link rel="shortcut icon" href="favicons/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="favicons/apple-touch-icon.png"
+        />
         <meta name="apple-mobile-web-app-title" content="Fuego Bank" />
         <link rel="manifest" href="site.webmanifest" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +52,7 @@
                 "@type": "Organization",
                 "name": "Fuego",
                 "url": "https://usexfg.org",
-                "description": "Private blockchain bank with ring signatures, fixed supply, and zero premine.",
+                "description": "Privacy blockchain bank with ring signatures, fixed supply, and zero premine.",
                 "logo": "https://avatars.githubusercontent.com/u/34798446?s=200&v=4"
             }
         </script>
@@ -171,12 +180,12 @@
                                 <h3 class="fire-text">Private</h3>
                                 <p>
                                     Dynamic ring signature set mixes your
-                                    transaction with 8 to 18 decoys. Stealth +
+                                    transaction with up to 32 decoys. Stealth +
                                     one-time sub-addresses hide recipient.
                                     Observers see noise, not your business.
                                 </p>
                                 <div class="pillar-detail">
-                                    <span>mixin ≥ 8</span>
+                                    <span>min mixin ≥ 8</span>
                                     <span>stealth addresses</span>
                                     <span>key images</span>
                                 </div>
@@ -241,7 +250,7 @@
                                     People who use it.
                                 </p>
                                 <div class="pillar-detail">
-                                    <span>open source</span>
+                                    <span>open-source</span>
                                     <span>no premine</span>
                                     <span>community run</span>
                                 </div>
@@ -258,8 +267,8 @@
                         <div class="section-label">The Vault</div>
                         <h2>Your banking tools.</h2>
                         <p class="section-sub">
-                            Two wallets. One for operators, one for everyone.
-                            Both private by default.
+                            Two wallets. One for the console, one GUI for
+                            everyone. Both private by default.
                         </p>
 
                         <div class="wallet-grid">
@@ -282,13 +291,14 @@
                                 <h3>fire_wallet</h3>
                                 <p class="wallet-type">Command Line</p>
                                 <p>
-                                    Full-node CLI wallet. Maximum control. Run
-                                    your own bank from the terminal.
+                                    Full-node CLI / TUI wallet(s). Maximum
+                                    control of your funds, bank from the
+                                    terminal.
                                 </p>
                                 <div class="wallet-features">
                                     <span>Full node</span>
                                     <span>Deposits</span>
-                                    <span>Multi-sig</span>
+                                    <span>fire aliases</span>
                                     <span>Cold signing</span>
                                 </div>
                                 <a
@@ -335,7 +345,7 @@
                                     <span>GUI</span>
                                     <span>Linux / Mac / Windows</span>
                                     <span>Deposits</span>
-                                    <span>Address book</span>
+                                    <span>Swaps</span>
                                 </div>
                                 <a
                                     href="https://github.com/usexfg/fuego-wallet/releases"
@@ -355,74 +365,229 @@
                 <section class="section" id="heat">
                     <div class="container">
                         <div class="section-label">Sound Money</div>
-                        <div class="heat-title-svg" style="max-width: 333px; margin-bottom: 33px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 100">
+                        <div
+                            class="heat-title-svg"
+                            style="max-width: 333px; margin-bottom: 33px"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 460 100"
+                            >
                                 <defs>
-                                    <linearGradient id="hg" x1="10" y1="50" x2="450" y2="50" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" stop-color="#FF4D00"/>
-                                    <stop offset="100%" stop-color="#FF8040"/>
+                                    <linearGradient
+                                        id="hg"
+                                        x1="10"
+                                        y1="50"
+                                        x2="450"
+                                        y2="50"
+                                        gradientUnits="userSpaceOnUse"
+                                    >
+                                        <stop
+                                            offset="0%"
+                                            stop-color="#FF4D00"
+                                        />
+                                        <stop
+                                            offset="100%"
+                                            stop-color="#FF8040"
+                                        />
                                     </linearGradient>
                                 </defs>
                                 <!-- Back plane: blue-shift lines, offset right +10 -->
-                                <g stroke="#7080EE" stroke-width="1.5" stroke-linecap="round" opacity="0.30" fill="none">
-                                    <path d="M 20 25 C 57 18, 93 18, 130 25 C 167 32, 203 32, 240 25 C 277 18, 313 18, 350 25 C 387 32, 423 32, 460 25"/>
-                                    <path d="M 20 45 C 57 38, 93 38, 130 45 C 167 52, 203 52, 240 45 C 277 38, 313 38, 350 45 C 387 52, 423 52, 460 45"/>
-                                    <path d="M 20 65 C 57 58, 93 58, 130 65 C 167 72, 203 72, 240 65 C 277 58, 313 58, 350 65 C 387 72, 423 72, 460 65"/>
-                                    <path d="M 20 85 C 57 78, 93 78, 130 85 C 167 92, 203 92, 240 85 C 277 78, 313 78, 350 85 C 387 92, 423 92, 460 85"/>
+                                <g
+                                    stroke="#7080EE"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    opacity="0.30"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M 20 25 C 57 18, 93 18, 130 25 C 167 32, 203 32, 240 25 C 277 18, 313 18, 350 25 C 387 32, 423 32, 460 25"
+                                    />
+                                    <path
+                                        d="M 20 45 C 57 38, 93 38, 130 45 C 167 52, 203 52, 240 45 C 277 38, 313 38, 350 45 C 387 52, 423 52, 460 45"
+                                    />
+                                    <path
+                                        d="M 20 65 C 57 58, 93 58, 130 65 C 167 72, 203 72, 240 65 C 277 58, 313 58, 350 65 C 387 72, 423 72, 460 65"
+                                    />
+                                    <path
+                                        d="M 20 85 C 57 78, 93 78, 130 85 C 167 92, 203 92, 240 85 C 277 78, 313 78, 350 85 C 387 92, 423 92, 460 85"
+                                    />
                                 </g>
                                 <!-- Front plane: orange lines -->
-                                <g stroke="url(#hg)" stroke-width="3" stroke-linecap="round" opacity="0.38" fill="none">
-                                    <path d="M 10 15 C 47 8, 83 8, 120 15 C 157 22, 193 22, 230 15 C 267 8, 303 8, 340 15 C 377 22, 413 22, 450 15"/>
-                                    <path d="M 10 35 C 47 28, 83 28, 120 35 C 157 42, 193 42, 230 35 C 267 28, 303 28, 340 35 C 377 42, 413 42, 450 35"/>
-                                    <path d="M 10 55 C 47 48, 83 48, 120 55 C 157 62, 193 62, 230 55 C 267 48, 303 48, 340 55 C 377 62, 413 62, 450 55"/>
-                                    <path d="M 10 75 C 47 68, 83 68, 120 75 C 157 82, 193 82, 230 75 C 267 68, 303 68, 340 75 C 377 82, 413 82, 450 75"/>
+                                <g
+                                    stroke="url(#hg)"
+                                    stroke-width="3"
+                                    stroke-linecap="round"
+                                    opacity="0.38"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M 10 15 C 47 8, 83 8, 120 15 C 157 22, 193 22, 230 15 C 267 8, 303 8, 340 15 C 377 22, 413 22, 450 15"
+                                    />
+                                    <path
+                                        d="M 10 35 C 47 28, 83 28, 120 35 C 157 42, 193 42, 230 35 C 267 28, 303 28, 340 35 C 377 42, 413 42, 450 35"
+                                    />
+                                    <path
+                                        d="M 10 55 C 47 48, 83 48, 120 55 C 157 62, 193 62, 230 55 C 267 48, 303 48, 340 55 C 377 62, 413 62, 450 55"
+                                    />
+                                    <path
+                                        d="M 10 75 C 47 68, 83 68, 120 75 C 157 82, 193 82, 230 75 C 267 68, 303 68, 340 75 C 377 82, 413 82, 450 75"
+                                    />
                                 </g>
                                 <!-- H -->
-                                <rect x="15" y="5" width="14" height="90" fill="#FFFDF8"/>
-                                <rect x="75" y="5" width="14" height="90" fill="#FFFDF8"/>
-                                <rect x="29" y="43" width="46" height="14" fill="#FFFDF8"/>
+                                <rect
+                                    x="15"
+                                    y="5"
+                                    width="14"
+                                    height="90"
+                                    fill="#FFFDF8"
+                                />
+                                <rect
+                                    x="75"
+                                    y="5"
+                                    width="14"
+                                    height="90"
+                                    fill="#FFFDF8"
+                                />
+                                <rect
+                                    x="29"
+                                    y="43"
+                                    width="46"
+                                    height="14"
+                                    fill="#FFFDF8"
+                                />
                                 <!-- E -->
-                                <rect x="139" y="5" width="14" height="90" fill="#FFFDF8"/>
-                                <rect x="153" y="5" width="46" height="14" fill="#FFFDF8"/>
-                                <rect x="153" y="43" width="38" height="14" fill="#FF4D00"/>
-                                <rect x="153" y="81" width="46" height="14" fill="#FFFDF8"/>
+                                <rect
+                                    x="139"
+                                    y="5"
+                                    width="14"
+                                    height="90"
+                                    fill="#FFFDF8"
+                                />
+                                <rect
+                                    x="153"
+                                    y="5"
+                                    width="46"
+                                    height="14"
+                                    fill="#FFFDF8"
+                                />
+                                <rect
+                                    x="153"
+                                    y="43"
+                                    width="38"
+                                    height="14"
+                                    fill="#FF4D00"
+                                />
+                                <rect
+                                    x="153"
+                                    y="81"
+                                    width="46"
+                                    height="14"
+                                    fill="#FFFDF8"
+                                />
                                 <!-- A -->
-                                <path fill-rule="evenodd" d="M 249 95 L 289 5 L 329 95 Z M 268 83 L 289 35 L 310 83 Z" fill="#FFFDF8"/>
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M 249 95 L 289 5 L 329 95 Z M 268 83 L 289 35 L 310 83 Z"
+                                    fill="#FFFDF8"
+                                />
                                 <!-- T -->
-                                <rect x="379" y="5" width="66" height="14" fill="#FFFDF8"/>
-                                <rect x="405" y="19" width="14" height="76" fill="#FFFDF8"/>
+                                <rect
+                                    x="379"
+                                    y="5"
+                                    width="66"
+                                    height="14"
+                                    fill="#FFFDF8"
+                                />
+                                <rect
+                                    x="405"
+                                    y="19"
+                                    width="14"
+                                    height="76"
+                                    fill="#FFFDF8"
+                                />
                             </svg>
                         </div>
                         <div class="eco-grid two-cols">
                             <div class="eco-card eco-heat">
-                                <div class="eco-tag">Stablecoin</div>
+                                <div class="eco-tag">Flatcoin</div>
                                 <div class="card-icon">
-                                    <svg width="40" height="40" viewBox="0 0 200 200" fill="none">
+                                    <svg
+                                        width="40"
+                                        height="40"
+                                        viewBox="0 0 200 200"
+                                        fill="none"
+                                    >
                                         <defs>
-                                            <linearGradient id="hg" x1="10" y1="100" x2="190" y2="100" gradientUnits="userSpaceOnUse">
-                                            <stop offset="0%" stop-color="#FF4D00"/>
-                                            <stop offset="100%" stop-color="#FF8040"/>
+                                            <linearGradient
+                                                id="hg"
+                                                x1="10"
+                                                y1="100"
+                                                x2="190"
+                                                y2="100"
+                                                gradientUnits="userSpaceOnUse"
+                                            >
+                                                <stop
+                                                    offset="0%"
+                                                    stop-color="#FF4D00"
+                                                />
+                                                <stop
+                                                    offset="100%"
+                                                    stop-color="#FF8040"
+                                                />
                                             </linearGradient>
                                         </defs>
                                         <!-- Back plane: 4 blue-shift lines, offset right +8 — holographic depth -->
-                                        <g stroke="#7080EE" stroke-width="3.5" stroke-linecap="round" opacity="0.45">
-                                            <path d="M 18 45 C 48 29, 78 29, 108 45 C 138 61, 168 61, 198 45"/>
-                                            <path d="M 18 89 C 48 73, 78 73, 108 89 C 138 105, 168 105, 198 89"/>
-                                            <path d="M 18 133 C 48 117, 78 117, 108 133 C 138 149, 168 149, 198 133"/>
-                                            <path d="M 18 177 C 48 161, 78 161, 108 177 C 138 193, 168 193, 198 177"/>
+                                        <g
+                                            stroke="#7080EE"
+                                            stroke-width="3.5"
+                                            stroke-linecap="round"
+                                            opacity="0.45"
+                                        >
+                                            <path
+                                                d="M 18 45 C 48 29, 78 29, 108 45 C 138 61, 168 61, 198 45"
+                                            />
+                                            <path
+                                                d="M 18 89 C 48 73, 78 73, 108 89 C 138 105, 168 105, 198 89"
+                                            />
+                                            <path
+                                                d="M 18 133 C 48 117, 78 117, 108 133 C 138 149, 168 149, 198 133"
+                                            />
+                                            <path
+                                                d="M 18 177 C 48 161, 78 161, 108 177 C 138 193, 168 193, 198 177"
+                                            />
                                         </g>
                                         <!-- Front plane: 4 primary orange lines -->
-                                        <g stroke="url(#hg)" stroke-width="8" stroke-linecap="round">
-                                            <path d="M 10 23 C 40 7, 70 7, 100 23 C 130 39, 160 39, 190 23"/>
-                                            <path d="M 10 67 C 40 51, 70 51, 100 67 C 130 83, 160 83, 190 67"/>
-                                            <path d="M 10 111 C 40 95, 70 95, 100 111 C 130 127, 160 127, 190 111"/>
-                                            <path d="M 10 155 C 40 139, 70 139, 100 155 C 130 171, 160 171, 190 155"/>
+                                        <g
+                                            stroke="url(#hg)"
+                                            stroke-width="8"
+                                            stroke-linecap="round"
+                                        >
+                                            <path
+                                                d="M 10 23 C 40 7, 70 7, 100 23 C 130 39, 160 39, 190 23"
+                                            />
+                                            <path
+                                                d="M 10 67 C 40 51, 70 51, 100 67 C 130 83, 160 83, 190 67"
+                                            />
+                                            <path
+                                                d="M 10 111 C 40 95, 70 95, 100 111 C 130 127, 160 127, 190 111"
+                                            />
+                                            <path
+                                                d="M 10 155 C 40 139, 70 139, 100 155 C 130 171, 160 171, 190 155"
+                                            />
                                         </g>
                                     </svg>
                                 </div>
                                 <h3>HⲶ∆T — The Enthalpy</h3>
                                 <p>
-                                    Designed to provide stable value specifically regarding purchasing power- the &lsquo;hidden&rsquo; tax in all fiat currencies caused by massive inflation. HEAT&rsquo;s algorithmic supply tracks Consumer Price Index to make sure your value is protected, not extracted. Burn XFG to mint.
+                                    Designed to provide stable value
+                                    specifically regarding purchasing power- the
+                                    &lsquo;hidden&rsquo; tax of fiat currencies
+                                    caused by massive inflation. HⲶ∆T&rsquo;s
+                                    market based floating supply-rate algorithm
+                                    tracks Consumer Price Index to keep your
+                                    hard-earned value protected from inflation,
+                                    not extracted by it. Burn XFG to mint.
                                 </p>
                                 <div class="eco-detail">
                                     <span>Algorithmic</span>
@@ -434,39 +599,152 @@
                             <div class="eco-card eco-heat">
                                 <div class="eco-tag">Mechanism</div>
                                 <div class="card-icon">
-                                    <svg width="40" height="40" viewBox="0 0 200 200">
+                                    <svg
+                                        width="40"
+                                        height="40"
+                                        viewBox="0 0 200 200"
+                                    >
                                         <!-- Center -->
-                                        <circle cx="100" cy="100" r="14" fill="#FF4D00"/>
+                                        <circle
+                                            cx="100"
+                                            cy="100"
+                                            r="14"
+                                            fill="#FF4D00"
+                                        />
                                         <!-- Cardinal ring 1 -->
-                                        <circle cx="100" cy="68" r="9" fill="#FFFDF8"/>
-                                        <circle cx="132" cy="100" r="9" fill="#FFFDF8"/>
-                                        <circle cx="100" cy="132" r="9" fill="#FFFDF8"/>
-                                        <circle cx="68" cy="100" r="9" fill="#FFFDF8"/>
+                                        <circle
+                                            cx="100"
+                                            cy="68"
+                                            r="9"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="132"
+                                            cy="100"
+                                            r="9"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="100"
+                                            cy="132"
+                                            r="9"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="68"
+                                            cy="100"
+                                            r="9"
+                                            fill="#FFFDF8"
+                                        />
                                         <!-- Cardinal ring 2 -->
-                                        <circle cx="100" cy="40" r="6" fill="#FFFDF8"/>
-                                        <circle cx="160" cy="100" r="6" fill="#FFFDF8"/>
-                                        <circle cx="100" cy="160" r="6" fill="#FFFDF8"/>
-                                        <circle cx="40" cy="100" r="6" fill="#FFFDF8"/>
+                                        <circle
+                                            cx="100"
+                                            cy="40"
+                                            r="6"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="160"
+                                            cy="100"
+                                            r="6"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="100"
+                                            cy="160"
+                                            r="6"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="40"
+                                            cy="100"
+                                            r="6"
+                                            fill="#FFFDF8"
+                                        />
                                         <!-- Cardinal ring 3 -->
-                                        <circle cx="100" cy="18" r="4" fill="#FFFDF8"/>
-                                        <circle cx="182" cy="100" r="4" fill="#FFFDF8"/>
-                                        <circle cx="100" cy="182" r="4" fill="#FFFDF8"/>
-                                        <circle cx="18" cy="100" r="4" fill="#FFFDF8"/>
+                                        <circle
+                                            cx="100"
+                                            cy="18"
+                                            r="4"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="182"
+                                            cy="100"
+                                            r="4"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="100"
+                                            cy="182"
+                                            r="4"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="18"
+                                            cy="100"
+                                            r="4"
+                                            fill="#FFFDF8"
+                                        />
                                         <!-- Diagonal ring 1 -->
-                                        <circle cx="123" cy="77" r="5" fill="#FFFDF8"/>
-                                        <circle cx="123" cy="123" r="5" fill="#FFFDF8"/>
-                                        <circle cx="77" cy="123" r="5" fill="#FFFDF8"/>
-                                        <circle cx="77" cy="77" r="5" fill="#FFFDF8"/>
+                                        <circle
+                                            cx="123"
+                                            cy="77"
+                                            r="5"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="123"
+                                            cy="123"
+                                            r="5"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="77"
+                                            cy="123"
+                                            r="5"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="77"
+                                            cy="77"
+                                            r="5"
+                                            fill="#FFFDF8"
+                                        />
                                         <!-- Diagonal ring 2 -->
-                                        <circle cx="142" cy="58" r="3.5" fill="#FFFDF8"/>
-                                        <circle cx="142" cy="142" r="3.5" fill="#FFFDF8"/>
-                                        <circle cx="58" cy="142" r="3.5" fill="#FFFDF8"/>
-                                        <circle cx="58" cy="58" r="3.5" fill="#FFFDF8"/>
+                                        <circle
+                                            cx="142"
+                                            cy="58"
+                                            r="3.5"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="142"
+                                            cy="142"
+                                            r="3.5"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="58"
+                                            cy="142"
+                                            r="3.5"
+                                            fill="#FFFDF8"
+                                        />
+                                        <circle
+                                            cx="58"
+                                            cy="58"
+                                            r="3.5"
+                                            fill="#FFFDF8"
+                                        />
                                     </svg>
                                 </div>
                                 <h3>The PI Controller</h3>
                                 <p>
-                                    A Proportional-Integral algorithm governs the emission rate. Anchored to XFG sound money, it stabilizes value using Hearth market depth and atomic swap data without relying on centralized price oracles.
+                                    A Proportional-Integral algorithm governs
+                                    HⲶ∆T emission rate. Anchored to XFG sound
+                                    money, it stabilizes value using Hearth
+                                    market depth and atomic swap data without
+                                    relying on centralized price oracles.
                                 </p>
                                 <div class="eco-detail">
                                     <span>PI Algorithm</span>
@@ -489,17 +767,36 @@
                             <div class="eco-card eco-hearth">
                                 <div class="eco-tag">Liquidity</div>
                                 <div class="card-icon">
-                                    <svg width="40" height="40" viewBox="0 0 68 85" fill="currentColor">
-                                        <path d="M6.94629,64.26416c-0.27637,0-0.5,0.22363-0.5,0.5s0.22363,0.5,0.5,0.5h12.42383c0.27637,0,0.5-0.22363,0.5-0.5 s-0.22363-0.5-0.5-0.5H6.94629z" />
-                                        <path d="M24.3623,64.26416c-0.27637,0-0.5,0.22363-0.5,0.5s0.22363,0.5,0.5,0.5h15.8623c0.27637,0,0.5-0.22363,0.5-0.5 s-0.22363-0.5-0.5-0.5H24.3623z" />
-                                        <path d="M45.36133,64.26416c-0.27637,0-0.5,0.22363-0.5,0.5s0.22363,0.5,0.5,0.5h15.69238c0.27637,0,0.5-0.22363,0.5-0.5 s-0.22363-0.5-0.5-0.5H45.36133z" />
-                                        <path d="M4.06641,14.12744c0,0.37498,0,46.95988,0,45.88184H2.5c-0.27637,0-0.5,0.22363-0.5,0.5s0.22363,0.5,0.5,0.5 c23.87457,0,42.66466,0,63,0c0.27637,0,0.5-0.22363,0.5-0.5s-0.22363-0.5-0.5-0.5h-1.56641c0-15.41797,0-34.58894,0-50.01904H64.5 c0.82715,0,1.5-0.67285,1.5-1.5v-4.2544c0-0.82715-0.67285-1.5-1.5-1.5h-61c-0.82715,0-1.5,0.67285-1.5,1.5v4.2544 c0,0.82715,0.67285,1.5,1.5,1.5h0.56641v4.13574V14.12744z M29.29102,55.21289l-4.56152-1.5542l0.34082-2.13867l8.76855,2.97949 c0.10547,0.03516,0.2168,0.03516,0.32227,0l8.76855-2.97949l0.34082,2.13867l-4.56152,1.5542 c-0.20313,0.06885-0.33887,0.25928-0.33887,0.47363s0.13672,0.4043,0.33984,0.47314l4.55957,1.54443l-0.33984,2.1377 l-8.76855-2.97949C34.1084,56.84472,34.05469,56.83593,34,56.83593s-0.1084,0.00879-0.16113,0.02637l-8.76855,2.97949 l-0.33984-2.1377l4.55957-1.54443c0.20313-0.06885,0.33984-0.25879,0.33984-0.47314S29.49414,55.28173,29.29102,55.21289z M34,57.86377l6.31378,2.14551H27.68622L34,57.86377z M43.99023,56.89209l-3.56543-1.20752l3.56641-1.21533 c0.23047-0.07813,0.37109-0.31152,0.33301-0.55176l-0.5-3.14014c-0.02344-0.14551-0.10938-0.27344-0.23633-0.34961 c-0.125-0.0752-0.27832-0.0918-0.41895-0.04541L34,53.49804l-9.16895-3.11572c-0.14063-0.0459-0.29395-0.02979-0.41895,0.04541 c-0.12695,0.07617-0.21289,0.2041-0.23633,0.34961l-0.5,3.14014c-0.03809,0.24023,0.10254,0.47363,0.33301,0.55176l3.56641,1.21533 l-3.56543,1.20752c-0.23145,0.07813-0.37207,0.31152-0.33398,0.55225l0.40839,2.56494h-2.89276c0-6.67168,0-15.02327,0-22.60419 c0.00049-0.00549,0.0036-0.00989,0.00391-0.01544c0.10278-1.91073,0.10287-3.26648,0.87109-4.81494 C24.2953,28.08153,28.99679,25.63232,34,25.63232c6.61865,0,12.56758,3.95179,12.80859,11.76892c0,4.52707,0,17.93208,0,22.60803 h-2.89276l0.40839-2.56494C44.3623,57.20361,44.22168,56.97021,43.99023,56.89209z M5.06641,14.62744h3.20508v3.6377H5.06641 V14.62744z M46.11426,9.99023v3.63574c-0.31111,0-7.61979,0-7.40918,0V9.99023H46.11426z M62.93359,22.90381 c-0.11605,0-7.74378,0-7.40918,0v-3.63867c0.17378,0,7.66492,0,7.40918,0V22.90381z M62.93359,27.5415h-3.25098v-3.6377h3.25098 V27.5415z M62.93359,32.1792c-0.11605,0-7.74378,0-7.40918,0V28.5415c0.10001,0,7.65996,0,7.40918,0V32.1792z M62.93359,36.81689 h-3.25098v-3.6377h3.25098V36.81689z M62.93359,41.45507c-0.11605,0-7.74378,0-7.40918,0v-3.63818c0.10001,0,7.65996,0,7.40918,0 V41.45507z M62.93359,46.09277h-3.25098v-3.6377h3.25098V46.09277z M62.93359,50.73046c-0.11605,0-7.74378,0-7.40918,0v-3.6377 h3.6582h3.75098V50.73046z M62.93359,55.36816h-3.25098v-3.6377h3.25098V55.36816z M51.27246,55.36816 c0-0.21471,0-3.75997,0-3.6377h3.75195h3.6582v3.6377C58.58261,55.36816,51.02168,55.36816,51.27246,55.36816z M39.53613,25.63183 c0.16248-0.48979,0.46964-1.5703,0.72504-2.34692c1.56196,0.58397,3.00216,1.37804,4.24176,2.34937 c-0.39618,0.53549-0.84641,1.2903-1.36798,1.99652C42.05963,26.8009,40.85248,26.13019,39.53613,25.63183z M38.58496,25.3078 c-1.3139-0.40088-2.68329-0.62476-4.08484-0.66766c0.00004-0.11433,0.00091-2.62167,0.00085-2.46777 c1.66499,0.04554,3.20581,0.2883,4.81049,0.78467C39.0113,23.8709,38.9415,24.23045,38.58496,25.3078z M29.41595,25.3078 c-0.34502-1.04237-0.47399-1.58083-0.72693-2.35229c1.49279-0.45985,3.01879-0.73359,4.81183-0.7829 c-0.00004,0.11296-0.00091,2.62704-0.00085,2.46753C32.09937,24.68304,30.72992,24.90692,29.41595,25.3078z M28.46484,25.63183 c-1.31732,0.49841-2.52362,1.16913-3.59894,1.99902c-0.47275-0.63968-1.00901-1.51138-1.36884-1.99658 c1.20509-0.9435,2.61609-1.73862,4.24225-2.3504C27.9672,23.97791,28.29168,25.10703,28.46484,25.63183z M24.08984,28.27832 c-1.07257,0.96643-1.96417,2.09235-2.65961,3.35626c-0.61327-0.42908-1.2975-1.03703-1.80463-1.3797 c0.82871-1.54306,1.91606-2.91002,3.09723-3.97058C23.21134,26.9478,23.69827,27.75316,24.08984,28.27832z M13.47559,56.36816 h3.25195v3.6377h-3.25195V56.36816z M16.72754,55.36816c-0.23075,0-7.68743,0-7.40918,0v-3.6377c0.10001,0,7.65832,0,7.40918,0 C16.72754,51.89976,16.72754,55.54498,16.72754,55.36816z M5.06641,55.36816v-3.6377h3.25195v3.6377H5.06641z M5.06641,47.09277 c0.23075,0,7.68743,0,7.40918,0v3.6377c-0.10001,0-7.65832,0-7.40918,0V47.09277z M5.06641,42.45507h3.25195v3.6377H5.06641 V42.45507z M5.06641,37.81689c0.23075,0,7.68743,0,7.40918,0v3.63818c-0.10001,0-7.65832,0-7.40918,0V37.81689z M5.06641,33.1792 h3.25195v3.6377H5.06641V33.1792z M5.06641,28.5415c0.23075,0,7.69972,0,7.40625,0v3.63769c-0.10001,0-7.65539,0-7.40625,0V28.5415 z M5.06641,23.90381h3.25195v3.6377H5.06641V23.90381z M5.06641,19.26513c0.17378,0,7.66493,0,7.40918,0v3.63867 c-0.10001,0-7.65832,0-7.40918,0V19.26513z M20.88281,19.26513v3.63867c-0.10001,0-7.65637,0-7.40723,0v-3.63867 C13.78649,19.26513,21.09343,19.26513,20.88281,19.26513z M58.68262,27.5415h-3.6582h-3.75195v-3.6377 c0.23075,0,7.68841,0,7.41016,0V27.5415z M58.68262,36.81689c-0.19488,0-7.92922,0-7.45313,0 c-0.09619-1.26874-0.30493-2.48456-0.62488-3.64111c0.61086,0.00047,6.0585,0.00262,8.078,0.00342V36.81689z M58.68262,46.09277 h-3.6582h-3.75195c0-0.13748,0-3.77106,0-3.6377c0.23075,0,7.68841,0,7.41016,0V46.09277z M54.52441,50.73046h-3.25195 c0-0.64692,0-3.77592,0-3.6377h3.25195V50.73046z M47.80859,37.84674l2.46387-0.07593c0,0.22645,0,5.27057,0,4.9743h-2.46387 V37.84674z M54.52441,41.45507h-3.25195v-3.63818h3.25195V41.45507z M43.75116,23.90576 c0.31375-0.00009,6.78115-0.00203,6.5213-0.00195v3.64209H47.8147C46.60624,25.99768,45.37078,24.92636,43.75116,23.90576z M38.70313,21.74359v-2.47845c0.3127,0,7.62077,0,7.41016,0v3.64063h-4.16504 C40.45157,22.18617,38.98562,21.83128,38.70313,21.74359z M30.29297,21.51709v-2.25195c0.17485,0,7.6659,0,7.41016,0v2.25146 C35.23518,21.02831,32.52234,21.0782,30.29297,21.51709z M26.05762,22.90576h-4.17188v-3.64063c0.25174,0,7.888,0,7.40723,0 v2.47852C28.14837,22.03395,26.99814,22.45314,26.05762,22.90576z M20.18604,27.5459h-2.4585v-3.64209 c0.10269,0.00003,6.93974,0.00208,6.52179,0.00195C22.64119,24.9189,21.40461,25.98387,20.18604,27.5459z M20.19141,42.74511 h-2.46387c0-0.14927,0-5.24931,0-4.97437l2.46387,0.07599V42.74511z M16.72754,50.73046h-3.25195v-3.6377h3.25195 C16.72754,47.38491,16.72754,50.85461,16.72754,50.73046z M9.31836,42.45507c0.10001,0,7.65832,0,7.40918,0 c0,0.70716,0,3.78096,0,3.6377c-0.23075,0-7.68743,0-7.40918,0V42.45507z M13.47559,37.81689h3.25195v3.63818h-3.25195V37.81689z M16.77142,36.81689c-0.1312,0-7.8977,0-7.45306,0v-3.6377c0.10433-0.00004,8.17907-0.00349,8.078-0.00342 C17.07642,34.33233,16.86768,35.54815,16.77142,36.81689z M9.31836,23.90381c0.10001,0,7.65832,0,7.40918,0v3.6377 c-0.23075,0-7.68743,0-7.40918,0V23.90381z M17.69043,32.17578h-4.21484V28.5459h5.98828 C18.78277,29.57984,18.15416,30.81028,17.69043,32.17578z M41.9082,14.62744v3.6377c-0.17378,0-7.66492,0-7.40918,0v-3.6377 C34.67745,14.62744,42.16305,14.62744,41.9082,14.62744z M33.49902,14.62744v3.6377c-0.17485,0-7.6659,0-7.41016,0v-3.6377 C26.26372,14.62744,33.75477,14.62744,33.49902,14.62744z M25.08887,18.26513c-0.31215,0-7.61882,0-7.4082,0v-3.6377 c0.1746,0,7.66395,0,7.4082,0V18.26513z M48.53223,28.5459h5.99121v3.62988h-4.21484 C49.90061,30.95766,49.27437,29.67035,48.53223,28.5459z M54.52441,22.90381c-0.23075,0-7.68841,0-7.41016,0v-3.63867 c0.17485,0,7.6659,0,7.41016,0V22.90381z M42.91016,18.26513v-3.6377c0.25174,0,7.89093,0,7.41016,0v3.6377 C50.00761,18.26513,42.69954,18.26513,42.91016,18.26513z M17.72754,43.74511h2.46387v4.75439h-2.46387 C17.72754,48.31565,17.72754,43.54321,17.72754,43.74511z M20.97656,32.54834c-0.61228,1.41746-0.66562,2.66843-0.75293,4.29858 l-2.46094-0.07599c0.16155-1.97679,0.62907-3.86636,1.40961-5.60303 C19.77914,31.59647,20.48402,32.21946,20.97656,32.54834z M45.27783,26.28399c1.16595,1.047,2.23714,2.3758,3.09399,3.97345c-0.4975,0.33683-1.18003,0.94116-1.80103,1.37714 c-0.69458-1.26294-1.58612-2.38892-2.65967-3.35626 C44.30217,27.7551,44.75585,26.99463,45.27783,26.28399z M48.82568,31.16992 c0.74361,1.64005,1.24497,3.55013,1.4126,5.60095l-2.46094,0.07599c-0.08508-1.58843-0.13639-2.8712-0.75293-4.29852 C47.52456,32.21412,48.2201,31.59796,48.82568,31.16992z M47.80859,43.74511h2.46387c0,0.80402,0,4.86433,0,4.75439h-2.46387 V43.74511z M51.32031,18.26513v-3.6377c0.17195,0,7.66492,0,7.40918,0v3.6377 C58.55571,18.26513,51.06457,18.26513,51.32031,18.26513z M37.70508,9.99023v3.63574c-0.17485,0-7.6659,0-7.41016,0V9.99023 H37.70508z M29.29492,9.99023v3.63574c-0.17842,0-7.66402,0-7.40918,0V9.99023H29.29492z M16.67869,14.62744v3.6377 c-0.25171,0-7.88798,0-7.4072,0v-3.6377C9.44503,14.62744,16.93446,14.62744,16.67869,14.62744z M5.06641,56.36816 c0.23075,0,7.68743,0,7.40918,0v3.6377H5.06641V56.36816z M17.72754,49.49951h2.46387v4.75488h-2.46387 C17.72754,54.15171,17.72754,49.36615,17.72754,49.49951z M47.80859,49.49951h2.46387c0,0.10269,0,4.85823,0,4.75488h-2.46387 V49.49951z M54.52441,60.00586h-3.25195v-3.6377h3.25195V60.00586z M55.52441,56.36816h3.6582h3.75098v3.6377h-7.40918V56.36816z M62.93359,18.26513h-3.2041v-3.6377h3.2041V18.26513z M47.11426,13.62597V9.99023h7.41016v3.63574 C54.27267,13.62597,46.63348,13.62597,47.11426,13.62597z M20.88574,9.99023v3.63574c-0.3127,0-7.62077,0-7.41016,0V9.99023 H20.88574z M17.72754,60.00927c0-0.21471,0-4.88511,0-4.75488h2.46387v4.75488H17.72754z M47.80859,55.25439h2.46387 c0,0.11433,0,4.90337,0,4.75488h-2.46387V55.25439z M62.93359,13.62597c-0.17195,0-7.66492,0-7.40918,0V9.99023h7.40918V13.62597z M3,8.49023v-4.2544c0-0.27588,0.22461-0.5,0.5-0.5h61c0.27539,0,0.5,0.22412,0.5,0.5v4.2544c0,0.27588-0.22461,0.5-0.5,0.5 c-4.38403-0.00334-54.58356-0.00023-61,0C3.22461,8.99023,3,8.76611,3,8.49023z M12.47559,9.99023v3.63574 c-0.17195,0-7.66493,0-7.40918,0V9.99023H12.47559z" />
-                                        <path d="M40.3457,37.31787c0.04004-0.19678-0.04199-0.39795-0.20801-0.51123c-0.16504-0.11377-0.38281-0.1167-0.55176-0.0083 c-0.12402,0.07959-2.28613,1.49121-2.87695,3.44141c-1.04688-2.13086-2.38477-5.83643-1.25977-9.29053 c0.0752-0.23291-0.02832-0.48633-0.24609-0.59863c-0.21484-0.11328-0.48438-0.05273-0.62988,0.14502 c-0.17285,0.23096-3.92773,5.34472-3.59082,11.46094c-0.80078-1.04297-1.7373-2.8623-1.23535-5.30762 c0.0498-0.24609-0.10547-0.45947-0.34375-0.5415c-0.23926-0.08154-0.51367,0.05811-0.62598,0.2832 c-0.99902,2.01611-3.11133,7.15186-1.15137,11.2749c1.06169,2.26401,3.91363,3.69189,6.3418,3.69189 c2.67259-0.00089,5.8462-1.60789,6.76563-4.31836c0.00684-0.01611,0.0127-0.03271,0.01855-0.04932h0.00098 c0.5625-1.69043,0.55957-3.64746-0.00977-5.51611C40.39941,40.38232,40.05176,38.77539,40.3457,37.31787z M37.89063,49.10254 c-2.7002,1.68994-5.25,1.67529-7.78516-0.03955c-2.94517-2.03023-2.5658-6.47631-1.41016-9.85986 c0.4668,2.86719,2.53027,4.47266,2.6416,4.55762c0.16211,0.12451,0.38477,0.13574,0.56152,0.03027 c0.1748-0.10596,0.26855-0.30811,0.23438-0.51025c-0.65332-3.92236,0.7334-7.64404,1.8916-9.91992 c-0.17773,4.73926,2.72461,9.02344,2.87109,9.23633c0.14746,0.21289,0.43164,0.27686,0.6582,0.15186 c0.22461-0.12744,0.31641-0.40576,0.20996-0.6416c-0.6709-1.48438,0.55078-2.94141,1.47363-3.77002 c-0.02441,1.27637,0.26465,2.52295,0.55078,3.43213C40.57885,44.36666,40.25812,47.65458,37.89063,49.10254z" />
+                                    <svg
+                                        width="40"
+                                        height="40"
+                                        viewBox="0 0 68 85"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            d="M6.94629,64.26416c-0.27637,0-0.5,0.22363-0.5,0.5s0.22363,0.5,0.5,0.5h12.42383c0.27637,0,0.5-0.22363,0.5-0.5 s-0.22363-0.5-0.5-0.5H6.94629z"
+                                        />
+                                        <path
+                                            d="M24.3623,64.26416c-0.27637,0-0.5,0.22363-0.5,0.5s0.22363,0.5,0.5,0.5h15.8623c0.27637,0,0.5-0.22363,0.5-0.5 s-0.22363-0.5-0.5-0.5H24.3623z"
+                                        />
+                                        <path
+                                            d="M45.36133,64.26416c-0.27637,0-0.5,0.22363-0.5,0.5s0.22363,0.5,0.5,0.5h15.69238c0.27637,0,0.5-0.22363,0.5-0.5 s-0.22363-0.5-0.5-0.5H45.36133z"
+                                        />
+                                        <path
+                                            d="M4.06641,14.12744c0,0.37498,0,46.95988,0,45.88184H2.5c-0.27637,0-0.5,0.22363-0.5,0.5s0.22363,0.5,0.5,0.5 c23.87457,0,42.66466,0,63,0c0.27637,0,0.5-0.22363,0.5-0.5s-0.22363-0.5-0.5-0.5h-1.56641c0-15.41797,0-34.58894,0-50.01904H64.5 c0.82715,0,1.5-0.67285,1.5-1.5v-4.2544c0-0.82715-0.67285-1.5-1.5-1.5h-61c-0.82715,0-1.5,0.67285-1.5,1.5v4.2544 c0,0.82715,0.67285,1.5,1.5,1.5h0.56641v4.13574V14.12744z M29.29102,55.21289l-4.56152-1.5542l0.34082-2.13867l8.76855,2.97949 c0.10547,0.03516,0.2168,0.03516,0.32227,0l8.76855-2.97949l0.34082,2.13867l-4.56152,1.5542 c-0.20313,0.06885-0.33887,0.25928-0.33887,0.47363s0.13672,0.4043,0.33984,0.47314l4.55957,1.54443l-0.33984,2.1377 l-8.76855-2.97949C34.1084,56.84472,34.05469,56.83593,34,56.83593s-0.1084,0.00879-0.16113,0.02637l-8.76855,2.97949 l-0.33984-2.1377l4.55957-1.54443c0.20313-0.06885,0.33984-0.25879,0.33984-0.47314S29.49414,55.28173,29.29102,55.21289z M34,57.86377l6.31378,2.14551H27.68622L34,57.86377z M43.99023,56.89209l-3.56543-1.20752l3.56641-1.21533 c0.23047-0.07813,0.37109-0.31152,0.33301-0.55176l-0.5-3.14014c-0.02344-0.14551-0.10938-0.27344-0.23633-0.34961 c-0.125-0.0752-0.27832-0.0918-0.41895-0.04541L34,53.49804l-9.16895-3.11572c-0.14063-0.0459-0.29395-0.02979-0.41895,0.04541 c-0.12695,0.07617-0.21289,0.2041-0.23633,0.34961l-0.5,3.14014c-0.03809,0.24023,0.10254,0.47363,0.33301,0.55176l3.56641,1.21533 l-3.56543,1.20752c-0.23145,0.07813-0.37207,0.31152-0.33398,0.55225l0.40839,2.56494h-2.89276c0-6.67168,0-15.02327,0-22.60419 c0.00049-0.00549,0.0036-0.00989,0.00391-0.01544c0.10278-1.91073,0.10287-3.26648,0.87109-4.81494 C24.2953,28.08153,28.99679,25.63232,34,25.63232c6.61865,0,12.56758,3.95179,12.80859,11.76892c0,4.52707,0,17.93208,0,22.60803 h-2.89276l0.40839-2.56494C44.3623,57.20361,44.22168,56.97021,43.99023,56.89209z M5.06641,14.62744h3.20508v3.6377H5.06641 V14.62744z M46.11426,9.99023v3.63574c-0.31111,0-7.61979,0-7.40918,0V9.99023H46.11426z M62.93359,22.90381 c-0.11605,0-7.74378,0-7.40918,0v-3.63867c0.17378,0,7.66492,0,7.40918,0V22.90381z M62.93359,27.5415h-3.25098v-3.6377h3.25098 V27.5415z M62.93359,32.1792c-0.11605,0-7.74378,0-7.40918,0V28.5415c0.10001,0,7.65996,0,7.40918,0V32.1792z M62.93359,36.81689 h-3.25098v-3.6377h3.25098V36.81689z M62.93359,41.45507c-0.11605,0-7.74378,0-7.40918,0v-3.63818c0.10001,0,7.65996,0,7.40918,0 V41.45507z M62.93359,46.09277h-3.25098v-3.6377h3.25098V46.09277z M62.93359,50.73046c-0.11605,0-7.74378,0-7.40918,0v-3.6377 h3.6582h3.75098V50.73046z M62.93359,55.36816h-3.25098v-3.6377h3.25098V55.36816z M51.27246,55.36816 c0-0.21471,0-3.75997,0-3.6377h3.75195h3.6582v3.6377C58.58261,55.36816,51.02168,55.36816,51.27246,55.36816z M39.53613,25.63183 c0.16248-0.48979,0.46964-1.5703,0.72504-2.34692c1.56196,0.58397,3.00216,1.37804,4.24176,2.34937 c-0.39618,0.53549-0.84641,1.2903-1.36798,1.99652C42.05963,26.8009,40.85248,26.13019,39.53613,25.63183z M38.58496,25.3078 c-1.3139-0.40088-2.68329-0.62476-4.08484-0.66766c0.00004-0.11433,0.00091-2.62167,0.00085-2.46777 c1.66499,0.04554,3.20581,0.2883,4.81049,0.78467C39.0113,23.8709,38.9415,24.23045,38.58496,25.3078z M29.41595,25.3078 c-0.34502-1.04237-0.47399-1.58083-0.72693-2.35229c1.49279-0.45985,3.01879-0.73359,4.81183-0.7829 c-0.00004,0.11296-0.00091,2.62704-0.00085,2.46753C32.09937,24.68304,30.72992,24.90692,29.41595,25.3078z M28.46484,25.63183 c-1.31732,0.49841-2.52362,1.16913-3.59894,1.99902c-0.47275-0.63968-1.00901-1.51138-1.36884-1.99658 c1.20509-0.9435,2.61609-1.73862,4.24225-2.3504C27.9672,23.97791,28.29168,25.10703,28.46484,25.63183z M24.08984,28.27832 c-1.07257,0.96643-1.96417,2.09235-2.65961,3.35626c-0.61327-0.42908-1.2975-1.03703-1.80463-1.3797 c0.82871-1.54306,1.91606-2.91002,3.09723-3.97058C23.21134,26.9478,23.69827,27.75316,24.08984,28.27832z M13.47559,56.36816 h3.25195v3.6377h-3.25195V56.36816z M16.72754,55.36816c-0.23075,0-7.68743,0-7.40918,0v-3.6377c0.10001,0,7.65832,0,7.40918,0 C16.72754,51.89976,16.72754,55.54498,16.72754,55.36816z M5.06641,55.36816v-3.6377h3.25195v3.6377H5.06641z M5.06641,47.09277 c0.23075,0,7.68743,0,7.40918,0v3.6377c-0.10001,0-7.65832,0-7.40918,0V47.09277z M5.06641,42.45507h3.25195v3.6377H5.06641 V42.45507z M5.06641,37.81689c0.23075,0,7.68743,0,7.40918,0v3.63818c-0.10001,0-7.65832,0-7.40918,0V37.81689z M5.06641,33.1792 h3.25195v3.6377H5.06641V33.1792z M5.06641,28.5415c0.23075,0,7.69972,0,7.40625,0v3.63769c-0.10001,0-7.65539,0-7.40625,0V28.5415 z M5.06641,23.90381h3.25195v3.6377H5.06641V23.90381z M5.06641,19.26513c0.17378,0,7.66493,0,7.40918,0v3.63867 c-0.10001,0-7.65832,0-7.40918,0V19.26513z M20.88281,19.26513v3.63867c-0.10001,0-7.65637,0-7.40723,0v-3.63867 C13.78649,19.26513,21.09343,19.26513,20.88281,19.26513z M58.68262,27.5415h-3.6582h-3.75195v-3.6377 c0.23075,0,7.68841,0,7.41016,0V27.5415z M58.68262,36.81689c-0.19488,0-7.92922,0-7.45313,0 c-0.09619-1.26874-0.30493-2.48456-0.62488-3.64111c0.61086,0.00047,6.0585,0.00262,8.078,0.00342V36.81689z M58.68262,46.09277 h-3.6582h-3.75195c0-0.13748,0-3.77106,0-3.6377c0.23075,0,7.68841,0,7.41016,0V46.09277z M54.52441,50.73046h-3.25195 c0-0.64692,0-3.77592,0-3.6377h3.25195V50.73046z M47.80859,37.84674l2.46387-0.07593c0,0.22645,0,5.27057,0,4.9743h-2.46387 V37.84674z M54.52441,41.45507h-3.25195v-3.63818h3.25195V41.45507z M43.75116,23.90576 c0.31375-0.00009,6.78115-0.00203,6.5213-0.00195v3.64209H47.8147C46.60624,25.99768,45.37078,24.92636,43.75116,23.90576z M38.70313,21.74359v-2.47845c0.3127,0,7.62077,0,7.41016,0v3.64063h-4.16504 C40.45157,22.18617,38.98562,21.83128,38.70313,21.74359z M30.29297,21.51709v-2.25195c0.17485,0,7.6659,0,7.41016,0v2.25146 C35.23518,21.02831,32.52234,21.0782,30.29297,21.51709z M26.05762,22.90576h-4.17188v-3.64063c0.25174,0,7.888,0,7.40723,0 v2.47852C28.14837,22.03395,26.99814,22.45314,26.05762,22.90576z M20.18604,27.5459h-2.4585v-3.64209 c0.10269,0.00003,6.93974,0.00208,6.52179,0.00195C22.64119,24.9189,21.40461,25.98387,20.18604,27.5459z M20.19141,42.74511 h-2.46387c0-0.14927,0-5.24931,0-4.97437l2.46387,0.07599V42.74511z M16.72754,50.73046h-3.25195v-3.6377h3.25195 C16.72754,47.38491,16.72754,50.85461,16.72754,50.73046z M9.31836,42.45507c0.10001,0,7.65832,0,7.40918,0 c0,0.70716,0,3.78096,0,3.6377c-0.23075,0-7.68743,0-7.40918,0V42.45507z M13.47559,37.81689h3.25195v3.63818h-3.25195V37.81689z M16.77142,36.81689c-0.1312,0-7.8977,0-7.45306,0v-3.6377c0.10433-0.00004,8.17907-0.00349,8.078-0.00342 C17.07642,34.33233,16.86768,35.54815,16.77142,36.81689z M9.31836,23.90381c0.10001,0,7.65832,0,7.40918,0v3.6377 c-0.23075,0-7.68743,0-7.40918,0V23.90381z M17.69043,32.17578h-4.21484V28.5459h5.98828 C18.78277,29.57984,18.15416,30.81028,17.69043,32.17578z M41.9082,14.62744v3.6377c-0.17378,0-7.66492,0-7.40918,0v-3.6377 C34.67745,14.62744,42.16305,14.62744,41.9082,14.62744z M33.49902,14.62744v3.6377c-0.17485,0-7.6659,0-7.41016,0v-3.6377 C26.26372,14.62744,33.75477,14.62744,33.49902,14.62744z M25.08887,18.26513c-0.31215,0-7.61882,0-7.4082,0v-3.6377 c0.1746,0,7.66395,0,7.4082,0V18.26513z M48.53223,28.5459h5.99121v3.62988h-4.21484 C49.90061,30.95766,49.27437,29.67035,48.53223,28.5459z M54.52441,22.90381c-0.23075,0-7.68841,0-7.41016,0v-3.63867 c0.17485,0,7.6659,0,7.41016,0V22.90381z M42.91016,18.26513v-3.6377c0.25174,0,7.89093,0,7.41016,0v3.6377 C50.00761,18.26513,42.69954,18.26513,42.91016,18.26513z M17.72754,43.74511h2.46387v4.75439h-2.46387 C17.72754,48.31565,17.72754,43.54321,17.72754,43.74511z M20.97656,32.54834c-0.61228,1.41746-0.66562,2.66843-0.75293,4.29858 l-2.46094-0.07599c0.16155-1.97679,0.62907-3.86636,1.40961-5.60303 C19.77914,31.59647,20.48402,32.21946,20.97656,32.54834z M45.27783,26.28399c1.16595,1.047,2.23714,2.3758,3.09399,3.97345c-0.4975,0.33683-1.18003,0.94116-1.80103,1.37714 c-0.69458-1.26294-1.58612-2.38892-2.65967-3.35626 C44.30217,27.7551,44.75585,26.99463,45.27783,26.28399z M48.82568,31.16992 c0.74361,1.64005,1.24497,3.55013,1.4126,5.60095l-2.46094,0.07599c-0.08508-1.58843-0.13639-2.8712-0.75293-4.29852 C47.52456,32.21412,48.2201,31.59796,48.82568,31.16992z M47.80859,43.74511h2.46387c0,0.80402,0,4.86433,0,4.75439h-2.46387 V43.74511z M51.32031,18.26513v-3.6377c0.17195,0,7.66492,0,7.40918,0v3.6377 C58.55571,18.26513,51.06457,18.26513,51.32031,18.26513z M37.70508,9.99023v3.63574c-0.17485,0-7.6659,0-7.41016,0V9.99023 H37.70508z M29.29492,9.99023v3.63574c-0.17842,0-7.66402,0-7.40918,0V9.99023H29.29492z M16.67869,14.62744v3.6377 c-0.25171,0-7.88798,0-7.4072,0v-3.6377C9.44503,14.62744,16.93446,14.62744,16.67869,14.62744z M5.06641,56.36816 c0.23075,0,7.68743,0,7.40918,0v3.6377H5.06641V56.36816z M17.72754,49.49951h2.46387v4.75488h-2.46387 C17.72754,54.15171,17.72754,49.36615,17.72754,49.49951z M47.80859,49.49951h2.46387c0,0.10269,0,4.85823,0,4.75488h-2.46387 V49.49951z M54.52441,60.00586h-3.25195v-3.6377h3.25195V60.00586z M55.52441,56.36816h3.6582h3.75098v3.6377h-7.40918V56.36816z M62.93359,18.26513h-3.2041v-3.6377h3.2041V18.26513z M47.11426,13.62597V9.99023h7.41016v3.63574 C54.27267,13.62597,46.63348,13.62597,47.11426,13.62597z M20.88574,9.99023v3.63574c-0.3127,0-7.62077,0-7.41016,0V9.99023 H20.88574z M17.72754,60.00927c0-0.21471,0-4.88511,0-4.75488h2.46387v4.75488H17.72754z M47.80859,55.25439h2.46387 c0,0.11433,0,4.90337,0,4.75488h-2.46387V55.25439z M62.93359,13.62597c-0.17195,0-7.66492,0-7.40918,0V9.99023h7.40918V13.62597z M3,8.49023v-4.2544c0-0.27588,0.22461-0.5,0.5-0.5h61c0.27539,0,0.5,0.22412,0.5,0.5v4.2544c0,0.27588-0.22461,0.5-0.5,0.5 c-4.38403-0.00334-54.58356-0.00023-61,0C3.22461,8.99023,3,8.76611,3,8.49023z M12.47559,9.99023v3.63574 c-0.17195,0-7.66493,0-7.40918,0V9.99023H12.47559z"
+                                        />
+                                        <path
+                                            d="M40.3457,37.31787c0.04004-0.19678-0.04199-0.39795-0.20801-0.51123c-0.16504-0.11377-0.38281-0.1167-0.55176-0.0083 c-0.12402,0.07959-2.28613,1.49121-2.87695,3.44141c-1.04688-2.13086-2.38477-5.83643-1.25977-9.29053 c0.0752-0.23291-0.02832-0.48633-0.24609-0.59863c-0.21484-0.11328-0.48438-0.05273-0.62988,0.14502 c-0.17285,0.23096-3.92773,5.34472-3.59082,11.46094c-0.80078-1.04297-1.7373-2.8623-1.23535-5.30762 c0.0498-0.24609-0.10547-0.45947-0.34375-0.5415c-0.23926-0.08154-0.51367,0.05811-0.62598,0.2832 c-0.99902,2.01611-3.11133,7.15186-1.15137,11.2749c1.06169,2.26401,3.91363,3.69189,6.3418,3.69189 c2.67259-0.00089,5.8462-1.60789,6.76563-4.31836c0.00684-0.01611,0.0127-0.03271,0.01855-0.04932h0.00098 c0.5625-1.69043,0.55957-3.64746-0.00977-5.51611C40.39941,40.38232,40.05176,38.77539,40.3457,37.31787z M37.89063,49.10254 c-2.7002,1.68994-5.25,1.67529-7.78516-0.03955c-2.94517-2.03023-2.5658-6.47631-1.41016-9.85986 c0.4668,2.86719,2.53027,4.47266,2.6416,4.55762c0.16211,0.12451,0.38477,0.13574,0.56152,0.03027 c0.1748-0.10596,0.26855-0.30811,0.23438-0.51025c-0.65332-3.92236,0.7334-7.64404,1.8916-9.91992 c-0.17773,4.73926,2.72461,9.02344,2.87109,9.23633c0.14746,0.21289,0.43164,0.27686,0.6582,0.15186 c0.22461-0.12744,0.31641-0.40576,0.20996-0.6416c-0.6709-1.48438,0.55078-2.94141,1.47363-3.77002 c-0.02441,1.27637,0.26465,2.52295,0.55078,3.43213C40.57885,44.36666,40.25812,47.65458,37.89063,49.10254z"
+                                        />
                                     </svg>
                                 </div>
                                 <h3>Hearth AMM</h3>
                                 <p>
-                                    Automated swap pools with protocol-owned liquidity. Providers earn swap fees, while protocol splits revenue between XFG burners and CD stakers. Sovereign yield through utility.
+                                    Automated swap pools with protocol-owned
+                                    liquidity. Providers earn swap fees, while
+                                    protocol splits revenue between XFG burners
+                                    and CD stakers. Sovereign yield through
+                                    utility.
                                 </p>
                                 <div class="eco-detail">
                                     <span>Swap Fees</span>
@@ -511,20 +808,39 @@
                             <div class="eco-card eco-cd">
                                 <div class="eco-tag">Staking</div>
                                 <div class="card-icon">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="4" width="18" height="16" rx="2"/>
-                                        <path d="M3 10h18"/>
-                                        <path d="M7 14h.01"/>
-                                        <path d="M11 14h.01"/>
-                                        <path d="M15 14h.01"/>
-                                        <path d="M7 18h.01"/>
-                                        <path d="M11 18h.01"/>
-                                        <path d="M15 18h.01"/>
+                                    <svg
+                                        width="40"
+                                        height="40"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <rect
+                                            x="3"
+                                            y="4"
+                                            width="18"
+                                            height="16"
+                                            rx="2"
+                                        />
+                                        <path d="M3 10h18" />
+                                        <path d="M7 14h.01" />
+                                        <path d="M11 14h.01" />
+                                        <path d="M15 14h.01" />
+                                        <path d="M7 18h.01" />
+                                        <path d="M11 18h.01" />
+                                        <path d="M15 18h.01" />
                                     </svg>
                                 </div>
-                                <h3>HEAT CDs</h3>
+                                <h3>HⲶ∆T CDs</h3>
                                 <p>
-                                    Time-locked Certificates of Deposit. Stake HEAT to earn yield from the protocol's financial flywheel. Real yield generated from network activity and automated liquidity management.
+                                    Time-locked Certificates of Deposit. Stake
+                                    HⲶ∆T to earn yield from the protocol's
+                                    financial flywheel. Real yield generated
+                                    from network activity and automated
+                                    liquidity management.
                                 </p>
                                 <div class="eco-detail">
                                     <span>Time-locked</span>
@@ -544,8 +860,8 @@
                         <h2>Atomic Swaps.</h2>
                         <p class="section-sub">
                             Trustless cross-chain trades using adaptor
-                            signatures and DLEQ proofs. Start swaps while AFK. No bridges, no wrappers,
-                            no permission required.
+                            signatures and DLEQ proofs. Start swaps while AFK.
+                            No bridges, no wrappers, no permission required.
                         </p>
 
                         <div class="swap-pairs">
@@ -687,7 +1003,7 @@
                             <div class="spec-row">
                                 <span class="spec-key">Decoy Mixin Count</span>
                                 <span class="spec-val"
-                                    >from 8 to 18 (dynamic)</span
+                                    >min 8 to 32 (dynamic)</span
                                 >
                             </div>
                             <div class="spec-row">
@@ -701,7 +1017,8 @@
                             <div class="spec-row">
                                 <span class="spec-key">Launch</span>
                                 <span class="spec-val"
-                                    >Semi⋆Stealth - Proof of work since block 0.</span
+                                    >Semi⋆Stealth - Proof of work since block
+                                    0.</span
                                 >
                             </div>
                         </div>
@@ -713,10 +1030,37 @@
             <div class="page-section" data-section="roadmap">
                 <section class="section section-dark" id="roadmap">
                     <div class="container">
-                        <h2 style="color:#37281c !important;text-shadow:0px 0px 80px wheat;text-align:center;">Guarding The Shield That <br>Guards The Realms Of Men</h2>
-                        <div class="section-label" style="text-transform:none;font-size:11px;line-height:1.7;max-width:680px;margin-left:auto;margin-right:auto;white-space:normal;">
-                            Privacy is the final threshold of which every God-given freedom stands behind. Lose it, and they all fall.<br><br>
-                            We build Fuego to hold that line. The 8P approach to R&amp;D is the mechanism: Preserve Pillars of Privacy Plus P2P Purchasing Power. Not a slogan, but a vow. Every roadmap feature must continue preserving at least one or both pillars. No exceptions. No apologies. That&rsquo;s 8P R&amp;D baby..Freedom isn&rsquo;t free.
+                        <h2
+                            style="
+                                color: #37281c !important;
+                                text-shadow: 0px 0px 80px wheat;
+                                text-align: center;
+                            "
+                        >
+                            Guarding The Shield That <br />Guards The Realms Of
+                            Men
+                        </h2>
+                        <div
+                            class="section-label"
+                            style="
+                                text-transform: none;
+                                font-size: 11px;
+                                line-height: 1.7;
+                                max-width: 680px;
+                                margin-left: auto;
+                                margin-right: auto;
+                                white-space: normal;
+                            "
+                        >
+                            Privacy is the final threshold of which every
+                            God-given freedom stands behind. Lose it, and they
+                            all fall.<br /><br />
+                            We build Fuego to hold that line. The 8P approach to
+                            R&amp;D is the mechanism: Preserve Pillars of
+                            Privacy Plus P2P Purchasing Power. Not a slogan- a
+                            vow...that every roadmap feature shall directly
+                            pertain to one or both pillars. No exceptions. No
+                            apologies
                         </div>
 
                         <div class="roadmap">
@@ -724,7 +1068,7 @@
                                 <div class="rm-marker"></div>
                                 <div class="rm-content">
                                     <div class="rm-version">
-                                        v10 — new upgrades @ block 1M
+                                        v10 — new upgrades @ block 1.1M
                                     </div>
                                     <h4>Ring-Sig Commitment Deposits</h4>
                                     <p>
@@ -741,10 +1085,9 @@
                                         use a maximum-achievable ring signature
                                         set with OSPEAD decoy selection— by
                                         default, same as all Fuego transactions.
-                                        <br />v10 also introduces Dandelion++
-                                        for IP-level network privacy,
-                                        sub-addresses for wallets, 'fire'
-                                        aliases, &amp; more.
+                                        <br />v10 introduces Dandelion++ for
+                                        IP-level network privacy, sub-addresses
+                                        for wallets, 'fire' aliases, &amp; more.
                                     </p>
                                 </div>
                             </div>

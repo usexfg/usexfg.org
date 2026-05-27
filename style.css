@@ -1,6 +1,6 @@
 /* ============================================
    FUEGO — Private Blockchain Bank
-   Design: Black. Minimal. No compromise.
+   Design: Black. Minimal. No bullshit.
    ============================================ */
 
 /* --- Reset & Base --- */
@@ -35,7 +35,8 @@
     --xmr-orange: #ff6600;
     --bch-green: #0ac18e;
     --font-display: "Orbitron", -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans:
+        "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: "DM Mono", "SF Mono", "Fira Code", monospace;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -665,7 +666,7 @@ nav {
 
 .section h2 {
     font-family: var(--font-display);
-    font-size: clamp(1.8rem, 1.8vw, 2.0rem);
+    font-size: clamp(1.8rem, 1.8vw, 2rem);
     font-weight: 100;
     text-transform: uppercase;
     color: #664a3c;
@@ -872,7 +873,12 @@ nav {
 }
 
 .eco-cold::before {
-    background: linear-gradient(90deg, transparent, var(--blue-glow), transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--blue-glow),
+        transparent
+    );
 }
 
 .eco-heat::before {
@@ -880,11 +886,21 @@ nav {
 }
 
 .eco-codle::before {
-    background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--purple-glow),
+        transparent
+    );
 }
 
 .eco-hearth::before {
-    background: linear-gradient(90deg, transparent, var(--amber-glow), transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--amber-glow),
+        transparent
+    );
 }
 
 .eco-card:hover {
@@ -1120,19 +1136,39 @@ a.eco-card-link:hover {
 }
 
 .swap-xmr::before {
-    background: linear-gradient(90deg, transparent, var(--xmr-orange), transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--xmr-orange),
+        transparent
+    );
 }
 
 .swap-eth::before {
-    background: linear-gradient(90deg, transparent, var(--eth-blue), transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--eth-blue),
+        transparent
+    );
 }
 
 .swap-bch::before {
-    background: linear-gradient(90deg, transparent, var(--bch-green), transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--bch-green),
+        transparent
+    );
 }
 
 .swap-sol::before {
-    background: linear-gradient(90deg, transparent, var(--sol-purple), transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--sol-purple),
+        transparent
+    );
 }
 
 .swap-card:hover {
@@ -1487,10 +1523,10 @@ footer {
 }
 
 .footer-right {
-   font-size: 15px;
+    font-size: 15px;
     color: var(--gray-700);
-     font-weight: 500;
-/*text-shadow: 0px 2px 1px rgb(34, 0, 255); */
+    font-weight: 500;
+    /*text-shadow: 0px 2px 1px rgb(34, 0, 255); */
 }
 
 /* --- RESPONSIVE --- */
@@ -1844,21 +1880,68 @@ footer {
 }
 
 @keyframes fadeSpin {
-    0% { transform: scale(1) rotate(0deg); opacity: 1; }
-    10% { transform: scale(0.95) rotate(0deg); opacity: 0.9; }
-    20% { transform: scale(0.95) rotate(0deg); opacity: 0.8; }
-    30% { transform: scale(0.95) rotate(0deg); opacity: 0.7; }
-    45% { transform: scale(0.95) rotate(0deg); opacity: 0.6; }
-    63% { transform: scale(0.95) rotate(0deg); opacity: 0.5; }
-    80% { transform: scale(0.95) rotate(0deg); opacity: 0.8; }
-    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    10% {
+        transform: scale(0.95) rotate(0deg);
+        opacity: 0.9;
+    }
+    20% {
+        transform: scale(0.95) rotate(0deg);
+        opacity: 0.8;
+    }
+    30% {
+        transform: scale(0.95) rotate(0deg);
+        opacity: 0.7;
+    }
+    45% {
+        transform: scale(0.95) rotate(0deg);
+        opacity: 0.6;
+    }
+    63% {
+        transform: scale(0.95) rotate(0deg);
+        opacity: 0.5;
+    }
+    80% {
+        transform: scale(0.95) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .spin-transition { animation: none; }
-    .hero-glow { animation: none; opacity: 0.5; }
-    .hero-badge, .hero h1, .hero-sub, .hero-actions, .hero-stats,
-    .pillar, .wallet-card, .eco-card, .swap-card, .swap-tui-inner,
-    .ef-item, .rm-item, .spec-row { opacity: 1; transform: none; animation: none; }
-    .hero h1 { background: none; -webkit-text-fill-color: var(--white); animation: none; }
+    .spin-transition {
+        animation: none;
+    }
+    .hero-glow {
+        animation: none;
+        opacity: 0.5;
+    }
+    .hero-badge,
+    .hero h1,
+    .hero-sub,
+    .hero-actions,
+    .hero-stats,
+    .pillar,
+    .wallet-card,
+    .eco-card,
+    .swap-card,
+    .swap-tui-inner,
+    .ef-item,
+    .rm-item,
+    .spec-row {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+    .hero h1 {
+        background: none;
+        -webkit-text-fill-color: var(--white);
+        animation: none;
+    }
 }
