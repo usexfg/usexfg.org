@@ -835,6 +835,7 @@ nav {
     grid-template-columns: repeat(2, 1fr);
     max-width: 100%;
     margin: 0;
+   margin-top: 18px;
 }
 
 .eco-grid.one-col {
@@ -1413,6 +1414,7 @@ a.eco-card-link:hover {
     position: relative;
     max-width: 900px;
     margin-left: 0;
+   margin-top: 42px;
 }
 
 .roadmap::before {
