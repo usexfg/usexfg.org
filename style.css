@@ -1422,7 +1422,7 @@ a.eco-card-link:hover {
 
 .marquee-container {
     overflow: hidden;
-    padding: 12px 0;
+    padding: 2px 0;
     max-width: 900px;
     margin: 0 auto;
 }
@@ -1431,10 +1431,12 @@ a.eco-card-link:hover {
     width: 100%;
     overflow: hidden;
     font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.0;
+    font-size: 13px;
+    line-height: 1.1;
     color: var(--fire);
     text-transform: uppercase;
+    margin: 0;
+    padding: 1px 0;
 }
 
 /* This inner div is the track that scrolls */
@@ -1464,7 +1466,12 @@ a.eco-card-link:hover {
 }
 
 @media (max-width: 768px) {
-    .rd-grid {
+#rd {
+    min-height: auto;
+    padding: 20px 0;
+}
+
+.rd-grid {
         grid-template-columns: 1fr;
         gap: 24px;
     }
