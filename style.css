@@ -1410,55 +1410,46 @@ a.eco-card-link:hover {
 
 /* --- ROADMAP --- */
 /* --- MARQUEE --- */
-@keyframes scroll-rtl {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
-
-@keyframes scroll-ltr {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 .marquee-container {
     overflow: hidden;
-    padding: 24px 0;
+    padding: 12px 0;
     max-width: 900px;
     margin: 0 auto;
-    -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .marquee-line {
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    position: relative;
-    /* Animation properties are now on the child */
-}
-
-.marquee-line > div {
-    display: flex;
-    animation-duration: 22s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-
-.marquee-line:nth-child(odd) > div {
-    animation-name: scroll-ltr;
-}
-
-.marquee-line:nth-child(even) > div {
-    animation-name: scroll-rtl;
-}
-
-.marquee-line span {
+    width: 100%;
+    overflow: hidden;
     font-family: var(--font-mono);
     font-size: 14px;
-    line-height: 1.3;
+    line-height: 1.0;
     color: var(--fire);
-    text-transform: none;
+    text-transform: uppercase;
     letter-spacing: 0.05em;
+}
+
+/* This inner div is the track that scrolls */
+.marquee-line > div {
+    width: 200%;
+    display: flex;
+    animation: marquee-scroll 15s linear infinite;
+}
+
+/* This sets the alternating direction */
+.marquee-line:nth-child(even) > div {
+    animation-direction: reverse;
+}
+
+/* This is the content block */
+.marquee-line span {
+    flex: 1 0 50%;
     white-space: nowrap;
     padding: 0 2em;
 }
