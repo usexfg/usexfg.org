@@ -1432,7 +1432,7 @@ a.eco-card-link:hover {
     line-height: 1.0;
     color: var(--fire);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
 }
 
 /* This inner div is the track that scrolls */
@@ -1451,7 +1451,7 @@ a.eco-card-link:hover {
 .marquee-line span {
     flex: 1 0 50%;
     white-space: nowrap;
-    padding: 0 2em;
+    padding: 0 1em;
 }
 
 /* --- R&D SECTION --- */
