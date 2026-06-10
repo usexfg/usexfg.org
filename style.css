@@ -1439,7 +1439,7 @@ a.eco-card-link:hover {
 .marquee-line > div {
     width: 200%;
     display: flex;
-    animation: marquee-scroll 15s linear infinite;
+    animation: marquee-scroll 8s linear infinite;
 }
 
 /* This sets the alternating direction */
