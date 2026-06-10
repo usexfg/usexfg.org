@@ -1436,7 +1436,6 @@ a.eco-card-link:hover {
 
 /* This inner div is the track that scrolls */
 .marquee-line > div {
-    width: 200%;
     display: flex;
     animation: marquee-scroll 8s linear infinite;
 }
@@ -1448,9 +1447,9 @@ a.eco-card-link:hover {
 
 /* This is the content block */
 .marquee-line span {
-    flex: 1 0 50%;
+    flex: 0 0 auto;
     white-space: nowrap;
-    padding: 0;
+    padding: 0 0.15em;
 }
 
 /* --- R&D SECTION --- */

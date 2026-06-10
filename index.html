@@ -1342,6 +1342,24 @@
                         this.classList.toggle("open");
                     });
             })();
+
+            // Marquee: measure text width after fonts load
+            function initMarquees() {
+                document.querySelectorAll('.marquee-line').forEach(function(line) {
+                    var inner = line.querySelector('div');
+                    var spans = inner.querySelectorAll('span');
+                    if (spans.length < 2) return;
+                    var textW = spans[0].offsetWidth;
+                    inner.style.width = (textW * 2) + 'px';
+                    var speed = Math.max(4, textW / 40);
+                    inner.style.animationDuration = speed + 's';
+                });
+            }
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(initMarquees);
+            } else {
+                window.addEventListener('load', initMarquees);
+            }
         </script>
     </body>
 </html>
