@@ -1410,9 +1410,14 @@ a.eco-card-link:hover {
 
 /* --- ROADMAP --- */
 /* --- MARQUEE --- */
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+@keyframes marquee-scroll-left {
+  from { transform: translateX(-30%); }
+  to { transform: translateX(-80%); }
+}
+
+@keyframes marquee-scroll-right {
+  from { transform: translateX(-70%); }
+  to { transform: translateX(-20%); }
 }
 
 .marquee-container {
@@ -1437,12 +1442,12 @@ a.eco-card-link:hover {
 /* This inner div is the track that scrolls */
 .marquee-line > div {
     display: flex;
-    animation: marquee-scroll 8s linear infinite;
+    animation: marquee-scroll-left 8s linear infinite;
 }
 
 /* This sets the alternating direction */
 .marquee-line:nth-child(even) > div {
-    animation-direction: reverse;
+    animation-name: marquee-scroll-right;
 }
 
 /* This is the content block */
