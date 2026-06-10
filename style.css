@@ -1409,13 +1409,110 @@ a.eco-card-link:hover {
 }
 
 /* --- ROADMAP --- */
-.roadmap {
+/* --- MARQUEE --- */
+@keyframes scroll-rtl {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes scroll-ltr {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}
+
+.marquee-container {
+    overflow: hidden;
+    padding: 24px 0;
+    max-width: 900px;
+    margin: 0 auto;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.marquee-line {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* Animation properties are now on the child */
+}
+
+.marquee-line > div {
+    display: flex;
+    animation-duration: 22s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.marquee-line:nth-child(odd) > div {
+    animation-name: scroll-ltr;
+}
+
+.marquee-line:nth-child(even) > div {
+    animation-name: scroll-rtl;
+}
+
+.marquee-line span {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--fire);
+    text-transform: none;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    padding: 0 2em;
+}
+
+/* --- R&D SECTION --- */
+.rd-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+    .rd-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+.rd-column h3 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: orangered;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid var(--gray-800);
+    padding-bottom: 12px;
+}
+
+.rd-item {
+    margin-bottom: 24px;
+}
+
+.rd-item h4 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.rd-item p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gray-500);
+}
+/* --- R&D TIMELINE (Old) --- */
+.rd-timeline {
     position: relative;
     max-width: 900px;
     margin-left: 0;
 }
 
-.roadmap::before {
+.rd-timeline::before {
     content: "";
     position: absolute;
     left: 7px;
