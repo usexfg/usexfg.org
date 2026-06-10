@@ -1432,7 +1432,6 @@ a.eco-card-link:hover {
     line-height: 1.0;
     color: var(--fire);
     text-transform: uppercase;
-    letter-spacing: 0.02em;
 }
 
 /* This inner div is the track that scrolls */
