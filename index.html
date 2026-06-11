@@ -1339,28 +1339,30 @@
                     });
             })();
 
-            // Marquee: pixel-based seamless scroll
+            // Marquee: smooth time-based scroll
             function initMarquees() {
                 document.querySelectorAll('.marquee-line').forEach(function(line) {
                     var inner = line.querySelector('div');
                     var spans = inner.querySelectorAll('span');
                     if (spans.length < 2) return;
-                    // Measure one copy: text + gap
-                    var gap = parseFloat(getComputedStyle(spans[0]).paddingRight) || 32;
-                    var textW = spans[0].offsetWidth + gap;
-                    // 6 copies ensures full coverage at all scroll positions
-                    for (var c = 0; c < 4; c++) {
+                    // Measure one copy width
+                    var textW = spans[0].offsetWidth + 32;
+                    // 4 copies total
+                    for (var c = 0; c < 2; c++) {
                         inner.appendChild(spans[0].cloneNode(true));
                         inner.appendChild(spans[1].cloneNode(true));
                     }
+                    inner.style.willChange = 'transform';
                     var pos = 0;
-                    var speed = 0.5; // px per frame — newsfeed pace
+                    var pxPerSec = 30; // newsfeed speed
                     var isEven = Array.from(line.parentNode.children).indexOf(line) % 2 === 1;
-                    if (isEven) speed = -speed;
-                    function tick() {
-                        pos += speed;
-                        if (Math.abs(pos) >= textW) pos -= textW * Math.sign(speed);
-                        inner.style.transform = 'translateX(' + pos + 'px)';
+                    if (isEven) pxPerSec = -pxPerSec;
+                    var last = performance.now();
+                    function tick(now) {
+                        var dt = (now - last) / 1000;
+                        last = now;
+                        pos = (pos + pxPerSec * dt) % textW;
+                        inner.style.transform = 'translateX(' + (-pos) + 'px)';
                         requestAnimationFrame(tick);
                     }
                     requestAnimationFrame(tick);
