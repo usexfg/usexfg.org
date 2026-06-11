@@ -1420,19 +1420,22 @@ a.eco-card-link:hover {
 
 .marquee-line {
     width: 100%;
+    height: 16px;
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: 13px;
-    line-height: 1.15;
+    line-height: 16px;
     color: var(--fire);
     text-transform: uppercase;
     margin: 0;
-    padding: 1px 0;
+    padding: 0;
+    will-change: transform;
 }
 
 .marquee-line > div {
     display: flex;
     width: max-content;
+    will-change: transform;
 }
 
 .marquee-line span {
