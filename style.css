@@ -1428,7 +1428,7 @@ a.eco-card-link:hover {
     line-height: 16px;
     color: var(--fire);
     text-transform: uppercase;
-    letter-spacing: 0.25em;
+    letter-spacing: 8px;
     margin: 0;
     padding: 0;
     text-align: center;
