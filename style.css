@@ -1410,14 +1410,10 @@ a.eco-card-link:hover {
 
 /* --- ROADMAP --- */
 /* --- MARQUEE --- */
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
+/* --- MARQUEE --- */
 .marquee-container {
     overflow: hidden;
-    padding: 2px 0;
+    padding: 0;
     max-width: 900px;
     margin: 0 auto;
 }
@@ -1427,28 +1423,22 @@ a.eco-card-link:hover {
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: 13px;
-    line-height: 1.1;
+    line-height: 1.15;
     color: var(--fire);
     text-transform: uppercase;
     margin: 0;
     padding: 1px 0;
 }
 
-/* This inner div is the track that scrolls */
 .marquee-line > div {
     display: flex;
-    animation: marquee-scroll 8s linear infinite;
+    width: max-content;
 }
 
-/* This sets the alternating direction */
-.marquee-line:nth-child(even) > div {
-    animation-direction: reverse;
-}
-
-/* This is the content block */
 .marquee-line span {
     flex: 0 0 auto;
     white-space: nowrap;
+    padding-right: 2em;
 }
 
 /* --- R&D SECTION --- */

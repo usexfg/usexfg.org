@@ -1339,25 +1339,30 @@
                     });
             })();
 
-            // Marquee: measure text width after fonts load
+            // Marquee: pixel-based seamless scroll
             function initMarquees() {
                 document.querySelectorAll('.marquee-line').forEach(function(line) {
                     var inner = line.querySelector('div');
                     var spans = inner.querySelectorAll('span');
                     if (spans.length < 2) return;
-                    // Clone first span off-screen to measure true text width
-                    var clone = spans[0].cloneNode(true);
-                    clone.style.position = 'absolute';
-                    clone.style.visibility = 'hidden';
-                    clone.style.width = 'auto';
-                    line.appendChild(clone);
-                    var textW = clone.offsetWidth;
-                    line.removeChild(clone);
-                    // Set inner div to exactly 2x text width
-                    inner.style.width = (textW * 2) + 'px';
-                    // Speed: pixels per frame target
-                    var speed = Math.max(4, textW / 40);
-                    inner.style.animationDuration = speed + 's';
+                    // Measure one copy width (first span text + gap)
+                    var textW = spans[0].offsetWidth + 32; // 2em gap at 13px
+                    // Make 4 copies for seamless loop
+                    for (var c = 0; c < 2; c++) {
+                        inner.appendChild(spans[0].cloneNode(true));
+                        inner.appendChild(spans[1].cloneNode(true));
+                    }
+                    var pos = 0;
+                    var speed = 1.2; // px per frame
+                    var isEven = Array.from(line.parentNode.children).indexOf(line) % 2 === 1;
+                    if (isEven) speed = -speed;
+                    function tick() {
+                        pos += speed;
+                        if (Math.abs(pos) >= textW) pos = 0;
+                        inner.style.transform = 'translateX(' + pos + 'px)';
+                        requestAnimationFrame(tick);
+                    }
+                    requestAnimationFrame(tick);
                 });
             }
             if (document.fonts && document.fonts.ready) {
