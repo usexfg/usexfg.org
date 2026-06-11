@@ -1346,22 +1346,23 @@
                     var spans = inner.querySelectorAll('span');
                     if (spans.length < 2) return;
                     // Measure one copy width
-                    var textW = spans[0].offsetWidth + 32;
-                    // 4 copies total
-                    for (var c = 0; c < 2; c++) {
-                        inner.appendChild(spans[0].cloneNode(true));
-                        inner.appendChild(spans[1].cloneNode(true));
-                    }
+                    var textW = spans[0].offsetWidth;
+                    // Add 2 more copies (4 total) for seamless coverage
+                    inner.appendChild(spans[0].cloneNode(true));
+                    inner.appendChild(spans[1].cloneNode(true));
                     inner.style.willChange = 'transform';
                     var pos = 0;
-                    var pxPerSec = 30; // newsfeed speed
+                    var pxPerSec = 30;
                     var isEven = Array.from(line.parentNode.children).indexOf(line) % 2 === 1;
                     if (isEven) pxPerSec = -pxPerSec;
                     var last = performance.now();
                     function tick(now) {
                         var dt = (now - last) / 1000;
                         last = now;
-                        pos = (pos + pxPerSec * dt) % textW;
+                        pos += pxPerSec * dt;
+                        // Wrap without jump
+                        if (pos >= textW) pos -= textW;
+                        if (pos <= -textW) pos += textW;
                         inner.style.transform = 'translateX(' + (-pos) + 'px)';
                         requestAnimationFrame(tick);
                     }
