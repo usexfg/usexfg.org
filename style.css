@@ -835,6 +835,7 @@ nav {
     grid-template-columns: repeat(2, 1fr);
     max-width: 100%;
     margin: 0;
+   margin-top: 18px;
 }
 
 .eco-grid.one-col {
@@ -1414,7 +1415,7 @@ a.eco-card-link:hover {
 .marquee-container {
     overflow: hidden;
     padding: 0;
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -1423,12 +1424,14 @@ a.eco-card-link:hover {
     height: 16px;
     overflow: hidden;
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 11px;
     line-height: 16px;
     color: var(--fire);
     text-transform: uppercase;
+    letter-spacing: 0.25em;
     margin: 0;
     padding: 0;
+    text-align: center;
 }
 
 .marquee-line > div {
@@ -1495,6 +1498,7 @@ a.eco-card-link:hover {
     position: relative;
     max-width: 900px;
     margin-left: 0;
+   margin-top: 42px;
 }
 
 .rd-timeline::before {
