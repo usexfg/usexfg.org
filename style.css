@@ -1440,6 +1440,7 @@ a.eco-card-link:hover {
 .marquee-line span {
     flex: 0 0 auto;
     white-space: nowrap;
+    padding: 0 1.5em 0 0;
 }
 
 /* --- R&D SECTION --- */

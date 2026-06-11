@@ -1345,7 +1345,7 @@
                     var inner = line.querySelector('div');
                     var spans = inner.querySelectorAll('span');
                     if (spans.length < 2) return;
-                    // Measure one copy width
+                    // Measure one copy width (text + gap)
                     var textW = spans[0].offsetWidth;
                     // Add 2 more copies (4 total) for seamless coverage
                     inner.appendChild(spans[0].cloneNode(true));
