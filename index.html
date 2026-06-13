@@ -75,9 +75,9 @@
                 <div class="nav-links">
                     <a href="#why">Why</a>
                     <a href="#vault">Vault</a>
+                    <a href="#swaps">ЅШ𑫛𑫒❋XFG</a>
                     <a href="#heat">HⲶ∆T</a>
                     <a href="#yield">Yield</a>
-                    <a href="#swaps">ЅШ𑫛𑫒❋XFG</a>
                     <a href="#specs">Specs</a>
                     <a href="#rd">R&D</a>
                     <a
@@ -359,7 +359,121 @@
                 </section>
             </div>
 
-            <!-- 3: HEAT -->
+            <!-- 3: ATOMIC SWAPS -->
+            <div class="page-section" data-section="swaps">
+                <section class="section section-dark" id="swaps">
+                    <div class="container">
+                        <div class="section-label">Cross-Chain</div>
+                        <h2>Atomic Swaps.</h2>
+                        <p class="section-sub">
+                            Trustless cross-chain trades using adaptor
+                            signatures and DLEQ proofs. Start swaps while AFK.
+                            No bridges, no wrappers, no permission required.
+                        </p>
+
+                        <div class="swap-pairs">
+                            <div class="swap-card swap-sol">
+                                <div class="swap-pair-badge">XFG ↔ SOL</div>
+                                <h3>Solana</h3>
+                                <p>
+                                    Ed25519 adaptor signatures link secrets
+                                    across chains. DLEQ proofs verify
+                                    correctness without revealing. Fast
+                                    settlement on Solana.
+                                </p>
+                                <div class="swap-detail">
+                                    <span>Adaptor Signatures</span>
+                                    <span>DLEQ Proofs</span>
+                                    <span>Ed25519</span>
+                                </div>
+                            </div>
+
+                            <div class="swap-card swap-eth">
+                                <div class="swap-pair-badge">XFG ↔ ETH</div>
+                                <h3>Ethereum</h3>
+                                <p>
+                                    secp256k1 adaptor signatures with smart
+                                    contract escrow. Claim reveals secret,
+                                    enabling trustless completion.
+                                </p>
+                                <div class="swap-detail">
+                                    <span>Adaptor Signatures</span>
+                                    <span>DLEQ Proofs</span>
+                                    <span>secp256k1</span>
+                                </div>
+                            </div>
+
+                            <div class="swap-card swap-xmr">
+                                <div class="swap-pair-badge">XFG ↔ XMR</div>
+                                <h3>Monero</h3>
+                                <p>
+                                    Both sides CryptoNote & adaptor signatures.
+                                    The new gold standard for private-to-private
+                                    atomic swaps.
+                                </p>
+                                <div class="swap-detail">
+                                    <span>RingCT</span>
+                                    <span>Adaptor Signatures</span>
+                                    <span>DLEQ Proofs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swap-flow">
+                            <div class="swap-flow-label">
+                                How Adaptor Swaps Work
+                            </div>
+                            <div class="swap-steps">
+                                <div class="ef-step">
+                                    <span class="ef-step-num">1</span>
+                                    <span
+                                        >Maker generates secret & adaptor
+                                        sig</span
+                                    >
+                                </div>
+                                <div class="ef-arrow">&rarr;</div>
+                                <div class="ef-step">
+                                    <span class="ef-step-num">2</span>
+                                    <span
+                                        >Taker verifies DLEQ, locks funds</span
+                                    >
+                                </div>
+                                <div class="ef-arrow">&rarr;</div>
+                                <div class="ef-step">
+                                    <span class="ef-step-num">3</span>
+                                    <span>Maker claims — secret revealed</span>
+                                </div>
+                                <div class="ef-arrow">&rarr;</div>
+                                <div class="ef-step">
+                                    <span class="ef-step-num">4</span>
+                                    <span>Taker extracts secret, claims</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swap-tui">
+                            <div class="swap-tui-inner">
+                                <div class="swap-tui-header">
+                                    <code>swapxfg</code>
+                                    <span class="swap-tui-desc"
+                                        >CLI Swap Daemon</span
+                                    >
+                                </div>
+                                <div class="swap-tui-preview">
+                                    <pre><span class="tui-dim">$</span> <span class="tui-fire">swapxfg</span> init --pair <span class="tui-blue">XFG/SOL</span> --amount <span class="tui-gold">100</span>
+<span class="tui-dim">[INFO]</span> Creating swap pool...
+<span class="tui-dim">[INFO]</span> Generating adaptor signature...
+<span class="tui-dim">[INFO]</span> Broadcasting HTLC to Solana...
+<span class="tui-green">✓</span> Swap initiated: <span class="tui-blue">0x7a8f...3e2c</span>
+<span class="tui-dim">Waiting for counterparty claim...</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 4: HEAT -->
             <div class="page-section" data-section="heat">
                 <section class="section" id="heat">
                     <div class="container">
@@ -756,7 +870,7 @@
                 </section>
             </div>
 
-            <!-- 4: YIELD -->
+            <!-- 5: YIELD -->
             <div class="page-section" data-section="yield">
                 <section class="section section-dark" id="yield">
                     <div class="container">
@@ -852,120 +966,6 @@
                     </div>
                 </section>
             </div>
-            <!-- 5: ATOMIC SWAPS -->
-            <div class="page-section" data-section="swaps">
-                <section class="section section-dark" id="swaps">
-                    <div class="container">
-                        <div class="section-label">Cross-Chain</div>
-                        <h2>Atomic Swaps.</h2>
-                        <p class="section-sub">
-                            Trustless cross-chain trades using adaptor
-                            signatures and DLEQ proofs. Start swaps while AFK.
-                            No bridges, no wrappers, no permission required.
-                        </p>
-
-                        <div class="swap-pairs">
-                            <div class="swap-card swap-sol">
-                                <div class="swap-pair-badge">XFG ↔ SOL</div>
-                                <h3>Solana</h3>
-                                <p>
-                                    Ed25519 adaptor signatures link secrets
-                                    across chains. DLEQ proofs verify
-                                    correctness without revealing. Fast
-                                    settlement on Solana.
-                                </p>
-                                <div class="swap-detail">
-                                    <span>Adaptor Signatures</span>
-                                    <span>DLEQ Proofs</span>
-                                    <span>Ed25519</span>
-                                </div>
-                            </div>
-
-                            <div class="swap-card swap-eth">
-                                <div class="swap-pair-badge">XFG ↔ ETH</div>
-                                <h3>Ethereum</h3>
-                                <p>
-                                    secp256k1 adaptor signatures with smart
-                                    contract escrow. Claim reveals secret,
-                                    enabling trustless completion.
-                                </p>
-                                <div class="swap-detail">
-                                    <span>Adaptor Signatures</span>
-                                    <span>DLEQ Proofs</span>
-                                    <span>secp256k1</span>
-                                </div>
-                            </div>
-
-                            <div class="swap-card swap-xmr">
-                                <div class="swap-pair-badge">XFG ↔ XMR</div>
-                                <h3>Monero</h3>
-                                <p>
-                                    Both sides CryptoNote & adaptor signatures.
-                                    The new gold standard for private-to-private
-                                    atomic swaps.
-                                </p>
-                                <div class="swap-detail">
-                                    <span>RingCT</span>
-                                    <span>Adaptor Signatures</span>
-                                    <span>DLEQ Proofs</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swap-flow">
-                            <div class="swap-flow-label">
-                                How Adaptor Swaps Work
-                            </div>
-                            <div class="swap-steps">
-                                <div class="ef-step">
-                                    <span class="ef-step-num">1</span>
-                                    <span
-                                        >Maker generates secret & adaptor
-                                        sig</span
-                                    >
-                                </div>
-                                <div class="ef-arrow">&rarr;</div>
-                                <div class="ef-step">
-                                    <span class="ef-step-num">2</span>
-                                    <span
-                                        >Taker verifies DLEQ, locks funds</span
-                                    >
-                                </div>
-                                <div class="ef-arrow">&rarr;</div>
-                                <div class="ef-step">
-                                    <span class="ef-step-num">3</span>
-                                    <span>Maker claims — secret revealed</span>
-                                </div>
-                                <div class="ef-arrow">&rarr;</div>
-                                <div class="ef-step">
-                                    <span class="ef-step-num">4</span>
-                                    <span>Taker extracts secret, claims</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swap-tui">
-                            <div class="swap-tui-inner">
-                                <div class="swap-tui-header">
-                                    <code>swapxfg</code>
-                                    <span class="swap-tui-desc"
-                                        >CLI Swap Daemon</span
-                                    >
-                                </div>
-                                <div class="swap-tui-preview">
-                                    <pre><span class="tui-dim">$</span> <span class="tui-fire">swapxfg</span> init --pair <span class="tui-blue">XFG/SOL</span> --amount <span class="tui-gold">100</span>
-<span class="tui-dim">[INFO]</span> Creating swap pool...
-<span class="tui-dim">[INFO]</span> Generating adaptor signature...
-<span class="tui-dim">[INFO]</span> Broadcasting HTLC to Solana...
-<span class="tui-green">✓</span> Swap initiated: <span class="tui-blue">0x7a8f...3e2c</span>
-<span class="tui-dim">Waiting for counterparty claim...</span></pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
             <!-- 6: SPECS -->
             <div class="page-section" data-section="specs">
                 <section class="section" id="specs">
