@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Bank of 𝐗𝐅𝐆</title>
+        <title>Fuego — Private money that grows</title>
         <meta
             name="description"
-            content="Fuego (XFG) is a private decentralized blockchain bank. Ring signatures, fixed supply, zero premine. Send, deposit, and earn real yield— privately."
+            content="Fuego (XFG) is a private sovereign bank. Proof-of-work, fixed supply, zero premine. Send, deposit, and earn real yield—privately."
         />
         <meta name="theme-color" content="#000000" />
         <link
@@ -21,7 +21,7 @@
             sizes="180x180"
             href="favicons/apple-touch-icon.png"
         />
-        <meta name="apple-mobile-web-app-title" content="Fuego Bank" />
+        <meta name="apple-mobile-web-app-title" content="Fuego" />
         <link rel="manifest" href="site.webmanifest" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,10 +33,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
         <!-- Open Graph -->
-        <meta property="og:title" content="Fuego — Private Blockchain Bank" />
+        <meta property="og:title" content="Fuego — Private money that grows" />
         <meta
             property="og:description"
-            content="Ring signatures. Fixed supply. Zero premine. Your money, your bank."
+            content="Proof-of-work. Fixed supply. Sovereign bank. Your money, your bank."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://usexfg.org" />
@@ -52,7 +52,7 @@
                 "@type": "Organization",
                 "name": "Fuego",
                 "url": "https://usexfg.org",
-                "description": "Privacy blockchain bank with ring signatures, fixed supply, and zero premine.",
+                "description": "Sovereign private bank with proof-of-work, fixed supply, and zero premine.",
                 "logo": "https://avatars.githubusercontent.com/u/34798446?s=200&v=4"
             }
         </script>
@@ -70,12 +70,12 @@
                         width="28"
                         height="28"
                     />
-                    <span>Bank of XFG</span>
+                    <span>Fuego</span>
                 </a>
                 <div class="nav-links">
                     <a href="#why">Why</a>
                     <a href="#vault">Vault</a>
-                    <a href="#swaps">ЅШ𑫛𑫒❋XFG</a>
+                    <a href="#swaps">DeXFG</a>
                     <a href="#heat">HⲶ∆T</a>
                     <a href="#yield">Yield</a>
                     <a href="#specs">Specs</a>
@@ -103,12 +103,12 @@
                 <section class="hero" id="hero">
                     <div class="hero-glow"></div>
                     <div class="hero-content">
-                        <h1>Your private<br />blockchain bank.</h1>
+                        <h1>Private money<br />that grows.</h1>
                         <p class="hero-sub">
                             Ring signatures hide every transaction. Fixed supply
                             protects your purchasing power. No federal reserve,
-                            no VCs, no premine. 100% Open-source, peer-to-peer,
-                            decentralized money.
+                            no VCs, no premine. 100% open-source, peer-to-peer,
+                            sovereign money.
                         </p>
                         <div class="hero-actions">
                             <a
@@ -363,58 +363,61 @@
             <div class="page-section" data-section="swaps">
                 <section class="section section-dark" id="swaps">
                     <div class="container">
-                        <div class="section-label">Cross-Chain</div>
-                        <h2>Atomic Swaps.</h2>
+                        <div class="section-label">Cross-Chain DEX</div>
+                        <h2>DeXFG.</h2>
                         <p class="section-sub">
-                            Trustless cross-chain trades using adaptor
-                            signatures and DLEQ proofs. Start swaps while AFK.
-                            No bridges, no wrappers, no permission required.
+                            A full decentralized exchange with a native GUI.
+                            Swap XFG to and from 100s of coins across every
+                            major chain. Adaptor signatures under the hood—no
+                            bridges, no wrappers, no permission required.
                         </p>
 
                         <div class="swap-pairs">
                             <div class="swap-card swap-sol">
-                                <div class="swap-pair-badge">XFG ↔ SOL</div>
-                                <h3>Solana</h3>
+                                <div class="swap-pair-badge">Native GUI</div>
+                                <h3>Desktop DEX</h3>
                                 <p>
-                                    Ed25519 adaptor signatures link secrets
-                                    across chains. DLEQ proofs verify
-                                    correctness without revealing. Fast
-                                    settlement on Solana.
+                                    Built in Rust and Qt/QML. A real trading
+                                    interface—order books, charts, wallet
+                                    management. Not a terminal. Not a website.
+                                    A sovereign trading desk.
                                 </p>
                                 <div class="swap-detail">
-                                    <span>Adaptor Signatures</span>
-                                    <span>DLEQ Proofs</span>
-                                    <span>Ed25519</span>
+                                    <span>Rust + QML</span>
+                                    <span>MarketMaker2</span>
+                                    <span>Self-Custody</span>
                                 </div>
                             </div>
 
                             <div class="swap-card swap-eth">
-                                <div class="swap-pair-badge">XFG ↔ ETH</div>
-                                <h3>Ethereum</h3>
+                                <div class="swap-pair-badge">100+ Chains</div>
+                                <h3>Every Major Chain</h3>
                                 <p>
-                                    secp256k1 adaptor signatures with smart
-                                    contract escrow. Claim reveals secret,
-                                    enabling trustless completion.
+                                    Ethereum, Solana, Bitcoin, Monero, and
+                                    every ERC-20, BEP-20, and SPL token.
+                                    Enter and exit Fuego's economy from
+                                    anywhere. No de-platforming possible.
                                 </p>
                                 <div class="swap-detail">
-                                    <span>Adaptor Signatures</span>
-                                    <span>DLEQ Proofs</span>
-                                    <span>secp256k1</span>
+                                    <span>ETH · SOL · BTC · XMR</span>
+                                    <span>ERC-20 · BEP-20 · SPL</span>
+                                    <span>100+ Assets</span>
                                 </div>
                             </div>
 
                             <div class="swap-card swap-xmr">
-                                <div class="swap-pair-badge">XFG ↔ XMR</div>
-                                <h3>Monero</h3>
+                                <div class="swap-pair-badge">Adaptor Signatures</div>
+                                <h3>Private Swaps</h3>
                                 <p>
-                                    Both sides CryptoNote & adaptor signatures.
-                                    The new gold standard for private-to-private
-                                    atomic swaps.
+                                    Unlike HTLCs, adaptor signatures don't
+                                    publish revealing hashes on-chain. Your
+                                    trades stay private from the public ledger.
+                                    The gold standard for cross-chain privacy.
                                 </p>
                                 <div class="swap-detail">
-                                    <span>RingCT</span>
-                                    <span>Adaptor Signatures</span>
                                     <span>DLEQ Proofs</span>
+                                    <span>No Hash Locks</span>
+                                    <span>Privacy Preserved</span>
                                 </div>
                             </div>
                         </div>
@@ -454,18 +457,18 @@
                         <div class="swap-tui">
                             <div class="swap-tui-inner">
                                 <div class="swap-tui-header">
-                                    <code>swapxfg</code>
+                                    <code>deXFG</code>
                                     <span class="swap-tui-desc"
-                                        >CLI Swap Daemon</span
+                                        >Atomic Swap DEX</span
                                     >
                                 </div>
                                 <div class="swap-tui-preview">
-                                    <pre><span class="tui-dim">$</span> <span class="tui-fire">swapxfg</span> init --pair <span class="tui-blue">XFG/SOL</span> --amount <span class="tui-gold">100</span>
-<span class="tui-dim">[INFO]</span> Creating swap pool...
+                                    <pre><span class="tui-dim">$</span> <span class="tui-fire">deXFG</span> swap --pair <span class="tui-blue">XFG/SOL</span> --amount <span class="tui-gold">100</span>
+<span class="tui-dim">[INFO]</span> Connecting to MarketMaker2...
 <span class="tui-dim">[INFO]</span> Generating adaptor signature...
-<span class="tui-dim">[INFO]</span> Broadcasting HTLC to Solana...
+<span class="tui-dim">[INFO]</span> Broadcasting to Solana...
 <span class="tui-green">✓</span> Swap initiated: <span class="tui-blue">0x7a8f...3e2c</span>
-<span class="tui-dim">Waiting for counterparty claim...</span></pre>
+<span class="tui-dim">Open the GUI to track progress...</span></pre>
                                 </div>
                             </div>
                         </div>
