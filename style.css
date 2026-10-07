@@ -57,12 +57,11 @@
   --ease-out:       cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out:    cubic-bezier(0.45, 0, 0.15, 1);
 
-  /* Bezel System */
+  /* Bezel System — solid surfaces, no glass */
   --bezel-outer:    1px solid rgba(197, 160, 89, 0.14);
   --bezel-inner:    1px solid rgba(234, 246, 249, 0.06);
   --bezel-radius:   3px;
-  --glass-bg:       rgba(13, 11, 8, 0.72);
-  --glass-blur:     backdrop-filter: blur(24px) saturate(160%);
+  --panel-bg:       #181512;
 }
 
 html {
@@ -216,43 +215,14 @@ code {
   margin-bottom: 20px;
 }
 
-/* --- LIQUID GLASS DESIGN SYSTEM (iOS 26 Style) --- */
-.liquid-glass {
-  background: rgba(24, 21, 18, 0.45);
-  backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
+/* --- SOLID NAV SURFACE (no glass, no blur) --- */
+.nav-surface {
+  background: var(--panel-bg);
   border-radius: 12px;
-  border: 1px solid rgba(197, 160, 89, 0.15); /* Gold rim */
-  box-shadow: 
-    inset 0 1px 1px rgba(234, 246, 249, 0.08), /* Top rim catch light */
-    0 8px 32px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.liquid-glass:hover,
-.liquid-glass.interactive:hover {
-  background: rgba(37, 34, 26, 0.55);
-  border: 1px solid rgba(197, 160, 89, 0.25);
-  box-shadow: 
-    inset 0 1px 1px rgba(234, 246, 249, 0.12),
-    0 12px 48px rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
-}
-
-.liquid-glass::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, rgba(197, 160, 89, 0.08) 0%, rgba(234, 246, 249, 0) 50%, rgba(140, 115, 75, 0.04) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.liquid-glass > * {
-  position: relative;
-  z-index: 1;
+  border: 1px solid rgba(197, 160, 89, 0.18); /* Gold rim */
+  box-shadow:
+    inset 0 1px 0 rgba(234, 246, 249, 0.04),
+    0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 /* --- NAV --- */
@@ -267,11 +237,7 @@ nav {
   border-radius: 40px;
 }
 
-/* Nav stays put: .liquid-glass:hover outranks nav (class beats element), so it
-   would drop the translateX(-50%) centring and shove the bar off-centre. */
-nav.liquid-glass:hover {
-  transform: translateX(-50%) translateY(-2px);
-}
+/* Nav stays put: solid surface, no hover lift. */
 
 .nav-inner {
   width: 100%;
@@ -598,15 +564,13 @@ nav.liquid-glass:hover {
 /* ============================================================
    DOUBLE-BEZEL CARD SYSTEM
    A card has an outer bezel (gold) and inner bezel (white flame 6%)
-   No solid backgrounds — glass only
+   Solid surfaces only — no glass, no blur
    ============================================================ */
 .m-card {
   position: relative;
   border: var(--bezel-outer);
   border-radius: var(--bezel-radius);
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(140%);
-  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  background: var(--panel-bg);
   padding: 36px;
   transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   overflow: hidden;
@@ -817,9 +781,7 @@ nav.liquid-glass:hover {
   position: relative;
   border: var(--bezel-outer);
   border-radius: var(--bezel-radius);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--panel-bg);
   padding: 32px;
   transition: border-color 0.3s var(--ease-out);
   overflow: hidden;
@@ -1472,8 +1434,7 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(13, 11, 8, 0.97);
-    backdrop-filter: blur(20px);
+    background: #0D0B08;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -1602,9 +1563,7 @@ footer {
 
 /* RESTORE CARD STYLES */
 .wallet-card, .eco-card, .specs-table, .rd-column {
-  background: rgba(24, 21, 18, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--panel-bg);
   border: 1px solid rgba(197, 160, 89, 0.15);
   border-radius: 24px;
 }
