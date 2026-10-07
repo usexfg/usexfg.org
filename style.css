@@ -1034,6 +1034,7 @@ nav {
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
+  transform: scale(0.72);
 }
 .orbit-ring {
   position: absolute;
