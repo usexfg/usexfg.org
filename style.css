@@ -1,7 +1,11 @@
 /* ============================================================
    FUEGO RESERVE — Maison de XFG
-   Palette: Obsidian / Champagne Gold / Ember Fire / White Flame
-   Typography: Cormorant Garamond (display) + DM Sans (body) + DM Mono
+   Palette: Obsidian #0D0B08 / Champagne #C5A059 / Ember #E8622C / White Flame #EAF6F9
+   Typography: Cormorant Garamond (display) + Inter (body) + IBM Plex Mono
+   Depth model: depth-0 grain (::after), depth-1 atmosphere (canvas, .section-atmos),
+                depth-2 galaxy + HEAT title, depth-4 static content (default)
+   Scroll: native document scroll by default; full-screen pager only on
+           (min-width: 861px) and (pointer: fine) — see @media block at file end
    ============================================================ */
 
 /* --- Reset & Base --- */
@@ -12,30 +16,30 @@
 }
 
 :root {
-  /* Core Tones */
-  --obsidian:       #07080a;
-  --obsidian-mid:   #0d0e12;
-  --obsidian-soft:  #13141a;
-  --obsidian-rim:   #1c1d24;
+  /* Core Tones — Maison doctrine (exact values) */
+  --obsidian:       #0D0B08;
+  --obsidian-mid:   #181512;
+  --obsidian-soft:  #1E1B16;
+  --obsidian-rim:   #25221A;
 
   /* Champagne Gold */
-  --gold:           #C8A96E;
-  --gold-light:     #dfc28e;
-  --gold-dim:       #8a7048;
-  --gold-glow:      rgba(200, 169, 110, 0.12);
-  --gold-glow-soft: rgba(200, 169, 110, 0.06);
+  --gold:           #C5A059;
+  --gold-light:     #C5A059; /* no light-gold substitute — hover uses brightness() */
+  --gold-dim:       #8C734B;
+  --gold-glow:      rgba(197, 160, 89, 0.12);
+  --gold-glow-soft: rgba(197, 160, 89, 0.06);
 
   /* Ember Fire (XFG accent) */
-  --ember:          #E84D1C;
-  --ember-mid:      #C43A10;
-  --ember-glow:     rgba(232, 77, 28, 0.14);
+  --ember:          #E8622C;
+  --ember-mid:      #8C3B14;
+  --ember-glow:     rgba(232, 98, 44, 0.14);
 
-  /* White Flame (HEAT accent) */
-  --flame-white:    #FFFDF5;
-  --flame-aqua:     #8FD4CC;
-  --flame-violet:   #9977CC;
+  /* White Flame / HEAT accents */
+  --flame-white:    #EAF6F9;
+  --flame-aqua:     #9FD4DE;
+  --flame-violet:   #A855F7;
 
-  /* Neutrals */
+  /* Neutrals (warm creams — never pure white) */
   --stone-50:       #F7F5F0;
   --stone-100:      #EAE7DE;
   --stone-300:      #B8B3A6;
@@ -46,18 +50,18 @@
 
   /* Typography */
   --font-display:   'Cormorant Garamond', 'Georgia', serif;
-  --font-body:      'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono:      'DM Mono', 'SFMono-Regular', 'Fira Code', monospace;
+  --font-body:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:      'IBM Plex Mono', 'SFMono-Regular', 'Fira Code', monospace;
 
   /* Easing */
   --ease-out:       cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out:    cubic-bezier(0.45, 0, 0.15, 1);
 
   /* Bezel System */
-  --bezel-outer:    1px solid rgba(200, 169, 110, 0.14);
-  --bezel-inner:    1px solid rgba(255, 253, 245, 0.06);
+  --bezel-outer:    1px solid rgba(197, 160, 89, 0.14);
+  --bezel-inner:    1px solid rgba(234, 246, 249, 0.06);
   --bezel-radius:   3px;
-  --glass-bg:       rgba(13, 14, 18, 0.72);
+  --glass-bg:       rgba(13, 11, 8, 0.72);
   --glass-blur:     backdrop-filter: blur(24px) saturate(160%);
 }
 
@@ -65,11 +69,6 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-}
-
-html, body {
-  overflow: hidden;
-  height: 100%;
 }
 
 body {
@@ -101,38 +100,28 @@ body::after {
   pointer-events: none;
 }
 
-/* --- Page Scroll --- */
+/* --- Page Scroll (native default) --- */
 .page-wrapper {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
+  position: relative;
   z-index: 2;
 }
 
 .page-section {
-  position: absolute;
-  inset: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  opacity: 0;
-  transition: opacity 0.9s var(--ease-in-out);
-  pointer-events: none;
-  z-index: 0;
+  position: relative;
 }
 
-.page-section.active {
-  opacity: 1;
-  pointer-events: auto;
-  z-index: 1;
+/* Anchor jump offset under fixed nav */
+section[id] {
+  scroll-margin-top: 96px;
 }
 
-/* --- Page Dots --- */
+/* --- Page Dots (pager only; hidden in native scroll mode) --- */
 .page-dots {
   position: fixed;
   right: 22px;
   top: 50%;
   transform: translateY(-50%);
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 10px;
   z-index: 200;
@@ -142,7 +131,7 @@ body::after {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(200, 169, 110, 0.18);
+  background: rgba(197, 160, 89, 0.18);
   border: none;
   cursor: pointer;
   transition: all 0.3s var(--ease-out);
@@ -225,13 +214,13 @@ code {
 
 /* --- LIQUID GLASS DESIGN SYSTEM (iOS 26 Style) --- */
 .liquid-glass {
-  background: rgba(18, 16, 12, 0.45);
+  background: rgba(24, 21, 18, 0.45);
   backdrop-filter: blur(28px) saturate(160%);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
   border-radius: 12px;
-  border: 1px solid rgba(200, 169, 110, 0.15); /* Gold rim */
+  border: 1px solid rgba(197, 160, 89, 0.15); /* Gold rim */
   box-shadow: 
-    inset 0 1px 1px rgba(255, 253, 245, 0.08), /* Top rim catch light */
+    inset 0 1px 1px rgba(234, 246, 249, 0.08), /* Top rim catch light */
     0 8px 32px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
@@ -240,10 +229,10 @@ code {
 
 .liquid-glass:hover,
 .liquid-glass.interactive:hover {
-  background: rgba(22, 18, 14, 0.55);
-  border: 1px solid rgba(200, 169, 110, 0.25);
+  background: rgba(37, 34, 26, 0.55);
+  border: 1px solid rgba(197, 160, 89, 0.25);
   box-shadow: 
-    inset 0 1px 1px rgba(255, 253, 245, 0.12),
+    inset 0 1px 1px rgba(234, 246, 249, 0.12),
     0 12px 48px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
 }
@@ -252,7 +241,7 @@ code {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, rgba(200, 169, 110, 0.08) 0%, rgba(255, 255, 255, 0) 50%, rgba(138, 112, 72, 0.04) 100%);
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.08) 0%, rgba(234, 246, 249, 0) 50%, rgba(140, 115, 75, 0.04) 100%);
   pointer-events: none;
   z-index: 0;
 }
@@ -370,17 +359,17 @@ nav {
   position: absolute;
   top: -120px;
   left: 50%;
-  transform: translateX(-50%);
+  margin-left: -350px; /* centered without transform, so GSAP owns transform */
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, var(--gold-glow-soft) 0%, rgba(200,169,110,0.04) 45%, transparent 70%);
+  background: radial-gradient(circle, var(--gold-glow-soft) 0%, rgba(197,160,89,0.04) 45%, transparent 70%);
   pointer-events: none;
   animation: glowPulse 8s ease-in-out infinite;
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-  50%       { opacity: 1;   transform: translateX(-50%) scale(1.1); }
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.1); }
 }
 
 .hero-content {
@@ -464,7 +453,7 @@ nav {
   transform: translateX(-50%);
   width: 320px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(200,169,110,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(197,160,89,0.2), transparent);
 }
 
 .stat {
@@ -473,11 +462,11 @@ nav {
   align-items: center;
   gap: 6px;
   padding: 32px 40px;
-  border-right: 1px solid rgba(200, 169, 110, 0.08);
+  border-right: 1px solid rgba(197, 160, 89, 0.08);
 }
 
 .stat:first-child {
-  border-left: 1px solid rgba(200, 169, 110, 0.08);
+  border-left: 1px solid rgba(197, 160, 89, 0.08);
 }
 
 .stat-value {
@@ -523,7 +512,8 @@ nav {
 }
 
 .btn-primary:hover {
-  background: var(--gold-light);
+  background: var(--gold);
+  filter: brightness(1.12); /* champagne hover — no invented light gold */
   color: var(--obsidian);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px var(--gold-glow);
@@ -532,7 +522,7 @@ nav {
 .btn-ghost {
   background: transparent;
   color: var(--stone-300);
-  border: 1px solid rgba(200, 169, 110, 0.2);
+  border: 1px solid rgba(197, 160, 89, 0.2);
 }
 
 .btn-ghost:hover {
@@ -548,7 +538,7 @@ nav {
   border-radius: var(--bezel-radius);
   background: transparent;
   color: var(--stone-500);
-  border: 1px solid rgba(200, 169, 110, 0.16);
+  border: 1px solid rgba(197, 160, 89, 0.16);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -568,10 +558,11 @@ nav {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  overflow: hidden; /* clips depth-1 .section-atmos */
 }
 
 .section-dark {
-  background: rgba(10, 10, 12, 0.6);
+  background: rgba(13, 11, 8, 0.6);
 }
 
 .section h2 {
@@ -635,7 +626,7 @@ nav {
 }
 
 .m-card:hover {
-  border-color: rgba(200, 169, 110, 0.28);
+  border-color: rgba(197, 160, 89, 0.28);
   box-shadow: 0 0 40px var(--gold-glow-soft);
 }
 
@@ -650,13 +641,13 @@ nav {
 }
 
 .m-card--ember:hover {
-  border-color: rgba(232, 77, 28, 0.28);
+  border-color: rgba(232, 98, 44, 0.28);
   box-shadow: 0 0 40px var(--ember-glow);
 }
 
 /* Flame variant (HEAT) */
 .m-card--flame::before {
-  background: linear-gradient(90deg, transparent, rgba(200,169,110,0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(197,160,89,0.5), transparent);
   opacity: 0.6;
 }
 
@@ -708,7 +699,7 @@ nav {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--gold-dim);
-  border: 1px solid rgba(200, 169, 110, 0.14);
+  border: 1px solid rgba(197, 160, 89, 0.14);
   padding: 4px 12px;
   border-radius: 1px;
   letter-spacing: 0.08em;
@@ -755,7 +746,7 @@ nav {
 }
 
 .wallet-card:hover {
-  border-color: rgba(200, 169, 110, 0.25);
+  border-color: rgba(197, 160, 89, 0.25);
 }
 
 .wallet-card h3 {
@@ -795,7 +786,7 @@ nav {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--stone-500);
-  border: 1px solid rgba(255,253,245,0.06);
+  border: 1px solid rgba(234,246,249,0.06);
   padding: 3px 10px;
   border-radius: 1px;
   letter-spacing: 0.06em;
@@ -803,7 +794,7 @@ nav {
 
 
 /* ============================================================
-   ATOMIC SWAPS
+   PRIVATE EXCHANGES
    ============================================================ */
 .swap-pairs {
   display: grid;
@@ -859,7 +850,7 @@ nav {
 }
 
 .swap-card:hover {
-  border-color: rgba(200, 169, 110, 0.22);
+  border-color: rgba(197, 160, 89, 0.22);
 }
 
 .swap-pair-badge {
@@ -900,7 +891,7 @@ nav {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--gold-dim);
-  border: 1px solid rgba(200, 169, 110, 0.1);
+  border: 1px solid rgba(197, 160, 89, 0.1);
   padding: 3px 10px;
   border-radius: 1px;
   letter-spacing: 0.06em;
@@ -945,7 +936,7 @@ nav {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  border: 1px solid rgba(200, 169, 110, 0.2);
+  border: 1px solid rgba(197, 160, 89, 0.2);
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--gold-dim);
@@ -953,7 +944,7 @@ nav {
 }
 
 .ef-arrow {
-  color: rgba(200, 169, 110, 0.25);
+  color: rgba(197, 160, 89, 0.25);
   font-size: 16px;
 }
 
@@ -966,7 +957,7 @@ nav {
   border: var(--bezel-outer);
   border-radius: var(--bezel-radius);
   padding: 32px;
-  background: rgba(7, 8, 10, 0.85);
+  background: rgba(13, 11, 8, 0.85);
   position: relative;
 }
 
@@ -994,8 +985,8 @@ nav {
 }
 
 .swap-tui-preview {
-  background: rgba(13, 14, 18, 0.8);
-  border: 1px solid rgba(255,253,245,0.04);
+  background: rgba(13, 11, 8, 0.8);
+  border: 1px solid rgba(234,246,249,0.04);
   border-radius: 2px;
   padding: 20px 24px;
   overflow-x: auto;
@@ -1028,7 +1019,7 @@ nav {
   margin-bottom: 48px;
 }
 
-/* --- XFG GALAXY (ATOMIC SWAPS) --- */
+/* --- XFG GALAXY (PRIVATE EXCHANGES) --- */
 .swaps-layout {
   display: flex;
   align-items: center;
@@ -1056,12 +1047,12 @@ nav {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 64px; height: 64px;
-  background: var(--dark-bg);
-  border: 1px solid rgba(200, 169, 110, 0.4);
+  background: var(--obsidian-mid);
+  border: 1px solid rgba(197, 160, 89, 0.4);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   z-index: 10;
-  box-shadow: 0 0 40px rgba(200, 169, 110, 0.15);
+  box-shadow: 0 0 40px rgba(197, 160, 89, 0.15);
 }
 .xfg-galaxy-core img {
   width: 36px;
@@ -1072,7 +1063,7 @@ nav {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px dashed rgba(200, 169, 110, 0.15);
+  border: 1px dashed rgba(197, 160, 89, 0.15);
   border-radius: 50%;
   animation: spinRing linear infinite;
 }
@@ -1093,8 +1084,8 @@ nav {
 }
 .orbit-node-upright {
   width: 100%; height: 100%;
-  background: #111;
-  border: 1px solid rgba(200, 169, 110, 0.25);
+  background: var(--obsidian-mid);
+  border: 1px solid rgba(197, 160, 89, 0.25);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   padding: 6px;
@@ -1111,7 +1102,7 @@ nav {
 .orbit-node-upright:hover,
 .orbit-node-upright.is-dragging {
   border-color: var(--gold);
-  box-shadow: 0 0 16px rgba(200, 169, 110, 0.6);
+  box-shadow: 0 0 16px rgba(197, 160, 89, 0.6);
   z-index: 100;
 }
 .orbit-node-drag-target {
@@ -1125,7 +1116,7 @@ nav {
   width: 100%; height: 100%; object-fit: contain;
   pointer-events: none;
   transition: transform 0.2s ease;
-  filter: drop-shadow(0 0 2px rgba(255,255,255,0.2));
+  filter: drop-shadow(0 0 2px rgba(234,246,249,0.2));
 }
 .orbit-node-upright:hover img,
 .orbit-node-upright.is-dragging img {
@@ -1136,8 +1127,8 @@ nav {
   top: -36px;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  background: rgba(18, 16, 12, 0.95);
-  border: 1px solid rgba(200, 169, 110, 0.4);
+  background: rgba(24, 21, 18, 0.95);
+  border: 1px solid rgba(197, 160, 89, 0.4);
   color: var(--flame-white);
   font-family: var(--font-mono);
   font-size: 11px;
@@ -1228,7 +1219,7 @@ nav {
 }
 
 .eco-card:hover {
-  border-color: rgba(200, 169, 110, 0.26);
+  border-color: rgba(197, 160, 89, 0.26);
   box-shadow: 0 0 32px var(--gold-glow-soft);
 }
 
@@ -1275,7 +1266,7 @@ nav {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--gold-dim);
-  border: 1px solid rgba(200, 169, 110, 0.12);
+  border: 1px solid rgba(197, 160, 89, 0.12);
   padding: 3px 10px;
   border-radius: 1px;
   letter-spacing: 0.08em;
@@ -1296,7 +1287,7 @@ nav {
   justify-content: space-between;
   align-items: baseline;
   padding: 16px 0;
-  border-bottom: 1px solid rgba(200, 169, 110, 0.06);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.06);
 }
 
 .spec-key {
@@ -1368,7 +1359,7 @@ nav {
   letter-spacing: 0.04em;
   margin-bottom: 32px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(200, 169, 110, 0.12);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.12);
 }
 
 .rd-item {
@@ -1407,7 +1398,7 @@ nav {
    FOOTER
    ============================================================ */
 footer {
-  border-top: 1px solid rgba(200, 169, 110, 0.08);
+  border-top: 1px solid rgba(197, 160, 89, 0.08);
   padding: 36px 0;
 }
 
@@ -1469,7 +1460,7 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(7, 8, 10, 0.97);
+    background: rgba(13, 11, 8, 0.97);
     backdrop-filter: blur(20px);
     flex-direction: column;
     align-items: center;
@@ -1582,31 +1573,6 @@ footer {
   .hero-actions  { animation-delay: 0.62s; }
   .hero-stats    { animation-delay: 0.78s; }
 
-  .pillar,
-  .wallet-card,
-  .eco-card,
-  .swap-card,
-  .swap-tui-inner,
-  .spec-row {
-    opacity: 0;
-    transform: translateY(18px);
-    animation: mFadeUp 0.55s var(--ease-out) forwards;
-  }
-
-  .pillar:nth-child(1)   { animation-delay: 0.05s; }
-  .pillar:nth-child(2)   { animation-delay: 0.15s; }
-  .pillar:nth-child(3)   { animation-delay: 0.25s; }
-
-  .wallet-card:nth-child(1) { animation-delay: 0.05s; }
-  .wallet-card:nth-child(2) { animation-delay: 0.15s; }
-
-  .eco-card:nth-child(1) { animation-delay: 0.05s; }
-  .eco-card:nth-child(2) { animation-delay: 0.18s; }
-
-  .swap-card:nth-child(1) { animation-delay: 0.05s; }
-  .swap-card:nth-child(2) { animation-delay: 0.15s; }
-  .swap-card:nth-child(3) { animation-delay: 0.25s; }
-
   @keyframes mFadeUp {
     to {
       opacity: 1;
@@ -1624,22 +1590,165 @@ footer {
 
 /* RESTORE CARD STYLES */
 .wallet-card, .eco-card, .specs-table, .rd-column {
-  background: rgba(18, 16, 12, 0.4);
+  background: rgba(24, 21, 18, 0.4);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(200, 169, 110, 0.15);
+  border: 1px solid rgba(197, 160, 89, 0.15);
   border-radius: 24px;
 }
 .specs-table { border-radius: 24px; }
 .rd-column { border-radius: 24px; }
 .footer-inner {
-  background: rgba(18, 16, 12, 0.6);
-  border: 1px solid rgba(200, 169, 110, 0.1);
+  background: rgba(24, 21, 18, 0.6);
+  border: 1px solid rgba(197, 160, 89, 0.1);
   border-radius: 24px;
 }
 
 @media (max-width: 900px) {
   .swaps-layout {
     flex-direction: column;
+  }
+}
+
+
+/* ============================================================
+   ACCESSIBILITY — skip link
+   ============================================================ */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 400;
+  background: var(--gold);
+  color: var(--obsidian);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  border-radius: var(--bezel-radius);
+  transition: top 0.2s var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 16px;
+  color: var(--obsidian);
+  outline: 2px solid var(--flame-white);
+  outline-offset: 2px;
+}
+
+
+/* ============================================================
+   DEPTH LAYER — atmosphere (depth 1, decorative, pointer-transparent)
+   ============================================================ */
+.section-atmos {
+  position: absolute;
+  inset: -100px;
+  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(197, 160, 89, 0.05), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+/* ============================================================
+   STATUS TAG — quiet version control (unreleased features)
+   ============================================================ */
+.status-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  border: 1px solid rgba(197, 160, 89, 0.22);
+  padding: 4px 12px;
+  border-radius: var(--bezel-radius);
+  margin: -6px 0 18px;
+}
+
+
+/* ============================================================
+   REVEAL — JS-driven [data-reveal] + .in-view (IntersectionObserver
+   in native mode, explicit revealIn() in pager mode)
+   ============================================================ */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+
+html.js [data-reveal].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.js [data-reveal]:nth-child(2) { transition-delay: 0.08s; }
+html.js [data-reveal]:nth-child(3) { transition-delay: 0.16s; }
+html.js [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
+
+
+/* ============================================================
+   REDUCED MOTION — kill switch (mirrors inline <style> in index.html)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html.js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth; /* native anchor jumps */
+  }
+}
+
+
+/* ============================================================
+   FULL-SCREEN PAGER — desktop + fine pointer only
+   (mobile/touch keeps native document scroll above)
+   ============================================================ */
+@media (min-width: 861px) and (pointer: fine) {
+  html, body {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .page-wrapper {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .page-section {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease-in-out);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-section.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+  }
+
+  .page-dots {
+    display: flex;
+  }
+
+  section[id] {
+    scroll-margin-top: 0;
   }
 }

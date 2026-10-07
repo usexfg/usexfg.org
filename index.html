@@ -3,34 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fuego Reserve — Private Blockchain Bank</title>
-    <meta name="description" content="Fuego (XFG) — a private reserve network. Ring signatures, fixed supply of 8,000,008, zero premine. Sound money, sovereign banking." />
-    <meta name="theme-color" content="#07080a" />
-    <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
+    <title>Fuego Reserve — Unapologetically Private</title>
+    <meta name="description" content="Fuego (XFG) — a private reserve network. Ring signatures, fixed supply of 8,000,008, zero premine. Unapologetically private. Remarkably rare." />
+    <meta name="theme-color" content="#0D0B08" />
+    <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16" />
     <link rel="shortcut icon" href="favicons/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Fuego Reserve" />
-    <link rel="manifest" href="site.webmanifest" />
 
-    <!-- Maison Typography -->
+    <!-- Maison Typography: Cormorant Garamond (display) + Inter (body) + IBM Plex Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+    <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Motion kill-switch (mirrored in style.css) -->
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
 
     <!-- Three.js for particle background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Fuego Reserve — Private Blockchain Bank" />
+    <meta property="og:title" content="Fuego Reserve — Unapologetically Private" />
     <meta property="og:description" content="Ring signatures. Fixed supply. Zero premine. Sound money, your way." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://usexfg.org" />
     <meta property="og:image" content="https://avatars.githubusercontent.com/u/34798446?s=200&v=4" />
   </head>
   <body>
-    <!-- Particle Background -->
-    <canvas id="three-canvas"></canvas>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <!-- Particle Background — depth 1 (global atmosphere) -->
+    <canvas id="three-canvas" data-depth="1" aria-hidden="true"></canvas>
 
     <!-- NAV -->
     <nav class="liquid-glass">
@@ -42,9 +57,9 @@
         <div class="nav-links">
           <a href="#why">Reserve</a>
           <a href="#vault">Vault</a>
-          <a href="#swaps">Swaps</a>
+          <a href="#swaps">Exchange</a>
           <a href="#heat" class="nav-heat">ΗΞΔŦ</a>
-          <a href="#yield">Yield</a>
+          <a href="#accrual">Accrual</a>
           <a href="#specs">Specs</a>
           <a href="#rd">R&amp;D</a>
           <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
@@ -55,23 +70,22 @@
       </div>
     </nav>
 
-    <!-- PAGE DOT NAV -->
+    <!-- PAGE DOT NAV (desktop pager only) -->
     <div class="page-dots" id="pageDots"></div>
 
     <!-- PAGE WRAPPER -->
-    <div class="page-wrapper">
+    <main id="main-content" class="page-wrapper">
 
       <!-- 0: HERO -->
       <div class="page-section active" data-section="hero">
-        <section class="hero" id="hero">
-          <div class="hero-glow"></div>
+        <section class="scene hero" id="hero">
+          <div class="hero-glow" aria-hidden="true"></div>
           <div class="hero-content">
             <div class="hero-eyebrow">Fuego Reserve &mdash; usexfg.org</div>
-            <h1>Your private<br /><em>blockchain bank.</em></h1>
+            <h1>Unapologetically private.<br /><em>Remarkably rare.</em></h1>
             <p class="hero-sub">
               Ring signatures conceal every transaction. A fixed supply of 8,000,008 protects
-              your purchasing power. No reserve bank, no premine, no permission required.
-              Peer&ndash;to&ndash;peer sound money.
+              your purchasing power. No reserve bank. No premine. No permission required.
             </p>
             <div class="hero-actions">
               <a href="https://github.com/usexfg/fuego-suite/releases" class="btn btn-primary" target="_blank" rel="noopener">Acquire Wallet</a>
@@ -89,12 +103,14 @@
 
       <!-- 1: WHY FUEGO -->
       <div class="page-section" data-section="why">
-        <section class="section" id="why">
+        <section class="scene section" id="why">
+          <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
             <div class="section-label">The Reserve — Three Pillars</div>
+            <h2>Not chartered. Not connected. Not concerned.</h2>
             <div class="pillars">
-              <div class="pillar">
-                <div class="pillar-icon">
+              <div class="pillar" data-reveal>
+                <div class="pillar-icon" aria-hidden="true">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
@@ -104,8 +120,8 @@
                 <p>Hard-capped at 8,000,008.8000008 XFG across seven decimal places. No inflation schedule. No tail emission. Burned XFG returns to network block rewards — preserving scarcity across generations.</p>
                 <div class="pillar-detail"><span>Hard Cap</span><span>7 Decimals</span><span>Fair Launch</span></div>
               </div>
-              <div class="pillar">
-                <div class="pillar-icon">
+              <div class="pillar" data-reveal>
+                <div class="pillar-icon" aria-hidden="true">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                   </svg>
@@ -114,8 +130,8 @@
                 <p>Dynamic ring signature sets mix every transaction with up to 32 decoys. Stealth one-time sub-addresses obscure recipients. Observers see cryptographic noise — not your business.</p>
                 <div class="pillar-detail"><span>min mixin ≥ 8</span><span>Stealth Addresses</span><span>Key Images</span></div>
               </div>
-              <div class="pillar">
-                <div class="pillar-icon">
+              <div class="pillar" data-reveal>
+                <div class="pillar-icon" aria-hidden="true">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                     <circle cx="9" cy="7" r="4"/>
@@ -134,14 +150,15 @@
 
       <!-- 2: THE VAULT -->
       <div class="page-section" data-section="vault">
-        <section class="section section-dark" id="vault">
+        <section class="scene section section-dark" id="vault">
+          <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
             <div class="section-label">Banking Instruments</div>
             <h2>The Vault.</h2>
-            <p class="section-sub">Two instruments. One for the console, one for the desktop. Both private by default, yours by design.</p>
+            <p class="section-sub">Two instruments. One for the terminal, one for the desktop. Both private by default, yours by design.</p>
             <div class="wallet-grid">
-              <div class="wallet-card">
-                <div class="wallet-icon">
+              <div class="wallet-card" data-reveal>
+                <div class="wallet-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
                   </svg>
@@ -152,16 +169,17 @@
                 <div class="wallet-features"><span>Full node</span><span>Subaddresses</span><span>fire aliases</span><span>Key signing</span></div>
                 <a href="https://github.com/usexfg/fuego-suite/releases" class="btn btn-sm" target="_blank" rel="noopener">Download</a>
               </div>
-              <div class="wallet-card">
-                <div class="wallet-icon">
+              <div class="wallet-card" data-reveal>
+                <div class="wallet-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
                   </svg>
                 </div>
                 <h3>Fuego Wallet</h3>
                 <p class="wallet-type">Desktop GUI</p>
-                <p>Visual banking interface. Convey, receive, deposit, and manage accounts from a clean desktop environment. Available from v12.</p>
-                <div class="wallet-features"><span>GUI</span><span>Linux / Mac / Windows</span><span>Deposits</span><span>Swaps</span></div>
+                <div class="status-tag">Arriving with v12</div>
+                <p>Visual banking interface. Convey, receive, and hold reserves from a clean desktop environment.</p>
+                <div class="wallet-features"><span>GUI</span><span>Linux / Mac / Windows</span><span>Reserve</span><span>Exchange</span></div>
                 <a href="https://github.com/usexfg/fuego-wallet/releases" class="btn btn-sm" target="_blank" rel="noopener">Download</a>
               </div>
             </div>
@@ -169,20 +187,21 @@
         </section>
       </div>
 
-      <!-- 3: ATOMIC SWAPS -->
+      <!-- 3: PRIVATE EXCHANGE -->
       <div class="page-section" data-section="swaps">
-        <section class="section section-dark" id="swaps">
+        <section class="scene section section-dark" id="swaps">
+          <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
             <div class="swaps-layout">
-              <div class="swaps-text">
-                <div class="section-label">Cross-Chain Protocol</div>
-                <h2>Atomic Swaps.</h2>
-                <p class="section-sub">Trustless cross-chain exchange via adaptor signatures and DLEQ proofs. No bridges, no wrappers, no permission required.</p>
+              <div class="swaps-text" data-reveal>
+                <div class="section-label">Cross-Chain — Peer to Peer</div>
+                <h2>Private Exchange.</h2>
+                <p class="section-sub">Trustless cross-chain exchange via adaptor signatures and DLEQ proofs. No bridges. No wrappers. No permission required. Live for BCH, ETH, XMR, and Solana.</p>
               </div>
 
-              <div id="xfg-galaxy" class="xfg-galaxy-wrapper">
+              <div id="xfg-galaxy" class="xfg-galaxy-wrapper" data-depth="2">
                 <div class="xfg-galaxy-core">
-                  <img src="coins/fuego.png" alt="XFG Core" />
+                  <img src="coins/fuego.png" alt="XFG coin" />
                 </div>
               </div>
             </div>
@@ -192,18 +211,19 @@
 
       <!-- 4: HEAT / ΗΞΔŦ -->
       <div class="page-section" data-section="heat">
-        <section class="section" id="heat">
+        <section class="scene section" id="heat">
+          <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
             <div class="section-label">Sound Money — Flatcoin</div>
 
             <!-- HEAT SVG TITLE -->
-            <div class="heat-title-svg">
-              <svg viewBox="0 0 380 100" height="72" xmlns="http://www.w3.org/2000/svg" aria-label="HEAT">
+            <div class="heat-title-svg" data-depth="2">
+              <svg viewBox="0 0 380 100" height="72" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HEAT">
                 <defs>
                   <linearGradient id="heat-gold" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#C8A96E" />
-                    <stop offset="50%" stop-color="#DFC28E" />
-                    <stop offset="100%" stop-color="#8A7048" />
+                    <stop offset="0%" stop-color="#8C734B" />
+                    <stop offset="50%" stop-color="#C5A059" />
+                    <stop offset="100%" stop-color="#8C734B" />
                   </linearGradient>
                 </defs>
                 <g fill="url(#heat-gold)">
@@ -228,17 +248,17 @@
             </div>
 
             <div class="eco-grid two-cols">
-              <div class="eco-card eco-heat">
+              <div class="eco-card eco-heat" data-reveal>
                 <div class="eco-tag">Flatcoin</div>
-                <div class="card-icon">
+                <div class="card-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 200 200" fill="none">
                     <defs>
                       <linearGradient id="hg-icon" x1="10" y1="100" x2="190" y2="100" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%"   stop-color="#C8A96E"/>
-                        <stop offset="100%" stop-color="#DFC28E"/>
+                        <stop offset="0%"   stop-color="#C5A059"/>
+                        <stop offset="100%" stop-color="#8C734B"/>
                       </linearGradient>
                     </defs>
-                    <g stroke="#8A7048" stroke-width="3.5" stroke-linecap="round" opacity="0.35">
+                    <g stroke="#8C734B" stroke-width="3.5" stroke-linecap="round" opacity="0.35">
                       <path d="M 18 45 C 48 29, 78 29, 108 45 C 138 61, 168 61, 198 45"/>
                       <path d="M 18 89 C 48 73, 78 73, 108 89 C 138 105, 168 105, 198 89"/>
                       <path d="M 18 133 C 48 117, 78 117, 108 133 C 138 149, 168 149, 198 133"/>
@@ -253,31 +273,33 @@
                   </svg>
                 </div>
                 <h3><span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> &mdash; The Enthalpy</h3>
+                <div class="status-tag">Arriving with v11</div>
                 <p>Designed to preserve purchasing power from the silent tax of fiat currency inflation. <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span>'s market-based floating supply algorithm tracks the Consumer Price Index, keeping your hard-earned value protected from inflation — not extracted by it. Burn XFG at the Hearth pool rate to mint.</p>
                 <div class="eco-detail"><span>Algorithmic</span><span>Colored Coin</span><span>Floating Supply</span></div>
               </div>
 
-              <div class="eco-card eco-heat">
+              <div class="eco-card eco-heat" data-reveal>
                 <div class="eco-tag">Mechanism</div>
-                <div class="card-icon">
+                <div class="card-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 200 200">
-                    <circle cx="100" cy="100" r="14" fill="#C8A96E"/>
-                    <circle cx="100" cy="68"  r="9"  fill="#FFFDF5"/>
-                    <circle cx="132" cy="100" r="9"  fill="#FFFDF5"/>
-                    <circle cx="100" cy="132" r="9"  fill="#FFFDF5"/>
-                    <circle cx="68"  cy="100" r="9"  fill="#FFFDF5"/>
-                    <circle cx="100" cy="40"  r="6"  fill="#FFFDF5"/>
-                    <circle cx="160" cy="100" r="6"  fill="#FFFDF5"/>
-                    <circle cx="100" cy="160" r="6"  fill="#FFFDF5"/>
-                    <circle cx="40"  cy="100" r="6"  fill="#FFFDF5"/>
-                    <circle cx="100" cy="18"  r="4"  fill="#FFFDF5"/>
-                    <circle cx="182" cy="100" r="4"  fill="#FFFDF5"/>
-                    <circle cx="100" cy="182" r="4"  fill="#FFFDF5"/>
-                    <circle cx="18"  cy="100" r="4"  fill="#FFFDF5"/>
+                    <circle cx="100" cy="100" r="14" fill="#C5A059"/>
+                    <circle cx="100" cy="68"  r="9"  fill="#EAF6F9"/>
+                    <circle cx="132" cy="100" r="9"  fill="#EAF6F9"/>
+                    <circle cx="100" cy="132" r="9"  fill="#EAF6F9"/>
+                    <circle cx="68"  cy="100" r="9"  fill="#EAF6F9"/>
+                    <circle cx="100" cy="40"  r="6"  fill="#EAF6F9"/>
+                    <circle cx="160" cy="100" r="6"  fill="#EAF6F9"/>
+                    <circle cx="100" cy="160" r="6"  fill="#EAF6F9"/>
+                    <circle cx="40"  cy="100" r="6"  fill="#EAF6F9"/>
+                    <circle cx="100" cy="18"  r="4"  fill="#EAF6F9"/>
+                    <circle cx="182" cy="100" r="4"  fill="#EAF6F9"/>
+                    <circle cx="100" cy="182" r="4"  fill="#EAF6F9"/>
+                    <circle cx="18"  cy="100" r="4"  fill="#EAF6F9"/>
                   </svg>
                 </div>
-                <h3>Hearth AMM</h3>
-                <p>Constant-product on-chain pools govern <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> mint pricing via live TWAP. Takers pay a 1% Hearth fee — 70% flows to Certificate of Deposit yield, 30% to maker rebates. An oracle-free mechanism anchored entirely to XFG sound money.</p>
+                <h3>The Hearth Floor</h3>
+                <div class="status-tag">Arriving with v11</div>
+                <p>Constant-product on-chain pools govern <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> mint pricing via live TWAP. Takers pay a 1% tribute — 70% flows to Certificate of Deposit accrual, 30% to maker rebates. An oracle-free mechanism anchored entirely to XFG sound money.</p>
                 <div class="eco-detail"><span>TWAP Pricing</span><span>XFG Anchored</span><span>Oracle-free</span></div>
               </div>
             </div>
@@ -285,27 +307,29 @@
         </section>
       </div>
 
-      <!-- 5: YIELD -->
-      <div class="page-section" data-section="yield">
-        <section class="section section-dark" id="yield">
+      <!-- 5: ACCRUAL -->
+      <div class="page-section" data-section="accrual">
+        <section class="scene section section-dark" id="accrual">
+          <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
             <div class="section-label">Financial Flywheel</div>
-            <h2>Yield.</h2>
+            <h2>Accrual.</h2>
             <div class="eco-grid two-cols">
-              <div class="eco-card eco-hearth">
+              <div class="eco-card eco-hearth" data-reveal>
                 <div class="eco-tag">Liquidity</div>
-                <div class="card-icon">
+                <div class="card-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/>
                   </svg>
                 </div>
-                <h3>Hearth AMM</h3>
+                <h3>The Hearth Floor</h3>
+                <div class="status-tag">Arriving with v11</div>
                 <p>Protocol-owned liquidity pools with automated market making. Fuego users own the liquidity, not outside venues. Fees return to the protocol and the users providing reserves — in-house asset markets for permissionless price discovery.</p>
-                <div class="eco-detail"><span>Swap Fees</span><span>LP Rewards</span><span>Protocol Owned</span></div>
+                <div class="eco-detail"><span>Tribute</span><span>LP Rewards</span><span>Protocol Owned</span></div>
               </div>
-              <div class="eco-card eco-cd">
+              <div class="eco-card eco-cd" data-reveal>
                 <div class="eco-tag">Variable-Rate &mdash; Rolling-Term</div>
-                <div class="card-icon">
+                <div class="card-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="16" rx="2"/>
                     <path d="M3 10h18"/><path d="M7 14h.01"/><path d="M11 14h.01"/><path d="M15 14h.01"/>
@@ -313,8 +337,9 @@
                   </svg>
                 </div>
                 <h3><span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> Certificates of Deposit</h3>
-                <p>Term-locked Certificates of Deposit denominated in <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span>. Deposit your reserves and earn real yield through Fuego's financial flywheel — protocol revenue from atomic swap activity and Hearth fees. Your <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> value remains stable to its inception rate, providing the economic environment for genuine wealth building.</p>
-                <div class="eco-detail"><span>Term-locked</span><span>Real Yield</span><span>Certificates of Deposit</span></div>
+                <div class="status-tag">Arriving with v11</div>
+                <p>Term-locked Certificates of Deposit denominated in <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span>. Reserve your holdings and earn real accrual through Fuego's financial flywheel — protocol revenue from Private Exchange activity and Hearth fees. Your <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> value remains stable to its inception rate, providing the economic environment for genuine wealth building.</p>
+                <div class="eco-detail"><span>Term-locked</span><span>Real Accrual</span><span>Certificates of Deposit</span></div>
               </div>
             </div>
           </div>
@@ -323,11 +348,12 @@
 
       <!-- 6: SPECS -->
       <div class="page-section" data-section="specs">
-        <section class="section" id="specs">
+        <section class="scene section" id="specs">
+          <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
             <div class="section-label">Technical Specifications</div>
             <h2>The numbers.</h2>
-            <div class="specs-table">
+            <div class="specs-table" data-reveal>
               <div class="spec-row"><span class="spec-key">Symbol(s)</span><span class="spec-val">₲ &nbsp;|&nbsp; XFG</span></div>
               <div class="spec-row"><span class="spec-key">Max Supply</span><span class="spec-val">8,000,008.8000008</span></div>
               <div class="spec-row"><span class="spec-key">Decimals</span><span class="spec-val">7</span></div>
@@ -347,9 +373,10 @@
 
       <!-- 7: R&D -->
       <div class="page-section" data-section="rd">
-        <section class="section section-dark" id="rd">
+        <section class="scene section section-dark" id="rd">
+          <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
-            <p class="rd-section-headline">Guarding the Shield<br />that Guards the Realms of Men</p>
+            <p class="rd-section-headline" data-reveal>Guarding the Shield<br />that Guards the Realms of Men</p>
 
             <div class="marquee-container">
               <div class="marquee-line"><div><span>Privacy is the final threshold behind which every God-given freedom stands.</span><span>Privacy is the final threshold behind which every God-given freedom stands.</span></div></div>
@@ -361,18 +388,18 @@
             </div>
 
             <div class="rd-grid">
-              <div class="rd-column">
+              <div class="rd-column" data-reveal>
                 <h3>Purchasing Power</h3>
-                <div class="rd-item"><h4>Hearth AMM</h4><p>Protocol-owned liquidity pools with automated market making. Fuego users own the liquidity, not outside LPs.</p></div>
-                <div class="rd-item"><h4>Private Certificates of Deposit</h4><p>Term-locked CDs using cryptographic commitments. Earn from atomic swap fees — real yield from protocol revenue.</p></div>
+                <div class="rd-item"><h4>The Hearth Floor</h4><p>Protocol-owned liquidity pools with automated market making. Fuego users own the liquidity, not outside LPs.</p></div>
+                <div class="rd-item"><h4>Private Certificates of Deposit</h4><p>Term-locked CDs using cryptographic commitments. Real accrual from protocol revenue — Private Exchange activity and Hearth fees.</p></div>
                 <div class="rd-item"><h4><span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> Flatcoin</h4><p>A CPI-pegged flatcoin preserving purchasing power. Minted via one-way XFG burn, priced at the live Hearth TWAP.</p></div>
-                <div class="rd-item"><h4>Atomic Swaps — Anti-Delisting</h4><p>Peer-to-peer cross-chain swaps make CEX delistings irrelevant. Enter and exit Fuego's economy without bridges.</p></div>
+                <div class="rd-item"><h4>Private Exchange — Anti-Delisting</h4><p>Peer-to-peer cross-chain exchange makes CEX delistings irrelevant. Enter and exit Fuego's economy without bridges.</p></div>
               </div>
-              <div class="rd-column">
+              <div class="rd-column" data-reveal>
                 <h3>Privacy</h3>
                 <div class="rd-item"><h4>Dynamic Mixin</h4><p>Ring signatures with dynamic decoy counts (min 8 | 16 | 32 max). Each transaction mixes with a changing decoy set.</p></div>
                 <div class="rd-item"><h4>Stealth Sub-Addresses</h4><p>One-time subaddresses for every transaction. Receive funds at a fresh address each time without linking your master address.</p></div>
-                <div class="rd-item"><h4>Adaptor Signatures</h4><p>Privacy-preserving cross-chain swaps. Unlike HTLCs, adaptor signatures publish no revealing hashes on-chain.</p></div>
+                <div class="rd-item"><h4>Adaptor Signatures</h4><p>Privacy-preserving cross-chain exchange. Unlike HTLCs, adaptor signatures publish no revealing hashes on-chain.</p></div>
                 <div class="rd-item"><h4>Dandelion++</h4><p>Network-level privacy that obfuscates the originating IP of a transaction, preventing geographic or network-based analysis.</p></div>
               </div>
             </div>
@@ -399,28 +426,51 @@
         </footer>
 
       </div>
-    </div><!-- /page-wrapper -->
+    </main><!-- /page-wrapper -->
 
     <script src="js/three-scene.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
     <script>
       (function () {
-        var sections = document.querySelectorAll('.page-section');
+        'use strict';
+
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var mqPager = window.matchMedia('(min-width: 861px) and (pointer: fine)');
+        var sections = Array.prototype.slice.call(document.querySelectorAll('.page-section'));
         var dotsContainer = document.getElementById('pageDots');
         var current = 0;
         var transitioning = false;
         var cooldown = 750;
 
+        function pagerOn() { return mqPager.matches; }
+
+        /* --- Page dots (pager only; hidden by CSS elsewhere) --- */
         sections.forEach(function (_, i) {
           var dot = document.createElement('button');
           dot.className = 'page-dot' + (i === 0 ? ' active' : '');
-          dot.setAttribute('aria-label', 'Page ' + (i + 1));
+          dot.setAttribute('aria-label', 'Go to section ' + (i + 1));
           dot.addEventListener('click', function () { goTo(i); });
           dotsContainer.appendChild(dot);
         });
 
+        function revealIn(root) {
+          Array.prototype.forEach.call(
+            (root || document).querySelectorAll('[data-reveal]'),
+            function (el) { el.classList.add('in-view'); }
+          );
+        }
+
+        function sectionIndexFor(hash) {
+          for (var i = 0; i < sections.length; i++) {
+            if (sections[i].dataset.section === hash || sections[i].querySelector('#' + hash)) return i;
+          }
+          return -1;
+        }
+
         function goTo(index) {
-          if (transitioning || index === current || index < 0 || index >= sections.length) return;
+          if (!pagerOn() || transitioning || index === current || index < 0 || index >= sections.length) return;
           transitioning = true;
           sections[current].classList.remove('active');
           sections[index].classList.add('active');
@@ -429,14 +479,35 @@
           dots[current].classList.remove('active');
           dots[index].classList.add('active');
           current = index;
+          revealIn(sections[index]);
+          var id = sections[index].dataset.section;
+          if (location.hash.slice(1) !== id) {
+            history.replaceState(null, '', '#' + id);
+          }
           setTimeout(function () { transitioning = false; }, cooldown);
         }
 
+        /* Deep link on load — pager mode starts on the linked section */
+        if (pagerOn()) {
+          var hash = location.hash.slice(1);
+          var start = hash ? sectionIndexFor(hash) : 0;
+          if (start > 0) {
+            sections[0].classList.remove('active');
+            sections[start].classList.add('active');
+            dotsContainer.querySelectorAll('.page-dot')[0].classList.remove('active');
+            dotsContainer.querySelectorAll('.page-dot')[start].classList.add('active');
+            current = start;
+          }
+          revealIn(sections[current]);
+        }
+
+        /* --- Wheel — desktop pager only; native scroll otherwise --- */
         var accumulated = 0;
         var wheelThreshold = 55;
         var wheelTimer;
 
         document.addEventListener('wheel', function (e) {
+          if (!pagerOn()) return;
           var sec = sections[current];
           var atTop    = sec.scrollTop <= 0;
           var atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 2;
@@ -453,11 +524,13 @@
           }
         }, { passive: false });
 
+        /* --- Touch — pager only; native scroll otherwise --- */
         var touchStartY = 0;
         document.addEventListener('touchstart', function (e) {
           touchStartY = e.touches[0].clientY;
         }, { passive: true });
         document.addEventListener('touchend', function (e) {
+          if (!pagerOn()) return;
           var diff = touchStartY - e.changedTouches[0].clientY;
           if (Math.abs(diff) > 50) {
             if (diff > 0) goTo(current + 1);
@@ -465,26 +538,25 @@
           }
         }, { passive: true });
 
+        /* --- Keyboard — pager only; native scroll handles the rest --- */
         document.addEventListener('keydown', function (e) {
+          if (!pagerOn()) return;
           if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
           if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goTo(current - 1); }
           if (e.key === 'Home') { e.preventDefault(); goTo(0); }
           if (e.key === 'End')  { e.preventDefault(); goTo(sections.length - 1); }
         });
 
+        /* --- Anchors: pager jumps by index; native mode uses browser scroll --- */
         document.querySelectorAll('a[href^="#"]').forEach(function (a) {
           a.addEventListener('click', function (e) {
-            var hash = a.getAttribute('href').slice(1);
-            if (!hash) { e.preventDefault(); goTo(0); return; }
-            for (var i = 0; i < sections.length; i++) {
-              if (sections[i].dataset.section === hash || sections[i].querySelector('#' + hash)) {
-                e.preventDefault();
-                goTo(i);
-                break;
-              }
-            }
             document.querySelector('.nav-links').classList.remove('open');
             document.querySelector('.nav-toggle').classList.remove('open');
+            if (!pagerOn()) return;
+            e.preventDefault();
+            var hash = a.getAttribute('href').slice(1);
+            var idx = hash ? sectionIndexFor(hash) : 0;
+            goTo(idx >= 0 ? idx : 0);
           });
         });
 
@@ -492,9 +564,66 @@
           document.querySelector('.nav-links').classList.toggle('open');
           this.classList.toggle('open');
         });
+
+        /* --- Reveal-on-scroll: native mode via IntersectionObserver --- */
+        if (!pagerOn() && 'IntersectionObserver' in window && !reduceMotion) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+              if (en.isIntersecting) {
+                en.target.classList.add('in-view');
+                io.unobserve(en.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+          document.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
+        } else {
+          revealIn(document);
+        }
+
+        /* --- 2.5D depth: pointer parallax (x) + scroll drift (y, native mode) --- */
+        if (window.gsap && !reduceMotion) {
+          var depthLayers = Array.prototype.filter.call(
+            document.querySelectorAll('[data-depth]'),
+            function (el) {
+              var d = +el.getAttribute('data-depth');
+              return el.id !== 'three-canvas' && d >= 1 && d <= 3;
+            }
+          );
+
+          var movers = depthLayers.map(function (el) {
+            var d = +el.getAttribute('data-depth');
+            var strength = (4 - d) * 3; /* deeper planes drift more against the pointer */
+            return { el: el, xTo: gsap.quickTo(el, 'x', { duration: 1.1, ease: 'power3.out' }), s: strength };
+          });
+
+          window.addEventListener('mousemove', function (e) {
+            var nx = (e.clientX / window.innerWidth - 0.5) * 2;
+            movers.forEach(function (m) { m.xTo(nx * m.s); });
+          }, { passive: true });
+
+          if (window.ScrollTrigger && !pagerOn()) {
+            gsap.registerPlugin(ScrollTrigger);
+            var speeds = { 1: 0.25, 2: 0.5, 3: 0.8 }; /* depth-system.md parallax ratios */
+            depthLayers.forEach(function (el) {
+              var amp = (1 - speeds[+el.getAttribute('data-depth')]) * 80;
+              var trigger = el.closest('section') || el;
+              gsap.fromTo(el, { y: -amp }, {
+                y: amp,
+                ease: 'none',
+                scrollTrigger: { trigger: trigger, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+              });
+            });
+          }
+        }
+
+        /* --- Cross the pager breakpoint (resize) — reload into the new mode --- */
+        function onModeChange() { window.location.reload(); }
+        if (mqPager.addEventListener) mqPager.addEventListener('change', onModeChange);
+        else if (mqPager.addListener) mqPager.addListener(onModeChange);
       })();
 
       function initMarquees() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         document.querySelectorAll('.marquee-line').forEach(function (line) {
           var inner = line.querySelector('div');
           var spans = inner.querySelectorAll('span');

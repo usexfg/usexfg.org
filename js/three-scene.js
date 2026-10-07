@@ -23,21 +23,20 @@
     c.width = c.height = 64;
     var ctx = c.getContext('2d');
     var g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0,    'rgba(255,255,255,1)');
-    g.addColorStop(0.4,  'rgba(255,255,255,0.6)');
-    g.addColorStop(1,    'rgba(255,255,255,0)');
+    g.addColorStop(0,    'rgba(234,246,249,1)');
+    g.addColorStop(0.4,  'rgba(234,246,249,0.6)');
+    g.addColorStop(1,    'rgba(234,246,249,0)');
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, 64, 64);
     return new THREE.CanvasTexture(c);
   }
   var sprite = makeSprite();
 
-  /* Palette — gold dominant, almost nothing else */
-  var GOLD   = new THREE.Color(0xC8A96E);
-  var GOLD_L = new THREE.Color(0xDFC28E);
-  var GOLD_D = new THREE.Color(0x9A7E52);
-  var WHITE  = new THREE.Color(0xFFFDF5);
-  var EMBER  = new THREE.Color(0xC8703A);
+  /* Palette — Maison: Champagne #C5A059 / Muted #8C734B / White Flame #EAF6F9 / Ember #E8622C */
+  var GOLD   = new THREE.Color(0xC5A059);
+  var GOLD_D = new THREE.Color(0x8C734B);
+  var WHITE  = new THREE.Color(0xEAF6F9);
+  var EMBER  = new THREE.Color(0xE8622C);
 
   /* 180 primary drifters */
   var COUNT = 180;
@@ -53,7 +52,7 @@
     pos[i*3+2] = rng(-25, 15);
 
     var r = Math.random();
-    var c = r < 0.45 ? GOLD : r < 0.70 ? GOLD_L : r < 0.86 ? GOLD_D : r < 0.96 ? WHITE : EMBER;
+    var c = r < 0.45 ? GOLD : r < 0.75 ? GOLD_D : r < 0.96 ? WHITE : EMBER;
     col[i*3] = c.r; col[i*3+1] = c.g; col[i*3+2] = c.b;
 
     vel.push({
@@ -106,11 +105,21 @@
     my = (e.clientY / window.innerHeight - 0.5) * 2;
   }, { passive: true });
 
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   window.addEventListener('resize', function() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    if (reduceMotion) renderer.render(scene, camera);
   }, { passive: true });
+
+  /* Reduced motion: a single still frame — atmosphere without animation */
+  if (reduceMotion) {
+    renderer.render(scene, camera);
+    return;
+  }
 
   var clock = new THREE.Clock();
 
