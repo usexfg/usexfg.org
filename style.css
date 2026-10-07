@@ -184,7 +184,7 @@ code {
    across two fonts. EB Garamond (same Garamond lineage) has all four glyphs. */
 .heat-glyph {
   font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
   font-size: 1.05em;
   color: var(--gold);
@@ -194,7 +194,7 @@ code {
 /* Nav ΗΞΔŦ link */
 .nav-links a.nav-heat {
   font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   color: var(--gold-dim);
