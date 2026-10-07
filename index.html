@@ -1,669 +1,531 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fuego Bank of XFG</title>
-  <meta name="description" content="Fuego (XFG) is a private blockchain bank. Ring signatures, fixed supply, zero premine. Send, deposit, and earn — privately.">
-  <meta name="theme-color" content="#000000">
-  <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/34798446?s=200&v=4">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fuego Reserve — Private Blockchain Bank</title>
+    <meta name="description" content="Fuego (XFG) — a private reserve network. Ring signatures, fixed supply of 8,000,008, zero premine. Sound money, sovereign banking." />
+    <meta name="theme-color" content="#07080a" />
+    <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="favicons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Fuego Reserve" />
+    <link rel="manifest" href="site.webmanifest" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Fuego — Private Blockchain Bank">
-  <meta property="og:description" content="Ring signatures. Fixed supply. Zero premine. Your money, your bank.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://usexfg.org">
-  <meta property="og:image" content="https://avatars.githubusercontent.com/u/34798446?s=200&v=4">
+    <!-- Maison Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 
-  <!-- Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Fuego",
-    "url": "https://usexfg.org",
-    "description": "Private blockchain bank with ring signatures, fixed supply, and zero premine.",
-    "logo": "https://avatars.githubusercontent.com/u/34798446?s=200&v=4"
-  }
-  </script>
-</head>
-<body>
+    <!-- Three.js for particle background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <img src="https://avatars.githubusercontent.com/u/34798446?s=200&v=4" alt="Fuego" width="28" height="28">
-        <span>Fuego</span>
-      </a>
-      <div class="nav-links">
-        <a href="#why">Why</a>
-        <a href="#vault">Vault</a>
-        <a href="#ecosystem">Ecosystem</a>
-        <a href="#swaps">Swaps</a>
-        <a href="#elderfiers">Ξlderfiers</a>
-        <a href="#specs">Specs</a>
-        <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
+    <!-- Open Graph -->
+    <meta property="og:title" content="Fuego Reserve — Private Blockchain Bank" />
+    <meta property="og:description" content="Ring signatures. Fixed supply. Zero premine. Sound money, your way." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://usexfg.org" />
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/34798446?s=200&v=4" />
+  </head>
+  <body>
+    <!-- Particle Background -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- NAV -->
+    <nav class="liquid-glass">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <img src="https://avatars.githubusercontent.com/u/34798446?s=200&v=4" alt="Fuego" width="28" height="28" />
+          <span>Fuego Reserve</span>
+        </a>
+        <div class="nav-links">
+          <a href="#why">Reserve</a>
+          <a href="#vault">Vault</a>
+          <a href="#swaps">Swaps</a>
+          <a href="#heat" class="nav-heat">ΗΞΔŦ</a>
+          <a href="#yield">Yield</a>
+          <a href="#specs">Specs</a>
+          <a href="#rd">R&amp;D</a>
+          <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <button class="nav-toggle" aria-label="Menu">
+          <span></span><span></span>
+        </button>
       </div>
-      <button class="nav-toggle" aria-label="Menu">
-        <span></span><span></span>
-      </button>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- PAGE DOT NAV -->
-  <div class="page-dots" id="pageDots"></div>
+    <!-- PAGE DOT NAV -->
+    <div class="page-dots" id="pageDots"></div>
 
-  <!-- PAGE WRAPPER -->
-  <div class="page-wrapper">
+    <!-- PAGE WRAPPER -->
+    <div class="page-wrapper">
 
-    <!-- 0: HERO -->
-    <div class="page-section active" data-section="hero">
-      <section class="hero" id="hero">
-        <div class="hero-glow"></div>
-        <div class="hero-content">
-          <div class="hero-badge">CryptoNote Protocol</div>
-          <h1>Your private<br>blockchain bank.</h1>
-          <p class="hero-sub">Ring signatures hide every transaction. Fixed supply protects your purchasing power. No federal reserve, no VCs, no premine. 100% Open-source, peer-to-peer, decentralized money.</p>
-          <div class="hero-actions">
-            <a href="https://github.com/usexfg/fuego-suite/releases" class="btn btn-primary" target="_blank" rel="noopener">Download Wallet</a>
-            <a href="https://github.com/usexfg/fuego-suite" class="btn btn-ghost" target="_blank" rel="noopener">View Source</a>
-          </div>
-        </div>
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-value">₲</span>
-            <span class="stat-label">Symbol</span>
-          </div>
-          <div class="stat">
-            <span class="stat-value">8,000,008</span>
-            <span class="stat-label">Max Supply</span>
-          </div>
-          <div class="stat">
-            <span class="stat-value">8 min</span>
-            <span class="stat-label">Block Time</span>
-          </div>
-          <div class="stat">
-            <span class="stat-value">0</span>
-            <span class="stat-label">Premine</span>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- 1: WHY FUEGO -->
-    <div class="page-section" data-section="why">
-      <section class="section" id="why">
-        <div class="container">
-          <div class="section-label">Why Fuego</div>
-          <div class="pillars">
-
-            <div class="pillar">
-              <div class="pillar-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                </svg>
-              </div>
-              <h3>Private</h3>
-              <p>Dynamic ring signature set mixes your transaction with 8 to 18 decoys. Stealth + one-time sub-addresses hide recipient. Observers see noise, not your business.</p>
-              <div class="pillar-detail">
-                <span>mixin ≥ 8</span>
-                <span>stealth addresses</span>
-                <span>key images</span>
-              </div>
-            </div>
-
-            <div class="pillar">
-              <div class="pillar-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-              </div>
-              <h3>Sound</h3>
-              <p>Hard-capped at 8,000,008 XFG. No inflation. No tail emission. Fuego returns all burned XFG back to the network, ensuring block rewards for future generations- while still preserving 8M8 max supply.</p>
-              <div class="pillar-detail">
-                <span>hard cap</span>
-                <span>7 decimals</span>
-                <span>fair launch</span>
-              </div>
-            </div>
-
-            <div class="pillar">
-              <div class="pillar-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                </svg>
-              </div>
-              <h3>Yours</h3>
-              <p>No company. No federal reserve. No ICO. No tax. Just code and math, developed & maintained by the community. Fuego belongs to the people who use it.</p>
-              <div class="pillar-detail">
-                <span>open source</span>
-                <span>no premine</span>
-                <span>community run</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- 2: THE VAULT -->
-    <div class="page-section" data-section="vault">
-      <section class="section section-dark" id="vault">
-        <div class="container">
-          <div class="section-label">The Vault</div>
-          <h2>Your banking tools.</h2>
-          <p class="section-sub">Two wallets. One for operators, one for everyone. Both private by default.</p>
-
-          <div class="wallet-grid">
-            <div class="wallet-card">
-              <div class="wallet-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
-                </svg>
-              </div>
-              <h3>fire_wallet</h3>
-              <p class="wallet-type">Command Line</p>
-              <p>Full-node CLI wallet. Maximum control. Run your own bank from the terminal.</p>
-              <div class="wallet-features">
-                <span>Full node</span>
-                <span>Deposits</span>
-                <span>Ξlderfier staking</span>
-                <span>COLD / HEAT</span>
-              </div>
-              <a href="https://github.com/usexfg/fuego-suite/releases" class="btn btn-sm" target="_blank" rel="noopener">Download</a>
-            </div>
-
-            <div class="wallet-card">
-              <div class="wallet-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-                </svg>
-              </div>
-              <h3>Fuego Wallet</h3>
-              <p class="wallet-type">Desktop GUI</p>
-              <p>Visual banking interface. Send, receive, deposit, and manage accounts with a clean desktop app.</p>
-              <div class="wallet-features">
-                <span>GUI</span>
-                <span>Linux / Mac / Windows</span>
-                <span>Deposits</span>
-                <span>Address book</span>
-              </div>
-              <a href="https://github.com/usexfg/fuego-wallet/releases" class="btn btn-sm" target="_blank" rel="noopener">Download</a>
+      <!-- 0: HERO -->
+      <div class="page-section active" data-section="hero">
+        <section class="hero" id="hero">
+          <div class="hero-glow"></div>
+          <div class="hero-content">
+            <div class="hero-eyebrow">Fuego Reserve &mdash; usexfg.org</div>
+            <h1>Your private<br /><em>blockchain bank.</em></h1>
+            <p class="hero-sub">
+              Ring signatures conceal every transaction. A fixed supply of 8,000,008 protects
+              your purchasing power. No reserve bank, no premine, no permission required.
+              Peer&ndash;to&ndash;peer sound money.
+            </p>
+            <div class="hero-actions">
+              <a href="https://github.com/usexfg/fuego-suite/releases" class="btn btn-primary" target="_blank" rel="noopener">Acquire Wallet</a>
+              <a href="https://github.com/usexfg/fuego-suite" class="btn btn-ghost" target="_blank" rel="noopener">View Source</a>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+          <div class="hero-stats">
+            <div class="stat"><span class="stat-value">₲</span><span class="stat-label">Symbol</span></div>
+            <div class="stat"><span class="stat-value">8,000,008</span><span class="stat-label">Max Supply</span></div>
+            <div class="stat"><span class="stat-value">480s</span><span class="stat-label">Block Time</span></div>
+            <div class="stat"><span class="stat-value">0</span><span class="stat-label">Premine</span></div>
+          </div>
+        </section>
+      </div>
 
-    <!-- 3: ECOSYSTEM -->
-    <div class="page-section" data-section="ecosystem">
-      <section class="section" id="ecosystem">
-        <div class="container">
-          <div class="section-label">Ecosystem</div>
-          <h2>Beyond L1.</h2>
-          <p class="section-sub">Fuego extends to Ethereum for interest payments &amp; L3 rollup liquidity via zkSTARK proofs &amp; Ξlderfier consensus. Lock, burn, or earn — with privacy thru cryptography.</p>
-
-          <div class="eco-grid">
-
-            <a href="cold.html" class="eco-card eco-cold eco-card-link">
-              <div class="eco-tag">COLD</div>
-              <h3>Lock. Earn. Govern.</h3>
-              <p>Lock XFG on Fuego L1. Earn interest as CD tokens (ERC-1155) on Ethereum. Vote in the COLDAO. Your principal unlocks after the term.</p>
-              <div class="eco-tiers">
-                <div class="eco-tier-row">
-                  <span class="tier-amount">0.8 XFG</span>
-                  <span class="tier-apy">8 – 27% APY</span>
-                  <span class="tier-term">3 – 12 mo</span>
+      <!-- 1: WHY FUEGO -->
+      <div class="page-section" data-section="why">
+        <section class="section" id="why">
+          <div class="container">
+            <div class="section-label">The Reserve — Three Pillars</div>
+            <div class="pillars">
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
                 </div>
-                <div class="eco-tier-row">
-                  <span class="tier-amount">8 XFG</span>
-                  <span class="tier-apy">18 – 33% APY</span>
-                  <span class="tier-term">3 – 12 mo</span>
+                <h3 class="fire-text">Rarity</h3>
+                <p>Hard-capped at 8,000,008.8000008 XFG across seven decimal places. No inflation schedule. No tail emission. Burned XFG returns to network block rewards — preserving scarcity across generations.</p>
+                <div class="pillar-detail"><span>Hard Cap</span><span>7 Decimals</span><span>Fair Launch</span></div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
                 </div>
-                <div class="eco-tier-row">
-                  <span class="tier-amount">80 XFG</span>
-                  <span class="tier-apy">27 – 42% APY</span>
-                  <span class="tier-term">3 – 12 mo</span>
+                <h3 class="fire-text">Sound Money</h3>
+                <p>Dynamic ring signature sets mix every transaction with up to 32 decoys. Stealth one-time sub-addresses obscure recipients. Observers see cryptographic noise — not your business.</p>
+                <div class="pillar-detail"><span>min mixin ≥ 8</span><span>Stealth Addresses</span><span>Key Images</span></div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
                 </div>
-                <div class="eco-tier-row">
-                  <span class="tier-amount">800 XFG</span>
-                  <span class="tier-apy">33 – 69% APY</span>
-                  <span class="tier-term">3 – 12 mo</span>
+                <h3 class="fire-text">Stealth Wealth</h3>
+                <p>No federal reserve. No venture capital. No taxation by design. Cooperation through community, mathematics, and open-source code. Fuego belongs to those who use it.</p>
+                <div class="pillar-detail"><span>Open Source</span><span>No Premine</span><span>Community Run</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 2: THE VAULT -->
+      <div class="page-section" data-section="vault">
+        <section class="section section-dark" id="vault">
+          <div class="container">
+            <div class="section-label">Banking Instruments</div>
+            <h2>The Vault.</h2>
+            <p class="section-sub">Two instruments. One for the console, one for the desktop. Both private by default, yours by design.</p>
+            <div class="wallet-grid">
+              <div class="wallet-card">
+                <div class="wallet-icon">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
+                  </svg>
+                </div>
+                <h3>fire_wallet</h3>
+                <p class="wallet-type">Command Line / TUI</p>
+                <p>Full-node CLI and TUI wallet. Banking from the terminal for maximum sovereignty over your reserves.</p>
+                <div class="wallet-features"><span>Full node</span><span>Subaddresses</span><span>fire aliases</span><span>Key signing</span></div>
+                <a href="https://github.com/usexfg/fuego-suite/releases" class="btn btn-sm" target="_blank" rel="noopener">Download</a>
+              </div>
+              <div class="wallet-card">
+                <div class="wallet-icon">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                  </svg>
+                </div>
+                <h3>Fuego Wallet</h3>
+                <p class="wallet-type">Desktop GUI</p>
+                <p>Visual banking interface. Convey, receive, deposit, and manage accounts from a clean desktop environment. Available from v12.</p>
+                <div class="wallet-features"><span>GUI</span><span>Linux / Mac / Windows</span><span>Deposits</span><span>Swaps</span></div>
+                <a href="https://github.com/usexfg/fuego-wallet/releases" class="btn btn-sm" target="_blank" rel="noopener">Download</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 3: ATOMIC SWAPS -->
+      <div class="page-section" data-section="swaps">
+        <section class="section section-dark" id="swaps">
+          <div class="container">
+            <div class="swaps-layout">
+              <div class="swaps-text">
+                <div class="section-label">Cross-Chain Protocol</div>
+                <h2>Atomic Swaps.</h2>
+                <p class="section-sub">Trustless cross-chain exchange via adaptor signatures and DLEQ proofs. No bridges, no wrappers, no permission required.</p>
+              </div>
+
+              <div id="xfg-galaxy" class="xfg-galaxy-wrapper">
+                <div class="xfg-galaxy-core">
+                  <img src="coins/fuego.png" alt="XFG Core" />
                 </div>
               </div>
-              <div class="eco-detail">
-                <span>ERC-1155</span>
-                <span>DAO voting</span>
-                <span>STARK verified</span>
-              </div>
-            </a>
+            </div>
+          </div>
+        </section>
+      </div>
 
-            <div class="eco-card eco-heat">
-              <div class="eco-tag">HEAT</div>
-              <h3>Burn. Fuel. Build.</h3>
-              <p>Permanently burn XFG on Fuego L1. Mint HEAT (ERC-20) on Ethereum — the native gas token for the C0DL3 privacy ZK rollup.</p>
-              <div class="eco-tiers">
-                <div class="eco-tier-row">
-                  <span class="tier-amount">0.8 XFG</span>
-                  <span class="tier-heat">8M HEAT</span>
+      <!-- 4: HEAT / ΗΞΔŦ -->
+      <div class="page-section" data-section="heat">
+        <section class="section" id="heat">
+          <div class="container">
+            <div class="section-label">Sound Money — Flatcoin</div>
+
+            <!-- HEAT SVG TITLE -->
+            <div class="heat-title-svg">
+              <svg viewBox="0 0 380 100" height="72" xmlns="http://www.w3.org/2000/svg" aria-label="HEAT">
+                <defs>
+                  <linearGradient id="heat-gold" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#C8A96E" />
+                    <stop offset="50%" stop-color="#DFC28E" />
+                    <stop offset="100%" stop-color="#8A7048" />
+                  </linearGradient>
+                </defs>
+                <g fill="url(#heat-gold)">
+                  <!-- H -->
+                  <rect x="10" y="10" width="16" height="80" />
+                  <rect x="66" y="10" width="16" height="80" />
+                  <rect x="26" y="42" width="40" height="16" />
+                  <!-- Ξ -->
+                  <rect x="110" y="10" width="60" height="16" />
+                  <rect x="118" y="42" width="44" height="16" />
+                  <rect x="110" y="74" width="60" height="16" />
+                  <!-- Δ -->
+                  <polygon points="195,90 227,10 243,10 211,90" />
+                  <polygon points="275,90 243,10 227,10 259,90" />
+                  <rect x="198" y="74" width="74" height="16" />
+                  <!-- Ŧ -->
+                  <rect x="300" y="10" width="64" height="16" />
+                  <rect x="324" y="10" width="16" height="80" />
+                  <rect x="308" y="46" width="48" height="16" />
+                </g>
+              </svg>
+            </div>
+
+            <div class="eco-grid two-cols">
+              <div class="eco-card eco-heat">
+                <div class="eco-tag">Flatcoin</div>
+                <div class="card-icon">
+                  <svg width="36" height="36" viewBox="0 0 200 200" fill="none">
+                    <defs>
+                      <linearGradient id="hg-icon" x1="10" y1="100" x2="190" y2="100" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%"   stop-color="#C8A96E"/>
+                        <stop offset="100%" stop-color="#DFC28E"/>
+                      </linearGradient>
+                    </defs>
+                    <g stroke="#8A7048" stroke-width="3.5" stroke-linecap="round" opacity="0.35">
+                      <path d="M 18 45 C 48 29, 78 29, 108 45 C 138 61, 168 61, 198 45"/>
+                      <path d="M 18 89 C 48 73, 78 73, 108 89 C 138 105, 168 105, 198 89"/>
+                      <path d="M 18 133 C 48 117, 78 117, 108 133 C 138 149, 168 149, 198 133"/>
+                      <path d="M 18 177 C 48 161, 78 161, 108 177 C 138 193, 168 193, 198 177"/>
+                    </g>
+                    <g stroke="url(#hg-icon)" stroke-width="8" stroke-linecap="round">
+                      <path d="M 10 23 C 40 7, 70 7, 100 23 C 130 39, 160 39, 190 23"/>
+                      <path d="M 10 67 C 40 51, 70 51, 100 67 C 130 83, 160 83, 190 67"/>
+                      <path d="M 10 111 C 40 95, 70 95, 100 111 C 130 127, 160 127, 190 111"/>
+                      <path d="M 10 155 C 40 139, 70 139, 100 155 C 130 171, 160 171, 190 155"/>
+                    </g>
+                  </svg>
                 </div>
-                <div class="eco-tier-row">
-                  <span class="tier-amount">8 XFG</span>
-                  <span class="tier-heat">80M HEAT</span>
+                <h3><span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> &mdash; The Enthalpy</h3>
+                <p>Designed to preserve purchasing power from the silent tax of fiat currency inflation. <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span>'s market-based floating supply algorithm tracks the Consumer Price Index, keeping your hard-earned value protected from inflation — not extracted by it. Burn XFG at the Hearth pool rate to mint.</p>
+                <div class="eco-detail"><span>Algorithmic</span><span>Colored Coin</span><span>Floating Supply</span></div>
+              </div>
+
+              <div class="eco-card eco-heat">
+                <div class="eco-tag">Mechanism</div>
+                <div class="card-icon">
+                  <svg width="36" height="36" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="14" fill="#C8A96E"/>
+                    <circle cx="100" cy="68"  r="9"  fill="#FFFDF5"/>
+                    <circle cx="132" cy="100" r="9"  fill="#FFFDF5"/>
+                    <circle cx="100" cy="132" r="9"  fill="#FFFDF5"/>
+                    <circle cx="68"  cy="100" r="9"  fill="#FFFDF5"/>
+                    <circle cx="100" cy="40"  r="6"  fill="#FFFDF5"/>
+                    <circle cx="160" cy="100" r="6"  fill="#FFFDF5"/>
+                    <circle cx="100" cy="160" r="6"  fill="#FFFDF5"/>
+                    <circle cx="40"  cy="100" r="6"  fill="#FFFDF5"/>
+                    <circle cx="100" cy="18"  r="4"  fill="#FFFDF5"/>
+                    <circle cx="182" cy="100" r="4"  fill="#FFFDF5"/>
+                    <circle cx="100" cy="182" r="4"  fill="#FFFDF5"/>
+                    <circle cx="18"  cy="100" r="4"  fill="#FFFDF5"/>
+                  </svg>
                 </div>
-                <div class="eco-tier-row">
-                  <span class="tier-amount">80 XFG</span>
-                  <span class="tier-heat">800M HEAT</span>
+                <h3>Hearth AMM</h3>
+                <p>Constant-product on-chain pools govern <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> mint pricing via live TWAP. Takers pay a 1% Hearth fee — 70% flows to Certificate of Deposit yield, 30% to maker rebates. An oracle-free mechanism anchored entirely to XFG sound money.</p>
+                <div class="eco-detail"><span>TWAP Pricing</span><span>XFG Anchored</span><span>Oracle-free</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 5: YIELD -->
+      <div class="page-section" data-section="yield">
+        <section class="section section-dark" id="yield">
+          <div class="container">
+            <div class="section-label">Financial Flywheel</div>
+            <h2>Yield.</h2>
+            <div class="eco-grid two-cols">
+              <div class="eco-card eco-hearth">
+                <div class="eco-tag">Liquidity</div>
+                <div class="card-icon">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/>
+                  </svg>
                 </div>
-                <div class="eco-tier-row">
-                  <span class="tier-amount">800 XFG</span>
-                  <span class="tier-heat">8B HEAT</span>
+                <h3>Hearth AMM</h3>
+                <p>Protocol-owned liquidity pools with automated market making. Fuego users own the liquidity, not outside venues. Fees return to the protocol and the users providing reserves — in-house asset markets for permissionless price discovery.</p>
+                <div class="eco-detail"><span>Swap Fees</span><span>LP Rewards</span><span>Protocol Owned</span></div>
+              </div>
+              <div class="eco-card eco-cd">
+                <div class="eco-tag">Variable-Rate &mdash; Rolling-Term</div>
+                <div class="card-icon">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="16" rx="2"/>
+                    <path d="M3 10h18"/><path d="M7 14h.01"/><path d="M11 14h.01"/><path d="M15 14h.01"/>
+                    <path d="M7 18h.01"/><path d="M11 18h.01"/><path d="M15 18h.01"/>
+                  </svg>
                 </div>
-              </div>
-              <div class="eco-detail">
-                <span>ERC-20</span>
-                <span>Permanent burn</span>
-                <span>C0DL3 gas</span>
-              </div>
-            </div>
-
-            <div class="eco-card eco-codle">
-              <div class="eco-tag">zkC0DL3</div>
-              <h3>Privacy Rollup.</h3>
-              <p>Fuego's sovereign ZK privacy rollup brings full amount, transfer, &amp; contract privacy using account abstraction and Ethereum settlement. Every L3 transaction fueled entirely by XFG burns via HEAT gas token, which provers earn by verifying C0DL3 zk-proofs. Confidential DeFi, powered by Fuego.</p>
-              <div class="eco-detail">
-                <span>zkSync L2</span>
-                <span>Bulletproofs</span>
-                <span>HEAT gas</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- 4: ATOMIC SWAPS -->
-    <div class="page-section" data-section="swaps">
-      <section class="section section-dark" id="swaps">
-        <div class="container">
-          <div class="section-label">Atomic Swaps</div>
-          <h2>Trustless trading. <span class="version-note">Coming in v1.11</span></h2>
-          <p class="section-sub">No exchange. No KYC. No custodian. Hash-locked contracts enforce every trade — your keys never leave your machine. Trustless, cross-chain, peer-to-peer.</p>
-
-          <div class="swap-pairs">
-
-            <div class="swap-card swap-eth">
-              <div class="swap-pair-badge">ETH ↔ XFG</div>
-              <h3>Ethereum</h3>
-              <p>Standard HTLC on both sides. Solidity contract on Ethereum, native hash-lock output on Fuego. A less private alternative to XFG burns, but enables ETH to become untraceable once inside Fuego Bank.</p>
-              <div class="swap-detail">
-                <span>HTLC</span>
-                <span>Solidity</span>
-                <span>SHA-256</span>
-              </div>
-            </div>
-
-            <div class="swap-card swap-xmr">
-              <div class="swap-pair-badge">XMR ↔ XFG</div>
-              <h3>Monero</h3>
-              <p>Ed25519/CryptoNote. Using adaptor signatures (DLEQ proofs) on XMR side, while XFG side uses native HTLC. The gold standard of private-to-private swaps.</p>
-              <div class="swap-detail">
-                <span>Adaptor sigs</span>
-                <span>Ed25519</span>
-                <span>COMIT protocol</span>
-              </div>
-            </div>
-
-            <div class="swap-card swap-bch">
-              <div class="swap-pair-badge">BCH ↔ XFG</div>
-              <h3>Bitcoin Cash</h3>
-              <p>BCH|XFG uses OP_HASH160 + OP_CHECKLOCKTIMEVERIFY — scripting for HTLC-based atomic swaps. Swap your satoshis in/out of Fuego's realm of privacy.</p>
-              <div class="swap-detail">
-                <span>P2SH</span>
-                <span>Bitcoin Script</span>
-                <span>CLTV</span>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="swap-flow">
-            <div class="swap-flow-label">How a swap works</div>
-            <div class="swap-steps">
-              <div class="ef-step">
-                <span class="ef-step-num">1</span>
-                <span>Browse offers or post your own</span>
-              </div>
-              <div class="ef-arrow">&rarr;</div>
-              <div class="ef-step">
-                <span class="ef-step-num">2</span>
-                <span>Generate hashlock &amp; lock your side</span>
-              </div>
-              <div class="ef-arrow">&rarr;</div>
-              <div class="ef-step">
-                <span class="ef-step-num">3</span>
-                <span>Counterparty locks their side</span>
-              </div>
-              <div class="ef-arrow">&rarr;</div>
-              <div class="ef-step">
-                <span class="ef-step-num">4</span>
-                <span>Claim reveals preimage, completing the swap</span>
+                <h3><span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> Certificates of Deposit</h3>
+                <p>Term-locked Certificates of Deposit denominated in <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span>. Deposit your reserves and earn real yield through Fuego's financial flywheel — protocol revenue from atomic swap activity and Hearth fees. Your <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> value remains stable to its inception rate, providing the economic environment for genuine wealth building.</p>
+                <div class="eco-detail"><span>Term-locked</span><span>Real Yield</span><span>Certificates of Deposit</span></div>
               </div>
             </div>
           </div>
+        </section>
+      </div>
 
-          <div class="swap-tui">
-            <div class="swap-tui-inner">
-              <div class="swap-tui-header">
-                <code>xfg-eth-swap</code>
-                <span class="swap-tui-desc">Terminal swap client for ETH holders</span>
-              </div>
-              <div class="swap-tui-preview">
-<pre><span class="tui-blue">◆ XFG⇄ETH</span>  <span class="tui-gold">1 XFG = 0.0000420 ETH</span>  <span class="tui-dim">($0.0840)</span>
-
-  <span class="tui-dim">OFFER       XFG AMOUNT     RATE (XFG/ETH)    ETH VALUE  AGE</span>
-  <span class="tui-green">a3f8c012      80.00 XFG          23809.5   0.003360 ETH  12m</span>
-  <span class="tui-green">7b2e9d44       8.00 XFG          23809.5   0.000336 ETH  1h</span>
-
-  <span class="tui-dim">&gt;</span> accept a3f8
-  <span class="tui-fire">SWAP INITIATED — Lock 0.003360 ETH with hashlock e7a2b9c1...</span></pre>
-              </div>
-              <a href="https://github.com/usexfg/fuego/tree/HTLC/xfg-eth-swap" class="btn btn-sm" target="_blank" rel="noopener">View Source</a>
+      <!-- 6: SPECS -->
+      <div class="page-section" data-section="specs">
+        <section class="section" id="specs">
+          <div class="container">
+            <div class="section-label">Technical Specifications</div>
+            <h2>The numbers.</h2>
+            <div class="specs-table">
+              <div class="spec-row"><span class="spec-key">Symbol(s)</span><span class="spec-val">₲ &nbsp;|&nbsp; XFG</span></div>
+              <div class="spec-row"><span class="spec-key">Max Supply</span><span class="spec-val">8,000,008.8000008</span></div>
+              <div class="spec-row"><span class="spec-key">Decimals</span><span class="spec-val">7</span></div>
+              <div class="spec-row"><span class="spec-key">Block Time</span><span class="spec-val">480 secs</span></div>
+              <div class="spec-row"><span class="spec-key">Privacy</span><span class="spec-val">CryptoNote; Ring Signatures</span></div>
+              <div class="spec-row"><span class="spec-key">PoW Algorithm</span><span class="spec-val">CN/UPX2</span></div>
+              <div class="spec-row"><span class="spec-key">Decoy Mixin</span><span class="spec-val">dynamixin 32 | 16 | 8</span></div>
+              <div class="spec-row"><span class="spec-key">Premine</span><span class="spec-val">None</span></div>
+              <div class="spec-row"><span class="spec-key">ICO / Tax</span><span class="spec-val">None</span></div>
+              <div class="spec-row"><span class="spec-key">Launch</span><span class="spec-val">Semi&#x22C6;Stealth — PoW from block 0</span></div>
+              <div class="spec-row"><span class="spec-key">P2P Port</span><span class="spec-val">10808</span></div>
+              <div class="spec-row"><span class="spec-key">RPC Port</span><span class="spec-val">18180</span></div>
             </div>
           </div>
+        </section>
+      </div>
 
-        </div>
-      </section>
-    </div>
+      <!-- 7: R&D -->
+      <div class="page-section" data-section="rd">
+        <section class="section section-dark" id="rd">
+          <div class="container">
+            <p class="rd-section-headline">Guarding the Shield<br />that Guards the Realms of Men</p>
 
-    <!-- 5: ELDERFIERS -->
-    <div class="page-section" data-section="elderfiers">
-      <section class="section section-dark" id="elderfiers">
-        <div class="container">
-          <div class="section-label">Ξlderfiers</div>
-          <h2>The validators of Fuego.</h2>
-          <p class="section-sub">Ξlderfiers stake 4,444 XFG and run signing daemons. They sign commitment merkle roots via P2P consensus. When &ge;69% agree, the root is finalized on Ethereum. Every COLD and HEAT claim flows through their signatures.</p>
+            <div class="marquee-container">
+              <div class="marquee-line"><div><span>Privacy is the final threshold behind which every God-given freedom stands.</span><span>Privacy is the final threshold behind which every God-given freedom stands.</span></div></div>
+              <div class="marquee-line"><div><span>Lose it, and they all fall.</span><span>Lose it, and they all fall.</span></div></div>
+              <div class="marquee-line"><div><span>We build Fuego to hold that line.</span><span>We build Fuego to hold that line.</span></div></div>
+              <div class="marquee-line"><div><span>The 8P approach to R&amp;D is the mechanism:</span><span>The 8P approach to R&amp;D is the mechanism:</span></div></div>
+              <div class="marquee-line"><div><span>Preserve Pillars of Privacy &mdash; Plus P2P Purchasing Power.</span><span>Preserve Pillars of Privacy &mdash; Plus P2P Purchasing Power.</span></div></div>
+              <div class="marquee-line"><div><span>Not a slogan — a vow. Every commit shall pertain to one or both pillars.</span><span>Not a slogan — a vow. Every commit shall pertain to one or both pillars.</span></div></div>
+            </div>
 
-          <div class="ef-grid">
-            <div class="ef-item">
-              <div class="ef-number">4,444</div>
-              <div class="ef-label">XFG staked per ΞFier</div>
-            </div>
-            <div class="ef-item">
-              <div class="ef-number">69%</div>
-              <div class="ef-label">Consensus threshold</div>
-            </div>
-            <div class="ef-item">
-              <div class="ef-number">Ed25519</div>
-              <div class="ef-label">Signing algorithm</div>
-            </div>
-            <div class="ef-item">
-              <div class="ef-number">0.1% Fees</div>
-              <div class="ef-label">Earned from banking operations</div>
-            </div>
-          </div>
-
-          <div class="ef-flow">
-            <div class="ef-step">
-              <span class="ef-step-num">1</span>
-              <span>Stake 4,444 XFG via <code>elderking_ceremony</code></span>
-            </div>
-            <div class="ef-arrow">&rarr;</div>
-            <div class="ef-step">
-              <span class="ef-step-num">2</span>
-              <span>Sign merkle roots with Ed25519 key</span>
-            </div>
-            <div class="ef-arrow">&rarr;</div>
-            <div class="ef-step">
-              <span class="ef-step-num">3</span>
-              <span>Consensus finalizes root on Arbitrum L2</span>
-            </div>
-            <div class="ef-arrow">&rarr;</div>
-            <div class="ef-step">
-              <span class="ef-step-num">4</span>
-              <span>Earn fees from COLD &amp; HEAT claims</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- 5: SPECS -->
-    <div class="page-section" data-section="specs">
-      <section class="section" id="specs">
-        <div class="container">
-          <div class="section-label">Specifications</div>
-          <h2>The numbers.</h2>
-
-          <div class="specs-table">
-            <div class="spec-row">
-              <span class="spec-key">Symbol(s)</span>
-              <span class="spec-val">₲ | XFG</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Max Supply</span>
-              <span class="spec-val">8,000,008.8000008</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Decimals</span>
-              <span class="spec-val">7</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Block Time</span>
-              <span class="spec-val">480 secs</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Consensus</span>
-              <span class="spec-val">CryptoNote + Ring Signatures</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">PoW Algorithm</span>
-              <span class="spec-val">CN/UPX2</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Mixin</span>
-              <span class="spec-val">8 – 18 (dynamic)</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Premine</span>
-              <span class="spec-val">None</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">ICO / Tax</span>
-              <span class="spec-val">None</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Launch</span>
-              <span class="spec-val">Fair. Proof of work since block 0.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- 6: ROADMAP -->
-    <div class="page-section" data-section="roadmap">
-      <section class="section section-dark" id="roadmap">
-        <div class="container">
-          <div class="section-label">Roadmap</div>
-          <h2>Getting even more private.</h2>
-
-          <div class="roadmap">
-            <div class="rm-item rm-done">
-              <div class="rm-marker"></div>
-              <div class="rm-content">
-                <div class="rm-version">v10 — new upgrades @ block 1M</div>
-                <h4>Ring-Sig Commitment Deposits</h4>
-                <p>The original CryptoNote deposits pioneered by DigitalNote &amp; Conceal, actually names the spending input/output (withdrawal) directly — making ring signatures mathematically impossible. Fuego's commitment I/O model replaces this to create indistinguishable outputs, so that all XFG deposits &amp; withdrawals now use ring-sigs with OSPEAD adaptive decoy selection. HEAT burns serve as permanent decoys. <br> Plus, coinbase outputs are now binned by Power of 10 in order to allow Elderfier fees as decoys, (obfuscating coinbase outputs) improving miner privacy for a start! </p>
+            <div class="rd-grid">
+              <div class="rd-column">
+                <h3>Purchasing Power</h3>
+                <div class="rd-item"><h4>Hearth AMM</h4><p>Protocol-owned liquidity pools with automated market making. Fuego users own the liquidity, not outside LPs.</p></div>
+                <div class="rd-item"><h4>Private Certificates of Deposit</h4><p>Term-locked CDs using cryptographic commitments. Earn from atomic swap fees — real yield from protocol revenue.</p></div>
+                <div class="rd-item"><h4><span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> Flatcoin</h4><p>A CPI-pegged flatcoin preserving purchasing power. Minted via one-way XFG burn, priced at the live Hearth TWAP.</p></div>
+                <div class="rd-item"><h4>Atomic Swaps — Anti-Delisting</h4><p>Peer-to-peer cross-chain swaps make CEX delistings irrelevant. Enter and exit Fuego's economy without bridges.</p></div>
               </div>
-            </div>
-            <div class="rm-item">
-              <div class="rm-marker"></div>
-              <div class="rm-content">
-                <div class="rm-version">v10.x — Next</div>
-                <h4>Wallet Privacy + Dandelion++</h4>
-                <p>2-output uniformity. IP-layer privacy via stem/fluff relay.</p>
-              </div>
-            </div>
-            <div class="rm-item">
-              <div class="rm-marker"></div>
-              <div class="rm-content">
-                <div class="rm-version">v11</div>
-                <h4>Hidden Amounts — BP+ / CLSAG</h4>
-                <p>Bulletproofs+ hide amounts. CLSAG proves balance in ring. Unified output type. Global ring pool. ~1.9 KB transactions.</p>
-              </div>
-            </div>
-            <div class="rm-item">
-              <div class="rm-marker"></div>
-              <div class="rm-content">
-                <div class="rm-version">v12</div>
-                <h4>Triptych — Full-Chain Decoy?</h4>
-                <p>Maybe..but zkC0DL3 is endgame, while keeping PoW chain (Fuego) privacy same as Monero would (ofc) also be powerful, development efforts will likely focus more, initially, on L1-to-L3 untraceability.</p>
+              <div class="rd-column">
+                <h3>Privacy</h3>
+                <div class="rd-item"><h4>Dynamic Mixin</h4><p>Ring signatures with dynamic decoy counts (min 8 | 16 | 32 max). Each transaction mixes with a changing decoy set.</p></div>
+                <div class="rd-item"><h4>Stealth Sub-Addresses</h4><p>One-time subaddresses for every transaction. Receive funds at a fresh address each time without linking your master address.</p></div>
+                <div class="rd-item"><h4>Adaptor Signatures</h4><p>Privacy-preserving cross-chain swaps. Unlike HTLCs, adaptor signatures publish no revealing hashes on-chain.</p></div>
+                <div class="rd-item"><h4>Dandelion++</h4><p>Network-level privacy that obfuscates the originating IP of a transaction, preventing geographic or network-based analysis.</p></div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- FOOTER (inside last page-section so it scrolls into view) -->
-      <footer>
-        <div class="container footer-inner">
-          <div class="footer-left">
-            <img src="https://avatars.githubusercontent.com/u/34798446?s=200&v=4" alt="Fuego" width="24" height="24">
-            <span>Fuego</span>
+        <footer>
+          <div class="container footer-inner">
+            <div class="footer-left">
+              <img src="https://avatars.githubusercontent.com/u/34798446?s=200&v=4" alt="Fuego" width="22" height="22" loading="lazy" />
+              <span>Fuego Reserve</span>
+            </div>
+            <div class="footer-links">
+              <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://discord.gg/VnASAJc" target="_blank" rel="noopener">Discord</a>
+              <a href="http://explorer.usexfg.org/" target="_blank" rel="noopener">Explorer</a>
+              <a href="https://bitcointalk.org/index.php?topic=2712001" target="_blank" rel="noopener">Bitcointalk</a>
+              <a href="https://twitter.com/usexfg" target="_blank" rel="noopener">𝕏</a>
+            </div>
+            <div class="footer-right">
+              <span class="mono">₲ 8,000,008</span>
+            </div>
           </div>
-          <div class="footer-links">
-            <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://discord.gg/VnASAJc" target="_blank" rel="noopener">Discord</a>
-            <a href="http://explorer.usexfg.org/" target="_blank" rel="noopener">Explorer</a>
-            <a href="https://twitter.com/usexfg" target="_blank" rel="noopener">X</a>
-          </div>
-          <div class="footer-right">
-            <span class="mono">₲ 8,000,008</span>
-          </div>
-        </div>
-      </footer>
-    </div>
+        </footer>
 
-  </div><!-- /page-wrapper -->
+      </div>
+    </div><!-- /page-wrapper -->
 
-  <script>
-  (function() {
-    var sections = document.querySelectorAll('.page-section');
-    var dotsContainer = document.getElementById('pageDots');
-    var current = 0;
-    var transitioning = false;
-    var cooldown = 700; // ms between transitions
+    <script src="js/three-scene.js"></script>
 
-    // Build dots
-    sections.forEach(function(_, i) {
-      var dot = document.createElement('button');
-      dot.className = 'page-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Page ' + (i + 1));
-      dot.addEventListener('click', function() { goTo(i); });
-      dotsContainer.appendChild(dot);
-    });
+    <script>
+      (function () {
+        var sections = document.querySelectorAll('.page-section');
+        var dotsContainer = document.getElementById('pageDots');
+        var current = 0;
+        var transitioning = false;
+        var cooldown = 750;
 
-    function goTo(index) {
-      if (transitioning || index === current || index < 0 || index >= sections.length) return;
-      transitioning = true;
+        sections.forEach(function (_, i) {
+          var dot = document.createElement('button');
+          dot.className = 'page-dot' + (i === 0 ? ' active' : '');
+          dot.setAttribute('aria-label', 'Page ' + (i + 1));
+          dot.addEventListener('click', function () { goTo(i); });
+          dotsContainer.appendChild(dot);
+        });
 
-      sections[current].classList.remove('active');
-      sections[index].classList.add('active');
-
-      // Reset scroll position of new section
-      sections[index].scrollTop = 0;
-
-      // Update dots
-      var dots = dotsContainer.querySelectorAll('.page-dot');
-      dots[current].classList.remove('active');
-      dots[index].classList.add('active');
-
-      current = index;
-
-      setTimeout(function() { transitioning = false; }, cooldown);
-    }
-
-    // Wheel
-    var accumulated = 0;
-    var wheelThreshold = 60;
-    var wheelTimer;
-
-    document.addEventListener('wheel', function(e) {
-      // Allow scrolling within a section that has overflow
-      var sec = sections[current];
-      var atTop = sec.scrollTop <= 0;
-      var atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 2;
-
-      if (e.deltaY < 0 && !atTop) return;
-      if (e.deltaY > 0 && !atBottom) return;
-
-      e.preventDefault();
-
-      accumulated += e.deltaY;
-      clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(function() { accumulated = 0; }, 200);
-
-      if (Math.abs(accumulated) >= wheelThreshold) {
-        if (accumulated > 0) goTo(current + 1);
-        else goTo(current - 1);
-        accumulated = 0;
-      }
-    }, { passive: false });
-
-    // Touch
-    var touchStartY = 0;
-    document.addEventListener('touchstart', function(e) {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    document.addEventListener('touchend', function(e) {
-      var diff = touchStartY - e.changedTouches[0].clientY;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) goTo(current + 1);
-        else goTo(current - 1);
-      }
-    }, { passive: true });
-
-    // Keyboard
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
-      if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
-      if (e.key === 'Home') { e.preventDefault(); goTo(0); }
-      if (e.key === 'End') { e.preventDefault(); goTo(sections.length - 1); }
-    });
-
-    // Nav links
-    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-      a.addEventListener('click', function(e) {
-        var hash = a.getAttribute('href').slice(1);
-        if (!hash) { e.preventDefault(); goTo(0); return; }
-        for (var i = 0; i < sections.length; i++) {
-          if (sections[i].dataset.section === hash || sections[i].querySelector('#' + hash)) {
-            e.preventDefault();
-            goTo(i);
-            break;
-          }
+        function goTo(index) {
+          if (transitioning || index === current || index < 0 || index >= sections.length) return;
+          transitioning = true;
+          sections[current].classList.remove('active');
+          sections[index].classList.add('active');
+          sections[index].scrollTop = 0;
+          var dots = dotsContainer.querySelectorAll('.page-dot');
+          dots[current].classList.remove('active');
+          dots[index].classList.add('active');
+          current = index;
+          setTimeout(function () { transitioning = false; }, cooldown);
         }
-        document.querySelector('.nav-links').classList.remove('open');
-        document.querySelector('.nav-toggle').classList.remove('open');
-      });
-    });
 
-    // Mobile nav toggle
-    document.querySelector('.nav-toggle').addEventListener('click', function() {
-      document.querySelector('.nav-links').classList.toggle('open');
-      this.classList.toggle('open');
-    });
-  })();
-  </script>
+        var accumulated = 0;
+        var wheelThreshold = 55;
+        var wheelTimer;
 
-</body>
+        document.addEventListener('wheel', function (e) {
+          var sec = sections[current];
+          var atTop    = sec.scrollTop <= 0;
+          var atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 2;
+          if (e.deltaY < 0 && !atTop)    return;
+          if (e.deltaY > 0 && !atBottom) return;
+          e.preventDefault();
+          accumulated += e.deltaY;
+          clearTimeout(wheelTimer);
+          wheelTimer = setTimeout(function () { accumulated = 0; }, 200);
+          if (Math.abs(accumulated) >= wheelThreshold) {
+            if (accumulated > 0) goTo(current + 1);
+            else                 goTo(current - 1);
+            accumulated = 0;
+          }
+        }, { passive: false });
+
+        var touchStartY = 0;
+        document.addEventListener('touchstart', function (e) {
+          touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        document.addEventListener('touchend', function (e) {
+          var diff = touchStartY - e.changedTouches[0].clientY;
+          if (Math.abs(diff) > 50) {
+            if (diff > 0) goTo(current + 1);
+            else          goTo(current - 1);
+          }
+        }, { passive: true });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
+          if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goTo(current - 1); }
+          if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+          if (e.key === 'End')  { e.preventDefault(); goTo(sections.length - 1); }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+          a.addEventListener('click', function (e) {
+            var hash = a.getAttribute('href').slice(1);
+            if (!hash) { e.preventDefault(); goTo(0); return; }
+            for (var i = 0; i < sections.length; i++) {
+              if (sections[i].dataset.section === hash || sections[i].querySelector('#' + hash)) {
+                e.preventDefault();
+                goTo(i);
+                break;
+              }
+            }
+            document.querySelector('.nav-links').classList.remove('open');
+            document.querySelector('.nav-toggle').classList.remove('open');
+          });
+        });
+
+        document.querySelector('.nav-toggle').addEventListener('click', function () {
+          document.querySelector('.nav-links').classList.toggle('open');
+          this.classList.toggle('open');
+        });
+      })();
+
+      function initMarquees() {
+        document.querySelectorAll('.marquee-line').forEach(function (line) {
+          var inner = line.querySelector('div');
+          var spans = inner.querySelectorAll('span');
+          if (spans.length < 2) return;
+          var textW = spans[0].offsetWidth;
+          inner.appendChild(spans[0].cloneNode(true));
+          inner.appendChild(spans[1].cloneNode(true));
+          inner.style.willChange = 'transform';
+          var pos = 0;
+          var pxPerSec = 28;
+          var isEven = Array.from(line.parentNode.children).indexOf(line) % 2 === 1;
+          if (isEven) pxPerSec = -pxPerSec;
+          var last = performance.now();
+          function tick(now) {
+            var dt = (now - last) / 1000;
+            last = now;
+            pos += pxPerSec * dt;
+            if (pos >= textW)  pos -= textW;
+            if (pos <= -textW) pos += textW;
+            inner.style.transform = 'translateX(' + (-pos) + 'px)';
+            requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+      }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(initMarquees);
+      } else {
+        window.addEventListener('load', initMarquees);
+      }
+    </script>
+    <script src="js/orbits.js"></script>
+  </body>
 </html>

@@ -1,286 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C☯︎LD Suite™️ Private Banking Protocol</title>
-    <link rel="stylesheet" href="/assets/css/cold.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The current Fuego deposit architecture: mint HEAT by burning XFG at Hearth TWAP, then lock HEAT in a term certificate funded by protocol fees.">
+  <meta name="theme-color" content="#F4F4F0">
+  <title>HEAT Term CDs | Fuego Deposit Architecture</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="favicons/apple-touch-icon.png">
+  <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#111111">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/cold.css">
 </head>
 <body>
-    <div class="void-container">
-        <!-- Background effects -->
-        <div class="stars"></div>
-        <div class="nebula"></div>
-        
-        <!-- Header -->
-        <header class="header">
-            <nav class="nav">
-                <div class="logo">
-                    <span class="logo-text">C<span class="yin-yang">☯︎</span>LD</span>
-                    <span class="logo-subtitle">Banking Suite</span>
+  <div class="ash-field" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-                </div>
-                <div class="nav-links">
-                    <a href="#protocol" class="nav-link">Protocol</a>
-                    <a href="#tokens" class="nav-link">Tokens</a>
-                    <a href="#dapp" class="nav-link">dApp</a>
-                    <a href="#docs" class="nav-link">Docs</a>
-                </div>
-                <button class="connect-wallet-btn">Connect Wallet</button>
-            </nav>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <div class="cold-title">
-                    <span class="cold-letter" data-letter="C">C</span>
-                    <span class="cold-letter yin-yang" data-letter="☯︎">☯︎</span>
-                    <span class="cold-letter" data-letter="L">L</span>
-                    <span class="cold-letter" data-letter="D">D</span>
-                </div>
-                <h2 class="hero-subtitle">Certificate Of Ledger Deposit</h2>
-                <p class="hero-description">
-                    Privacy DeFi protocol powered by zero-knowledge proofs.
-                    Deposit XFG , earn yield, govern the future.
-                </p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-value">$0</span>
-                        <span class="stat-label">Total Value Locked</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value">0</span>
-                        <span class="stat-label">Anonymous XFG Deposits</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value">😎</span>
-                        <span class="stat-label">Privacy Precompiles</span>
-                    </div>
-                </div>
-                <div class="hero-actions">
-                    <button class="primary-btn">Launch dApp🔜</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Protocol Overview -->
-        <section id="protocol" class="protocol-section">
-            <div class="container">
-                <h2 class="section-title">Protocol Architecture</h2>
-                <div class="protocol-grid">
-                    <div class="protocol-card">
-                        <div class="card-icon">🔐</div>
-                        <h3>Zero-Knowledge Proofs</h3>
-                        <p>Winterfell-based STARK proofs ensure your deposits remain completely private, even whilst proving validity.</p>
-                    </div>
-                    <div class="protocol-card">
-                        <div class="card-icon">🔥</div>
-                        <h3>HEAT Token</h3>
-                        <p>Proof-of-burn token representing hard money collateral of XFG. Fixed dynamic supply, deflationary mechanics, native gas on C0DL3.</p>
-                    </div>
-                    <div class="protocol-card">
-                        <div class="card-icon">☯︎</div>
-                        <h3>C☯︎LD Governance</h3>
-                        <p>Interest on XFG deposits, LP rewards on HEAT pair(s), governance token with hard cap of 80. Vote on protocol upgrades & treasury allocation.</p>
-                    </div>
-                    <div class="protocol-card">
-                        <div class="card-icon">🏛️</div>
-                        <h3>DAO Treasury</h3>
-                        <p>Multi-asset treasury funded through bonding and platform fee routings. Protocol-owned liquidity for sustainable yield generation.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Token Economics -->
-        <section id="tokens" class="tokens-section">
-            <div class="container">
-                <h2 class="section-title">Tokenomics</h2>
-                <div class="tokens-grid">
-                    <div class="token-card heat-card">
-                        <div class="token-header">
-                            <div class="token-symbol">Ξmbers</div>
-                            <div class="token-name">HEAT</div>
-                        </div>
-                        <div class="token-stats">
-                            <div class="token-stat">
-                                <span class="stat-label">Supply</span>
-                                <span class="stat-value">Fixed</span>
-                            </div>
-                            <div class="token-stat">
-                                <span class="stat-label">Type</span>
-                                <span class="stat-value">Proof of Burn</span>
-                            </div>
-                            <div class="token-stat">
-                                <span class="stat-label">Ratio</span>
-                                <span class="stat-value">1 XFG = 10M HEAT</span>
-                            </div>
-                        </div>
-                        <p class="token-description">
-                            Disinflationary gas token for C☯︎LD L3. Represents burned XFG with fixed supply mechanics.
-                        </p>
-                    </div>
-                    
-                    <div class="token-card o-card">
-                        <div class="token-header">
-                            <div class="token-symbol">C☯︎LDAO</div>
-                            <div class="token-name">CD</div>
-                        </div>
-                        <div class="token-stats">
-                            <div class="token-stat">
-                                <span class="stat-label">Max Supply</span>
-                                <span class="stat-value">80</span>
-                            </div>
-                            <div class="token-stat">
-                                <span class="stat-label">Type</span>
-                                <span class="stat-value">Governance</span>
-                            </div>
-                            <div class="token-stat">
-                                <span class="stat-label">Yield</span>
-                                <span class="stat-value">Interest Bearing</span>
-                            </div>
-                        </div>
-                        <p class="token-description">
-                            Ultra-scarce governance token for XFG yield and LP rewards. Vote on protocol decisions and treasury deployment.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- dApp Interface -->
-        <section id="dapp" class="dapp-section">
-            <div class="container">
-                <h2 class="section-title">Protocol Interface</h2>
-                <div class="dapp-interface">
-                    <div class="interface-tabs">
-                        <button class="tab-btn active" data-tab="deposit">XFG Deposit</button>
-                        <button class="tab-btn" data-tab="withdraw">Redemption</button>
-                        <button class="tab-btn" data-tab="governance">Governance</button>
-                    </div>
-                    
-                    <div class="tab-content active" id="deposit-tab">
-                        <div class="deposit-form">
-                        <!--    <h3>Anonymous Deposit</h3>
-                            <div class="input-group">
-                                <label>Deposit Amount</label>
-                                <div class="amount-input">
-                                    <input type="number" placeholder="0.0" id="deposit-amount">
-                                    <span class="currency">HEAT</span>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label>Recipient Address (Optional)</label>
-                                <input type="text" placeholder="0x..." id="recipient-address">
-                            </div> -->
-                            <div class="privacy-notice">
-                                <div class="privacy-icon">🛡️</div>
-                                <p>XFG deposits, like all XFG transactions- are private by default. A zero-knowledge STARK proof is generated to verify your collateral, preserving that privacy.</p>
-                            </div>
-
-                            <a href=https://github.com/usexfg/fuego-wallet>
-                            <button class="deposit-btn">Generate Proof & Deposit</button>
-                       </a>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="withdraw-tab">
-                        <div class="withdraw-form">
-                            <h3>Claim Rewards</h3>
-                            <div class="proof-upload">
-                                <label>Upload Proof File</label>
-                                <div class="file-upload-area">
-                                    <input type="file" id="proof-file" accept=".json">
-                                    <div class="upload-text">
-                                        <span>Drop proof file here or click to browse</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label>Withdrawal Address</label>
-                                <input type="text" placeholder="0x..." id="withdraw-address">
-                            </div>
-                            <button class="withdraw-btn">Verify Proof & Claim</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="governance-tab">
-                        <div class="governance-panel">
-                            <h3>COLDAO Governance</h3>
-                            <div class="governance-stats">
-                                <div class="gov-stat">
-                                    <span class="gov-value">0</span>
-                                    <span class="gov-label">Active Proposals</span>
-                                </div>
-                                <div class="gov-stat">
-                                    <span class="gov-value">0</span>
-                                    <span class="gov-label">Your C☯︎LD Balance</span>
-                                </div>
-                                <div class="gov-stat">
-                                    <span class="gov-value">0%</span>
-                                    <span class="gov-label">Participation Rate</span>
-                                </div>
-                            </div>
-                            <div class="proposals-list">
-                                <div class="no-proposals">
-                                    <p>No active proposals. C☯︎LD holders can create proposals to govern the protocol.</p>
-                                </div>
-                            </div>
-                            <button class="create-proposal-btn">Create Proposal</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-section">
-                        <h4>C☯︎LD Protocol</h4>
-                        <p>Privacy-preserving DeFi infrastructure built on zero-knowledge proofs and decentralized governance.</p>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="#">Docs🔜</a></li>
-                            <li><a href="https://github.com/usexfg/COLD/blob/main/COLD_L3_Wightpaper.md">Wightpaper</a></li>
-                            <li><a href="https://github.com/usexfg/COLD">GitHub</a></li>
-                            <li><a href="#">Audits🔜</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Community</h4>
-                        <ul>
-                            <li><a href="http://discord.usexfg.org">Discord</a></li>
-                            <li><a href="https://x.com/usexfg">Twitter</a></li>
-                            <li><a href="https://bitcointalk.org/index.php?topic=2712001">Forum</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Protocol Stats</h4>
-                        <div class="protocol-stats">
-                            <div class="protocol-stat">
-                                <span class="stat-value">$0</span>
-                                <span class="stat-label">TVL</span>
-                            </div>
-                            <div class="protocol-stat">
-                                <span class="stat-value">80</span>
-                                <span class="stat-label">Max C☯︎LD Supply</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p>USEXFG, C☯︎LD Protocol © 2026 The Future of Privacy is Bright🕶️</p>
-                </div>
-            </div>
-        </footer>
+  <header class="masthead">
+    <div class="masthead__inner shell">
+      <div class="brandmark" aria-label="Fuego deposit architecture">
+        <span class="brandmark__glyph" aria-hidden="true">XFG</span>
+        <span>Deposit Architecture</span>
+      </div>
+      <input class="tabs__radio" type="checkbox" id="masthead-menu" aria-label="Toggle navigation">
+      <label class="masthead__toggle" for="masthead-menu" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </label>
+      <nav class="masthead__nav" aria-label="Primary navigation">
+        <a href="index.html">Maison Index</a>
+      </nav>
     </div>
+  </header>
 
-    <script src="assets/js/cold.js"></script>
+  <main>
+    <section class="band" aria-labelledby="page-title">
+      <div class="shell">
+        <p class="kicker">Current architecture / HEAT term CDs</p>
+        <h1 class="headline" id="page-title">Two movements. One deposit discipline.</h1>
+        <hr class="rule rule--thick">
+        <p class="lede">The current atelier first transforms XFG into HEAT through a permanent burn priced by the Hearth pool. HEAT may then be placed into an epoch-locked certificate whose interest is funded by protocol fee pools.</p>
+      </div>
+    </section>
+
+    <section class="band band--alt" aria-labelledby="supersession-title">
+      <div class="shell">
+        <p class="kicker">Supersession notice</p>
+        <h2 class="headline" id="supersession-title">COLD is not the live deposit protocol.</h2>
+        <hr class="rule">
+        <div class="proof-note">
+          <p>The COLD certificate described in the archived Wightpaper has been superseded by the HEAT-based term CD. The earlier STARK deposit design is deprecated. The current code has also removed Ember_Heat and direct XFG deposits. This notice follows <strong>DEPOSIT_ARCHITECTURE.md, Current vs Deprecated Systems</strong> in the Fuego source architecture.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="sequence-title">
+      <div class="shell">
+        <p class="kicker">Deposit sequence</p>
+        <h2 class="headline" id="sequence-title">The current two-step caliber.</h2>
+        <p class="lede">A term CD never accepts XFG directly. Minting and deposit are separate operations with separate standing.</p>
+        <hr class="rule">
+        <div class="grid grid--2">
+          <div class="cell">
+            <div class="sequence">
+              <article class="sequence__item is-done">
+                <span class="sequence__marker" aria-hidden="true"></span>
+                <p class="sequence__version">Step 01 / Mint</p>
+                <h3 class="sequence__title">Burn XFG through mintHeatV10()</h3>
+                <p class="sequence__body">XFG is permanently burned. The HEAT amount is priced from the Hearth pool time-weighted average, with the current pool rate used when that average is unavailable. There is no fixed HEAT-per-XFG conversion ratio.</p>
+              </article>
+              <article class="sequence__item is-done">
+                <span class="sequence__marker" aria-hidden="true"></span>
+                <p class="sequence__version">Step 02 / Lock</p>
+                <h3 class="sequence__title">Place HEAT into a term CD</h3>
+                <p class="sequence__body">Already-minted HEAT is locked for an allowed epoch term. A commitment output records the term, while the locally held deposit secret preserves the authority required for later redemption or rollover.</p>
+              </article>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="dossier dossier--cold">
+              <p class="dossier__index">Distinction / 01</p>
+              <h3 class="dossier__title">Minting is not a certificate</h3>
+              <p class="dossier__body">The burn has no term and earns no interest. It is the irreversible transformation into the HEAT complication. Only the second movement creates an epoch-locked CD.</p>
+              <div class="dossier__tags">
+                <span class="tag">TWAP priced</span>
+                <span class="tag">Permanent burn</span>
+                <span class="tag">HEAT principal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--alt" aria-labelledby="parameters-title">
+      <div class="shell">
+        <p class="kicker">Code-set parameters</p>
+        <h2 class="headline" id="parameters-title">Known figures, without projection.</h2>
+        <p class="lede">No live balances or participation figures are published here. Interest varies with the available fee pool and is not presented as a fixed percentage.</p>
+        <hr class="rule">
+        <div class="grid grid--3">
+          <div class="stat-block">
+            <data value="6,18,36,72">6 / 18 / 36 / 72</data>
+            <span>Allowed CD terms in epochs</span>
+          </div>
+          <div class="stat-block">
+            <data value="69">69%</data>
+            <span>Swap-fee route to the CD pool, not a consensus threshold</span>
+          </div>
+          <div class="stat-block">
+            <data value="0.1">0.1%</data>
+            <span>Banking fee at CD creation</span>
+          </div>
+        </div>
+        <hr class="rule">
+        <dl class="ledger">
+          <div class="ledger__row">
+            <dt class="ledger__key">XFG supply</dt>
+            <dd class="ledger__val">8,000,008.8000008 XFG</dd>
+          </div>
+          <div class="ledger__row">
+            <dt class="ledger__key">XFG precision</dt>
+            <dd class="ledger__val">7 decimal places</dd>
+          </div>
+          <div class="ledger__row">
+            <dt class="ledger__key">Mint pricing</dt>
+            <dd class="ledger__val">Hearth pool TWAP through mintHeatV10()</dd>
+          </div>
+          <div class="ledger__row">
+            <dt class="ledger__key">Interest source</dt>
+            <dd class="ledger__val">CD yield pool funded by protocol swap fees</dd>
+          </div>
+        </dl>
+        <p class="caption">Source basis: src/CryptoNoteConfig.h and DEPOSIT_ARCHITECTURE.md in the Fuego source tree.</p>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="operations-title">
+      <div class="shell">
+        <p class="kicker">Operational record</p>
+        <h2 class="headline" id="operations-title">Three views of the same instrument.</h2>
+        <p class="lede">These panels are documentation, not wallet controls. Each view is available by keyboard and requires no script.</p>
+        <hr class="rule">
+        <div class="tabs">
+          <input class="tabs__radio" type="radio" name="architecture-tab" id="tab-deposit" checked>
+          <input class="tabs__radio" type="radio" name="architecture-tab" id="tab-redemption">
+          <input class="tabs__radio" type="radio" name="architecture-tab" id="tab-stewardship">
+
+          <label class="tabs__label" id="label-deposit" for="tab-deposit">Deposit</label>
+          <label class="tabs__label" id="label-redemption" for="tab-redemption">Redemption</label>
+          <label class="tabs__label" id="label-stewardship" for="tab-stewardship">Stewardship</label>
+
+          <section class="tabs__panel" id="panel-deposit" role="region" aria-labelledby="label-deposit">
+            <div class="grid grid--2">
+              <div class="cell">
+                <p class="kicker">First movement</p>
+                <h3 class="dossier__title">Mint HEAT</h3>
+                <p class="dossier__body">The wallet calls <code>mintHeatV10()</code>, selects XFG inputs for the burn and fee, and creates HEAT commitment outputs at the Hearth pool TWAP price.</p>
+              </div>
+              <div class="cell">
+                <p class="kicker">Second movement</p>
+                <h3 class="dossier__title">Lock the term</h3>
+                <p class="dossier__body">The wallet calls <code>createDeposit()</code> with HEAT principal and one allowed term. The commitment output itself carries the term record.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="tabs__panel" id="panel-redemption" role="region" aria-labelledby="label-redemption">
+            <div class="dossier dossier--proof">
+              <p class="dossier__index">Maturity / Spend</p>
+              <h3 class="dossier__title">Commitment output, ring-signature spend</h3>
+              <p class="dossier__body">At maturity, the wallet calculates available interest from the CD pool and spends the old commitment output with a ring signature. Redemption returns principal with available interest. Rollover creates a new commitment output for the newly selected term.</p>
+              <div class="dossier__tags">
+                <span class="tag">Local secret</span>
+                <span class="tag">Ring signature</span>
+                <span class="tag">Maturity bound</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="tabs__panel" id="panel-stewardship" role="region" aria-labelledby="label-stewardship">
+            <div class="grid grid--2">
+              <div class="cell">
+                <p class="kicker">Fee routing</p>
+                <h3 class="dossier__title">Interest follows collected fees</h3>
+                <p class="dossier__body">Sixty-nine percent of epoch swap fees is routed to the CD yield pool. This is a fee-routing share, not a voting or consensus threshold.</p>
+              </div>
+              <div class="cell">
+                <p class="kicker">Standing</p>
+                <h3 class="dossier__title">No invented live ledger</h3>
+                <p class="dossier__body">This page publishes architecture and code-set parameters only. It does not infer balances, proposal counts, participation, or a fixed return from absent telemetry.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--alt" aria-labelledby="continuity-title">
+      <div class="shell">
+        <p class="kicker">Continuity</p>
+        <h2 class="headline" id="continuity-title">The filename remains. The architecture has moved on.</h2>
+        <p class="lede">This page remains at <code>cold.html</code> for inbound references and the archived Wightpaper. Its purpose is now to prevent an earlier specification from being mistaken for the present house instrument.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <div class="shell colophon__row">
+      <p class="colophon__mark">Fuego / Deposit Register</p>
+      <p class="caption">Current architecture first. Earlier COLD material is retained only as an archive of the house record.</p>
+      <nav class="masthead__nav" aria-label="Corroborated resources">
+        <a class="btn btn--ghost btn--sm" href="https://github.com/usexfg" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="btn btn--ghost btn--sm" href="https://github.com/usexfg/fuego-suite" target="_blank" rel="noopener noreferrer">Fuego Suite</a>
+        <a class="btn btn--ghost btn--sm" href="https://discord.gg/5UJcJJg" target="_blank" rel="noopener noreferrer">Discord</a>
+        <a class="btn btn--ghost btn--sm" href="https://x.com/usexfg" target="_blank" rel="noopener noreferrer">X</a>
+        <a class="btn btn--ghost btn--sm" href="wightpaper.pdf">Archived Wightpaper</a>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>
