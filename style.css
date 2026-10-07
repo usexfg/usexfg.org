@@ -180,10 +180,13 @@ code {
   z-index: 2;
 }
 
-/* --- ΗΞΔŦ glyph rendering — Cormorant Garamond handles Greek perfectly --- */
+/* --- ΗΞΔŦ glyph rendering ---
+   Cormorant Garamond has no Greek Eta (Η) or Xi (Ξ), so the wordmark split
+   across two fonts. EB Garamond (same Garamond lineage) has all four glyphs. */
 .heat-glyph {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
+  font-weight: 500;
   font-size: 1.05em;
   color: var(--gold);
   letter-spacing: 0.04em;
@@ -191,9 +194,10 @@ code {
 
 /* Nav ΗΞΔŦ link */
 .nav-links a.nav-heat {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
-  font-size: 15px;
+  font-weight: 500;
+  font-size: 16px;
   color: var(--gold-dim);
   letter-spacing: 0.04em;
 }
@@ -261,6 +265,12 @@ nav {
   max-width: 1100px;
   z-index: 100;
   border-radius: 40px;
+}
+
+/* Nav stays put: .liquid-glass:hover outranks nav (class beats element), so it
+   would drop the translateX(-50%) centring and shove the bar off-centre. */
+nav.liquid-glass:hover {
+  transform: translateX(-50%) translateY(-2px);
 }
 
 .nav-inner {
@@ -1015,7 +1025,7 @@ nav {
 }
 
 .heat-title-svg {
-  max-width: 320px;
+  max-width: 100%;
   margin-bottom: 48px;
 }
 
@@ -1023,21 +1033,22 @@ nav {
 .swaps-layout {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 32px;
+  justify-content: flex-start;
+  gap: 100px;
 }
 .swaps-text {
-  flex: 1;
-  max-width: 480px;
+  flex: 0 1 400px;
+  max-width: 400px;
+  margin-right: auto;
   position: relative;
   z-index: 10;
 }
 
 .xfg-galaxy-wrapper {
   position: relative;
-  flex: 1;
-  width: 100%;
-  max-width: 500px;
+  flex: 0 1 540px;
+  width: 540px;
+  max-width: 540px;
   margin: 0;
   aspect-ratio: 1 / 1;
   overflow: visible;
@@ -1046,17 +1057,17 @@ nav {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 64px; height: 64px;
+  width: 116px; height: 116px;
   background: var(--obsidian-mid);
   border: 1px solid rgba(197, 160, 89, 0.4);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   z-index: 10;
-  box-shadow: 0 0 40px rgba(197, 160, 89, 0.15);
+  box-shadow: 0 0 70px rgba(197, 160, 89, 0.28);
 }
 .xfg-galaxy-core img {
-  width: 36px;
-  height: 36px;
+  width: 76px;
+  height: 76px;
   object-fit: contain;
 }
 .orbit-ring {
@@ -1160,10 +1171,11 @@ nav {
 /* --- HEAT TITLE --- */
 .heat-title-svg {
   text-align: center;
+  max-width: 100%;
   margin-bottom: 48px;
 }
 .heat-title-svg svg {
-  height: 96px;
+  height: 90px;
   max-width: 100%;
 }
 
@@ -1607,6 +1619,18 @@ footer {
 @media (max-width: 900px) {
   .swaps-layout {
     flex-direction: column;
+    gap: 48px;
+  }
+  .swaps-text {
+    flex: 0 0 auto;
+    max-width: 100%;
+    margin-right: 0;
+  }
+  .xfg-galaxy-wrapper {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
   }
 }
 

@@ -48,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const ringsConfig = [
-    { radius: 22, count: 6, dur: 45, dir: 1 },
-    { radius: 36, count: 10, dur: 70, dir: -1 },
-    { radius: 52, count: 12, dur: 100, dir: 1 },
-    { radius: 68, count: 14, dur: 140, dir: -1 }
+    { radius: 20, count: 6, dur: 45, dir: 1 },
+    { radius: 32, count: 10, dur: 70, dir: -1 },
+    { radius: 44, count: 12, dur: 100, dir: 1 },
+    { radius: 56, count: 14, dur: 140, dir: -1 }
   ];
 
   let coinIdx = 0;
