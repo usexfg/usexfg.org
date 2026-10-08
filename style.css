@@ -260,7 +260,7 @@ nav {
 }
 
 .nav-logo img {
-  border-radius: 50%;
+  border-radius: 0;
   opacity: 1;
 }
 
