@@ -1,6 +1,6 @@
 /* ============================================================
    FUEGO RESERVE — Maison de XFG
-   Palette: Obsidian #0D0B08 / Champagne #C5A059 / Ember #E8622C / White Flame #EAF6F9
+   Palette: Obsidian #0A0A0A / Champagne #C5A059 / Ember #E8622C / White Flame #EAF6F9
    Typography: Cormorant Garamond (display) + Inter (body) + IBM Plex Mono
    Depth model: depth-0 grain (::after), depth-1 atmosphere (canvas, .section-atmos),
                 depth-2 galaxy + HEAT title, depth-4 static content (default)
@@ -17,10 +17,10 @@
 
 :root {
   /* Core Tones — Maison doctrine (exact values) */
-  --obsidian:       #0D0B08;
-  --obsidian-mid:   #181512;
-  --obsidian-soft:  #1E1B16;
-  --obsidian-rim:   #25221A;
+  --obsidian:       #0A0A0A;
+  --obsidian-mid:   #161616;
+  --obsidian-soft:  #1C1C1C;
+  --obsidian-rim:   #2A2A2A;
 
   /* Champagne Gold */
   --gold:           #C5A059;
@@ -40,13 +40,13 @@
   --flame-violet:   #A855F7;
 
   /* Neutrals (warm creams — never pure white) */
-  --stone-50:       #F7F5F0;
-  --stone-100:      #EAE7DE;
-  --stone-300:      #B8B3A6;
-  --stone-500:      #7A7670;
-  --stone-700:      #3A3830;
-  --stone-800:      #242118;
-  --stone-900:      #161410;
+  --stone-50:       #F5F5F5;
+  --stone-100:      #EBEBEB;
+  --stone-300:      #B5B5B5;
+  --stone-500:      #737373;
+  --stone-700:      #3D3D3D;
+  --stone-800:      #202020;
+  --stone-900:      #141414;
 
   /* Typography */
   --font-display:   'Cormorant Garamond', 'Georgia', serif;
@@ -61,7 +61,7 @@
   --bezel-outer:    1px solid rgba(197, 160, 89, 0.14);
   --bezel-inner:    1px solid rgba(234, 246, 249, 0.06);
   --bezel-radius:   3px;
-  --panel-bg:       #181512;
+  --panel-bg:       #161616;
 }
 
 html {
@@ -538,7 +538,7 @@ nav {
 }
 
 .section-dark {
-  background: rgba(13, 11, 8, 0.6);
+  background: rgba(10, 10, 10, 0.6);
 }
 
 .section h2 {
@@ -929,7 +929,7 @@ nav {
   border: var(--bezel-outer);
   border-radius: var(--bezel-radius);
   padding: 32px;
-  background: rgba(13, 11, 8, 0.85);
+  background: rgba(10, 10, 10, 0.85);
   position: relative;
 }
 
@@ -957,7 +957,7 @@ nav {
 }
 
 .swap-tui-preview {
-  background: rgba(13, 11, 8, 0.8);
+  background: rgba(10, 10, 10, 0.8);
   border: 1px solid rgba(234,246,249,0.04);
   border-radius: 2px;
   padding: 20px 24px;
@@ -1020,7 +1020,7 @@ nav {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 116px; height: 116px;
-  background: #0A0908;
+  background: #0A0A0A;
   border: 1px solid rgba(197, 160, 89, 0.4);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
@@ -1061,7 +1061,7 @@ nav {
 }
 .orbit-node-upright {
   width: 100%; height: 100%;
-  background: #0A0908;
+  background: #0A0A0A;
   border: 1px solid rgba(197, 160, 89, 0.25);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
@@ -1107,7 +1107,7 @@ nav {
   top: -36px;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  background: rgba(24, 21, 18, 0.95);
+  background: rgba(20, 20, 20, 0.95);
   border: 1px solid rgba(197, 160, 89, 0.4);
   color: var(--flame-white);
   font-family: var(--font-mono);
@@ -1459,7 +1459,7 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background: #0D0B08;
+    background: #0A0A0A;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -1595,7 +1595,7 @@ footer {
 .specs-table { border-radius: 24px; }
 .rd-column { border-radius: 24px; }
 .footer-inner {
-  background: rgba(24, 21, 18, 0.6);
+  background: rgba(20, 20, 20, 0.6);
   border: 1px solid rgba(197, 160, 89, 0.1);
   border-radius: 24px;
 }
