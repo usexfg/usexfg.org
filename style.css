@@ -1,7 +1,7 @@
 /* ============================================================
    FUEGO RESERVE — Maison de XFG
    Palette: Obsidian #0A0A0A / Champagne #C5A059 / Ember #E8622C / White Flame #EAF6F9
-   Typography: Cormorant Garamond (display) + Inter (body) + IBM Plex Mono
+   Typography: Cormorant Garamond (display) + Spectral (body) + IBM Plex Mono
    Depth model: depth-0 grain (::after), depth-1 atmosphere (canvas, .section-atmos),
                 depth-2 galaxy + HEAT title, depth-4 static content (default)
    Scroll: native document scroll by default; full-screen pager only on
@@ -50,7 +50,7 @@
 
   /* Typography */
   --font-display:   'Cormorant Garamond', 'Georgia', serif;
-  --font-body:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body:      'Spectral', Georgia, 'Times New Roman', serif;
   --font-mono:      'IBM Plex Mono', 'SFMono-Regular', 'Fira Code', monospace;
 
   /* Easing */
@@ -73,9 +73,9 @@ html {
 body {
   font-family: var(--font-body);
   background: var(--obsidian);
-  color: var(--stone-300);
+  color: #C6C6C6;
   font-size: 16px;
-  line-height: 1.65;
+  line-height: 1.7;
   overflow-x: hidden;
 }
 
@@ -397,12 +397,12 @@ nav {
 
 .hero-sub {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
-  color: var(--stone-500);
+  color: #B5B5B5;
   max-width: 500px;
   margin: 0 auto 48px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .hero-actions {
@@ -552,12 +552,12 @@ nav {
 }
 
 .section-sub {
-  font-size: 15px;
-  color: var(--stone-500);
+  font-size: 16px;
+  color: #9A9A9A;
   max-width: 520px;
   line-height: 1.7;
   margin-bottom: 64px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 
@@ -656,11 +656,11 @@ nav {
 }
 
 .pillar p {
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--stone-500);
+  font-size: 15px;
+  line-height: 1.7;
+  color: #9A9A9A;
   margin-bottom: 24px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .pillar-detail {
@@ -742,11 +742,11 @@ nav {
 }
 
 .wallet-card > p:not(.wallet-type) {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
-  color: var(--stone-500);
+  color: #9A9A9A;
   margin-bottom: 24px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .wallet-features {
@@ -846,11 +846,11 @@ nav {
 }
 
 .swap-card > p {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
-  color: var(--stone-500);
+  color: #9A9A9A;
   margin-bottom: 20px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .swap-detail {
@@ -896,9 +896,9 @@ nav {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
-  color: var(--stone-500);
-  font-weight: 300;
+  font-size: 14px;
+  color: #8E8E8E;
+  font-weight: 400;
 }
 
 .ef-step-num {
@@ -1031,9 +1031,8 @@ nav {
 .xfg-galaxy-core img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
-  border-radius: 50%;
   transform: translateY(-3%) scale(0.79);
 }
 .orbit-ring {
@@ -1248,11 +1247,11 @@ nav {
 }
 
 .eco-card > p {
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--stone-500);
+  font-size: 15px;
+  line-height: 1.7;
+  color: #9A9A9A;
   margin-bottom: 24px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .eco-detail {
@@ -1276,23 +1275,32 @@ nav {
 /* ============================================================
    SPECS TABLE
    ============================================================ */
+/* Specs ledger — no card, no glass. Rows sit on the black ground. */
 .specs-table {
   max-width: 600px;
   margin-top: 48px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
 }
 
 .spec-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 24px;
   padding: 16px 0;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.06);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.09);
+}
+.spec-row:first-child {
+  border-top: 1px solid rgba(197, 160, 89, 0.14);
 }
 
 .spec-key {
-  font-size: 13px;
-  color: var(--stone-500);
-  font-weight: 300;
+  font-size: 14px;
+  color: #8E8E8E;
+  font-weight: 400;
 }
 
 .spec-val {
@@ -1587,12 +1595,11 @@ footer {
 }
 
 /* RESTORE CARD STYLES */
-.wallet-card, .eco-card, .specs-table, .rd-column {
+.wallet-card, .eco-card, .rd-column {
   background: var(--panel-bg);
   border: 1px solid rgba(197, 160, 89, 0.15);
   border-radius: 24px;
 }
-.specs-table { border-radius: 24px; }
 .rd-column { border-radius: 24px; }
 .footer-inner {
   background: rgba(20, 20, 20, 0.6);
