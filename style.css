@@ -1,7 +1,7 @@
 /* ============================================================
    FUEGO RESERVE — Maison de XFG
    Palette: Obsidian #0A0A0A / Champagne #C5A059 / Ember #E8622C / White Flame #EAF6F9
-   Typography: Cormorant Garamond (display) + Spectral (body) + IBM Plex Mono
+   Typography: Cormorant Garamond (display) + Schibsted Grotesk (body) + IBM Plex Mono
    Depth model: depth-0 grain (::after), depth-1 atmosphere (canvas, .section-atmos),
                 depth-2 galaxy + HEAT title, depth-4 static content (default)
    Scroll: native document scroll by default; full-screen pager only on
@@ -50,7 +50,7 @@
 
   /* Typography */
   --font-display:   'Cormorant Garamond', 'Georgia', serif;
-  --font-body:      'Spectral', Georgia, 'Times New Roman', serif;
+  --font-body:      'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:      'IBM Plex Mono', 'SFMono-Regular', 'Fira Code', monospace;
 
   /* Easing */
