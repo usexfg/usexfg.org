@@ -8,7 +8,15 @@
   var canvas = document.getElementById('three-canvas');
   if (!canvas || typeof THREE === 'undefined') return;
 
-  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true });
+  /* Privacy browsers and hardened profiles routinely block WebGL. The page
+     does not need it — the canvas is atmosphere, not content. Fail quietly. */
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true });
+  } catch (err) {
+    canvas.style.display = 'none';
+    return;
+  }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0x000000, 0);
@@ -32,7 +40,7 @@
   }
   var sprite = makeSprite();
 
-  /* Palette — Maison: Champagne #C5A059 / Muted #8C734B / White Flame #EAF6F9 / Ember #E8622C */
+  /* Palette — Maison: Champagne #C5A059 / Muted #9F8250 / White Flame #EAF6F9 / Ember #E8622C */
   var GOLD   = new THREE.Color(0xC5A059);
   var GOLD_D = new THREE.Color(0x8C734B);
   var WHITE  = new THREE.Color(0xEAF6F9);
