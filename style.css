@@ -1054,24 +1054,6 @@ nav {
   border-bottom-color: var(--flame-white);
 }
 
-/* --- Quiet traceable link --- */
-.inline-link {
-  color: var(--gold);
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.3);
-  transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
-}
-.inline-link:hover {
-  color: var(--flame-white);
-  border-bottom-color: var(--flame-white);
-}
-.card-foot {
-  margin-bottom: 20px;
-}
 
 
 /* ============================================================
