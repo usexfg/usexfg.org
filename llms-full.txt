@@ -98,7 +98,7 @@ HEAT is an XFG-coloured flatcoin that tracks the Fuego Cost Index, a price index
 
 ### What is the Private Exchange?
 
-A peer-to-peer cross-chain exchange. Swaps settle through adaptor signatures and DLEQ proofs, so a swap is indistinguishable from an ordinary private XFG transfer. There is no bridge and no wrapped asset, which means no bridge operator, no wrapped token, and no additional failure surface to trust.
+A peer-to-peer cross-chain exchange. Swaps settle through adaptor signatures and DLEQ proofs, so a swap is indistinguishable from an ordinary private XFG transfer on the Fuego side. Swaps into Fuego are private by default. A swap out to a public chain is only as private as that chain allows, since Fuego cannot impose privacy on a non-private ledger. There is no bridge and no wrapped asset, which means no bridge operator, no wrapped token, and no additional failure surface to trust.
 
 ### Is Fuego audited?
 
