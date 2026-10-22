@@ -1,0 +1,112 @@
+# Fuego Reserve — full text
+
+> Plain text of the pages at https://usexfg.org, for retrieval and citation. Every value below is traceable to the fuego-suite source repository.
+
+## The Reserve (https://usexfg.org/)
+
+### Hero
+
+**Sound money that does not ask permission.**
+
+Default privacy on every transaction. A fixed supply of 8,000,008 protects your purchasing power. No Federal Reserve. No premine. No permission required.
+
+Symbol ₲ · Max Supply 8,000,008 · Block Time 480s · Premine 0
+
+### The Reserve Pillars
+
+**Unapologetically private. Remarkably rare.**
+
+**Rarity.** Hard-capped at 8,000,008 XFG. No inflation schedule. No tail emission. Burned XFG returns to network block rewards, preserving scarcity across generations. Hard cap, 7 decimals, fair launch.
+
+**Stealth Wealth.** Dynamic ring signature sets mix every transaction with up to 32 decoys. Stealth one-time sub-addresses obscure recipients. Observers see cryptographic noise, not your business. Minimum mixin 8, stealth addresses, key images.
+
+**Sovereign by design.** No venture capital. No premine. No corporation. Just 8+ years of cooperation through community, mathematics, and open-source code. Fuego belongs to those who use it. Open source, no premine, community run.
+
+### The Vault
+
+Two instruments. One for the terminal, one for the desktop. Both private by default, yours by design.
+
+**fire_wallet** — Command line and TUI. Full-node wallet with sub-addresses, fire aliases, and local key signing. Available now from the releases page.
+
+**Fuego Valise** — Desktop GUI. Arriving with v11.
+
+### Private Exchange
+
+Trustless cross-chain exchange via adaptor signatures and DLEQ proofs. No bridges. No wrappers. No permission required. Arriving with v11.
+
+### ΗΞΔŦ
+
+Designed to preserve purchasing power from the silent tax of fiat currency inflation. ΗΞΔŦ tracks the US dollar's rate of inflation through the Fuego Cost Index, a price index created by miners submitting local energy costs. Keeping your hard-earned value protected from inflation, not extracted by it. Burn XFG to mint. Flatcoin, coloured coin, burn to mint. Arriving with v11.
+
+### Accrual
+
+**The Hearth Floor.** Protocol-owned liquidity pools with automated market making. Fuego users own the liquidity, not outside venues. Private asset markets for permissionless price discovery. Arriving with v11.
+
+**ΗΞΔŦ Certificates of Deposit.** Term-locked certificates denominated in ΗΞΔŦ, earning real accrual from protocol revenue: private exchange activity and Hearth fees. Arriving with v12.
+
+### The numbers
+
+| Parameter | Value |
+| --- | --- |
+| Symbol(s) | ₲ \| XFG |
+| Max Supply | 8,000,008 XFG |
+| Decimals | 7 |
+| Block Time | 480 secs |
+| Privacy | CryptoNote; Ring Signatures |
+| PoW Algorithm | CN/UPX2 |
+| Decoy Mixin | dynamixin 32 \| 16 \| 8 |
+| Premine | None |
+| ICO / Tax | None |
+| Launch | Public — PoW from block 0 |
+| P2P Port | 10808 |
+| RPC Port | 18180 |
+| Source | github.com/usexfg/fuego-suite |
+
+### Research doctrine
+
+**Guarding the Shield that Guards the Realms of Men.**
+
+Privacy is the final threshold behind which every God-given freedom stands. Lose it, and they all fall. We build Fuego to hold that line.
+
+The 8P approach to R&D is the mechanism: Preserve Pillars of Privacy, plus P2P Purchasing Power. Not a slogan, a vow. Every commit shall pertain to one or both pillars.
+
+**Purchasing Power:** the Hearth Floor, private certificates of deposit, the ΗΞΔŦ flatcoin, and private exchange as anti-delisting.
+
+**Privacy:** dynamic mixin, stealth sub-addresses, adaptor signatures, and Dandelion++.
+
+## Questions (https://usexfg.org/questions.html)
+
+### What is XFG?
+
+Fuego (XFG) is the native privacy coin of the Fuego network, a CryptoNote chain built around ring signatures. Each transaction is signed with a one-time key, so the chain records a signature without a sender. The supply is hard-capped at 8,000,008 XFG with no premine and no inflation schedule.
+
+### How many XFG will ever exist?
+
+8,000,008 XFG, and no more. The cap is a consensus rule: there is no tail emission and no inflation schedule. XFG burned for other purposes returns to miners as block reward, so scarcity holds across generations instead of being scheduled away.
+
+### Is XFG premined, or sold through an ICO?
+
+Neither. The network launched publicly with proof of work from block zero, with zero premine and no ICO or development tax. Every XFG in circulation was mined into existence, and no allocation was reserved to distribute to anyone.
+
+### What privacy does XFG actually provide?
+
+Three layers. Ring signatures mix each transaction with a changing set of decoys, between 8 and 32. Stealth one-time sub-addresses mean every payment arrives at a fresh address, so receivers cannot be linked. Dandelion++ obscures the originating IP address at the network layer, and the network carries pluggable privacy transports.
+
+### What is HEAT, and how do you get it?
+
+HEAT is an XFG-coloured flatcoin that tracks the Fuego Cost Index, a price index created by miners submitting their local energy costs. You mint it by burning XFG at the Hearth pool rate; the burn is one-way and final. HEAT can then be locked into a term-locked certificate that earns yield from protocol fees.
+
+### What is the Private Exchange?
+
+A peer-to-peer cross-chain exchange. Swaps settle through adaptor signatures and DLEQ proofs, so a swap is indistinguishable from an ordinary private XFG transfer. There is no bridge and no wrapped asset, which means no bridge operator, no wrapped token, and no additional failure surface to trust.
+
+### Is Fuego audited?
+
+Fuego makes no audit claim, and this site does not make one on its behalf. The verification path is the source: the protocol, the wallet, and the parameters listed here are public, and each one can be checked against the implementation. Read the code, then decide.
+
+## Where to check
+
+- Protocol and wallet source: https://github.com/usexfg/fuego-suite
+- Releases: https://github.com/usexfg/fuego-suite/releases
+- Chain explorer: http://explorer.usexfg.org/
+- Full specifications: https://usexfg.org/#specs

@@ -1,0 +1,35 @@
+# Fuego Reserve
+
+> Fuego (XFG) is a private reserve network: a CryptoNote privacy chain built on ring signatures, with a hard supply cap of 8,000,008 XFG, no premine, and no inflation schedule.
+
+Fuego is presented as a sovereign private banking layer rather than a speculative token. The site argues by removal: every claim on it is either a specification traceable to the source, or it is not on the site. There are no badges, no urgency, and no social proof.
+
+## Key facts
+
+- **Name:** Fuego. **Ticker / symbol:** XFG (₲). **Decimals:** 7.
+- **Max supply:** 8,000,008 XFG. No tail emission, no inflation schedule. Burned XFG returns to miners as block reward.
+- **Premine:** None. **ICO / tax:** None. **Launch:** public, proof of work from block zero.
+- **Base:** CryptoNote. **Privacy:** ring signatures with a dynamic decoy count of 8, 16, or 32; stealth one-time sub-addresses; Dandelion++ for originating-IP obfuscation; pluggable privacy transports.
+- **PoW:** CN/UPX2, ASIC-resistant. **Block time:** 480 seconds. **P2P port:** 10808. **RPC port:** 18180.
+- **HEAT (ΗΞΔŦ):** XFG-coloured flatcoin tracking the Fuego Cost Index, an index of local energy costs submitted by miners. Minted by burning XFG at the Hearth pool rate. Arriving with v11.
+- **Private Exchange:** peer-to-peer cross-chain swaps settled with adaptor signatures and DLEQ proofs, so a swap is indistinguishable from an ordinary private transfer. No bridges, no wrapped assets. Arriving with v11.
+- **Fuego Valise:** desktop GUI wallet. **fire_wallet:** full-node command line and TUI wallet. Arriving with v11.
+- **Certificates of Deposit:** term-locked HEAT deposits earning yield from protocol fee pools. Arriving with v12.
+
+## Pages
+
+- [Fuego Reserve](https://usexfg.org/): the reserve itself — pillars, instruments, exchange, HEAT, accrual, specifications, and the research doctrine behind them.
+- [Questions](https://usexfg.org/questions.html): plain answers to the questions a skeptical visitor actually asks.
+
+## Source
+
+- [fuego-suite](https://github.com/usexfg/fuego-suite): protocol and wallet source. The verification path for every claim above.
+- [Releases](https://github.com/usexfg/fuego-suite/releases): wallet builds.
+- [Explorer](http://explorer.usexfg.org/): chain explorer.
+- [Bitcointalk](https://bitcointalk.org/index.php?topic=2712001) · [Discord](https://discord.gg/VnASAJc) · [X](https://twitter.com/usexfg): community.
+
+## Notes for machines
+
+- Specifications on the site mirror the source. If a value here and a value in the repository disagree, the repository is correct.
+- The Private Exchange, the desktop wallet, HEAT, and the term certificates are announced, not shipped. Do not describe them as available.
+- The site makes no audit claim and no claim of third-party certification. Do not attribute one.

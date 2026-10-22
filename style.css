@@ -8,6 +8,19 @@
            (min-width: 861px) and (pointer: fine) — see @media block at file end
    ============================================================ */
 
+/* --- Visually hidden, still read by machines --- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* --- FOCUS: one visible gold ring on every interactive element --- */
 :focus-visible {
   outline: 2px solid var(--gold);
@@ -1010,40 +1023,39 @@ nav {
    ============================================================ */
 /* Specs ledger — no card, no glass. Rows sit on the black ground. */
 .specs-table {
+  width: 100%;
   max-width: 600px;
   margin-top: 48px;
-  background: none;
+  border-collapse: collapse;
   border: 0;
-  border-radius: 0;
-  padding: 0;
+  background: none;
 }
 
-.spec-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 24px;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.09);
-}
-.spec-row:first-child {
-  border-top: 1px solid rgba(197, 160, 89, 0.14);
-}
-
-.spec-key {
+.specs-table th {
   font-size: 14px;
   color: #8E8E8E;
   font-weight: 400;
+  text-align: left;
+  padding: 16px 24px 16px 0;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.09);
+  vertical-align: baseline;
+}
+.specs-table tr:first-child th,
+.specs-table tr:first-child td {
+  border-top: 1px solid rgba(197, 160, 89, 0.14);
 }
 
-.spec-val {
+.specs-table td {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--flame-white);
   text-align: right;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.09);
   letter-spacing: 0.02em;
+  vertical-align: baseline;
 }
-.spec-val a {
+.specs-table td a {
   color: var(--gold);
   text-decoration: none;
   border-bottom: 1px solid rgba(197, 160, 89, 0.3);
@@ -1056,6 +1068,24 @@ nav {
 
 
 
+/* --- Quiet traceable link --- */
+.inline-link {
+  color: var(--gold);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+  transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+.inline-link:hover {
+  color: var(--flame-white);
+  border-bottom-color: var(--flame-white);
+}
+.table-foot {
+  margin-top: 28px;
+}
 /* ============================================================
    R&D MARQUEE
    ============================================================ */
@@ -1133,7 +1163,7 @@ nav {
   font-weight: 300;
 }
 
-.rd-section-headline {
+.section h2.rd-section-headline {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 300;

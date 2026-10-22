@@ -1,0 +1,128 @@
+/* ============================================================
+   FUEGO RESERVE — Questions page
+   Maison doctrine: statements, not persuasion. Same tokens as
+   the main site (style.css), one prose column, no decoration.
+   ============================================================ */
+
+body.questions-page {
+  background: var(--obsidian);
+}
+
+.questions-main {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 168px 24px 0;
+}
+
+.qpage {
+  padding-bottom: 80px;
+}
+
+.qpage h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  font-weight: 300;
+  color: var(--flame-white);
+  letter-spacing: 0.01em;
+  line-height: 1.06;
+  margin: 0 0 24px;
+}
+
+.qpage .lede {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #9A9A9A;
+  max-width: 620px;
+  margin: 0 0 72px;
+}
+
+.qpage section {
+  margin-bottom: 56px;
+  scroll-margin-top: 120px;
+}
+
+.qpage h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  font-weight: 400;
+  color: var(--flame-white);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+.qpage section > p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #9A9A9A;
+  margin: 0;
+  max-width: 64ch;
+}
+
+.qpage a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+  transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+.qpage a:hover {
+  color: var(--flame-white);
+  border-bottom-color: var(--flame-white);
+}
+
+.qpage .section-label {
+  margin-bottom: 20px;
+}
+
+/* --- Where to check --- */
+.sources h2 {
+  margin-bottom: 24px;
+}
+.sources ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(197, 160, 89, 0.12);
+}
+.sources li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.09);
+  font-size: 14px;
+  color: #8E8E8E;
+}
+.sources a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.updated {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8E8E8E;
+  margin: 72px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(197, 160, 89, 0.12);
+}
+
+@media (max-width: 768px) {
+  .questions-main {
+    padding: 140px 20px 0;
+  }
+  .qpage .lede,
+  .qpage section > p {
+    font-size: 16px;
+  }
+  .sources li {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
