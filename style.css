@@ -1238,10 +1238,21 @@ footer {
    RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
+  /* The nav is centred with a transform, and a transformed ancestor becomes
+     the containing block for position:fixed descendants. Without this reset
+     the mobile menu overlay resolves against the nav box (0 x 0) instead of
+     the viewport, and the links spill over the page. */
+  nav {
+    left: 0;
+    right: 0;
+    transform: none;
+    margin-inline: auto;
+  }
+
   .nav-links {
     display: none;
     position: fixed;
-    top: 60px;
+    top: 96px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -1251,6 +1262,8 @@ footer {
     justify-content: center;
     gap: 20px;
     font-size: 14px;
+    overflow-y: auto;
+    z-index: 101;
   }
   .nav-links a {
     display: inline-block;

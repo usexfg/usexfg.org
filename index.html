@@ -17,7 +17,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet" />
     <script>document.documentElement.classList.add('js');</script>
-    <link rel="stylesheet" href="style.css?v=8" />
+    <!-- Bump the ?v= number after editing style.css, or browsers will serve the cached copy. -->
+    <link rel="stylesheet" href="style.css?v=9" />
 
     <!-- Motion kill-switch (mirrored in style.css) -->
     <style>
@@ -32,7 +33,8 @@
     </style>
 
     <!-- Three.js for particle background -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Third-party scripts are version-pinned and integrity-checked. If a hash ever fails, the page degrades: three.js is decoration, gsap is motion. -->
+    <script src="https://cdnjs.cloud.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Open Graph -->
     <meta property="og:title" content="Fuego Reserve — Unapologetically Private" />
@@ -126,7 +128,7 @@
           <img src="assets/logo/fuego-nav.png" alt="Fuego" width="28" height="28" />
           <span>Fuego Reserve</span>
         </a>
-        <div class="nav-links">
+        <div class="nav-links" id="nav-links">
           <a href="#why">Reserve</a>
           <a href="#vault">Vault</a>
           <a href="#swaps">Exchange</a>
@@ -136,7 +138,7 @@
         <a href="#rd">R&amp;D</a>
           <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
         </div>
-        <button class="nav-toggle" aria-label="Menu">
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
           <span></span><span></span>
         </button>
       </div>
@@ -403,8 +405,8 @@
     </main><!-- /page-wrapper -->
 
     <script src="js/three-scene.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
       (function () {
@@ -535,8 +537,9 @@
         });
 
         document.querySelector('.nav-toggle').addEventListener('click', function () {
-          document.querySelector('.nav-links').classList.toggle('open');
-          this.classList.toggle('open');
+          var open = document.querySelector('.nav-links').classList.toggle('open');
+          this.classList.toggle('open', open);
+          this.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
 
         /* --- Reveal-on-scroll: native mode via IntersectionObserver --- */
