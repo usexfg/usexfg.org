@@ -92,7 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
       dragTarget.className = "orbit-node-drag-target";
 
       const img = document.createElement("img");
-      img.src = `coins/${coin.id}.png`;
+      /* Single-tone maison treatment: every external chain is rendered in muted gold. */
+      img.src = `coins/mono/${coin.id}.png?v=3`;
       img.alt = coin.name;
       img.draggable = false;
       
@@ -100,7 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
       tooltip.className = "orbit-tooltip";
       tooltip.innerText = coin.name;
 
-      img.onerror = () => { placement.remove(); };
+      img.onerror = () => {
+        if (!img.dataset.fallback) {
+          img.dataset.fallback = '1';
+          img.src = `coins/${coin.id}.png?v=2`;
+        } else {
+          placement.remove();
+        }
+      };
 
       dragTarget.appendChild(img);
       dragTarget.appendChild(tooltip);

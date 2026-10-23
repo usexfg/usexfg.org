@@ -74,7 +74,7 @@ The 8P approach to R&D is the mechanism: Preserve Pillars of Privacy, plus P2P P
 
 **Privacy:** dynamic mixin, stealth sub-addresses, adaptor signatures, and Dandelion++.
 
-## Questions (https://usexfg.org/questions.html)
+## Answers (https://usexfg.org/answers.html)
 
 ### What is XFG?
 
@@ -95,6 +95,10 @@ Three layers. Ring signatures mix each transaction with a changing set of decoys
 ### What is HEAT, and how do you get it?
 
 HEAT is an XFG-coloured flatcoin that tracks the Fuego Cost Index, a price index created by miners submitting their local energy costs. You mint it by burning XFG at the Hearth pool rate; the burn is one-way and final. HEAT can then be locked into a term-locked certificate that earns yield from protocol fees.
+
+### What is the Hearth?
+
+The Hearth is Fuego's on-chain exchange floor. Constant-product pools price HEAT against XFG by live TWAP, with no oracle and no outside market maker. Users own the liquidity in the pools; protocol-held reserves stand behind them as a backstop. It is where HEAT is minted — XFG burned into the floor — and where private asset markets find their price.
 
 ### What is the Private Exchange?
 

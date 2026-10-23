@@ -19,7 +19,7 @@ Fuego is presented as a sovereign private banking layer rather than a speculativ
 ## Pages
 
 - [Fuego Reserve](https://usexfg.org/): the reserve itself — pillars, instruments, exchange, HEAT, accrual, specifications, and the research doctrine behind them.
-- [Questions](https://usexfg.org/questions.html): plain answers to the questions a skeptical visitor actually asks.
+- [Answers](https://usexfg.org/answers.html): plain answers to the questions a skeptical visitor actually asks.
 
 ## Source
 

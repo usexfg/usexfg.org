@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Answers — Fuego Reserve</title>
+    <meta name="description" content="Plain answers about Fuego (XFG): what it is, the supply cap, the privacy model, HEAT, the Hearth, and the private exchange." />
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="canonical" href="https://usexfg.org/answers.html" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="favicons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Fuego Reserve" />
+
+    <!-- Maison Typography: Cormorant Garamond (display) + Golos Text (body) + IBM Plex Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=EB+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Bump the ?v= number after editing style.css, or browsers will serve the cached copy. -->
+    <link rel="stylesheet" href="style.css?v=13" />
+    <link rel="stylesheet" href="assets/css/answers.css" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Answers — Fuego Reserve" />
+    <meta property="og:description" content="Plain answers about Fuego (XFG): what it is, the supply cap, the privacy model, HEAT, the Hearth, and the private exchange." />
+    <meta property="og:url" content="https://usexfg.org/answers.html" />
+    <meta property="og:image" content="https://usexfg.org/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Answers — Fuego Reserve" />
+    <meta name="twitter:description" content="Plain answers about Fuego (XFG): what it is, the supply cap, the privacy model, HEAT, the Hearth, and the private exchange." />
+    <meta name="twitter:image" content="https://usexfg.org/assets/og.png" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "FAQPage",
+          "@id": "https://usexfg.org/answers.html#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is XFG?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Fuego (XFG) is the native privacy coin of the Fuego network, a CryptoNote chain built around ring signatures. Each transaction is signed with a one-time key, so the chain records a signature without a sender. The supply is hard-capped at 8,000,008 XFG with no premine and no inflation schedule."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How many XFG will ever exist?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "8,000,008 XFG, and no more. The cap is a consensus rule: there is no tail emission and no inflation schedule. XFG burned for other purposes returns to miners as block reward, so scarcity holds across generations instead of being scheduled away."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is XFG premined, or sold through an ICO?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Neither. The network launched publicly with proof of work from block zero, with zero premine and no ICO or development tax. Every XFG in circulation was mined into existence, and no allocation was reserved to distribute to anyone."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What privacy does XFG actually provide?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Three layers. Ring signatures mix each transaction with a changing set of decoys, between 8 and 32. Stealth one-time sub-addresses mean every payment arrives at a fresh address, so receivers cannot be linked. Dandelion++ obscures the originating IP address at the network layer, and the network carries pluggable privacy transports."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is HEAT, and how do you get it?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HEAT is an XFG-coloured flatcoin that tracks the Fuego Cost Index, a price index created by miners submitting their local energy costs. You mint it by burning XFG at the Hearth pool rate; the burn is one-way and final. HEAT can then be locked into a term-locked certificate that earns yield from protocol fees."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the Hearth?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Hearth is Fuego's on-chain exchange floor. Constant-product pools price HEAT against XFG by live TWAP, with no oracle and no outside market maker. Users own the liquidity in the pools; protocol-held reserves stand behind them as a backstop. It is where HEAT is minted — XFG burned into the floor — and where private asset markets find their price."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the Private Exchange?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A peer-to-peer cross-chain exchange. Swaps settle through adaptor signatures and DLEQ proofs, so a swap is indistinguishable from an ordinary private XFG transfer on the Fuego side. Swaps into Fuego are private by default. A swap out to a public chain is only as private as that chain allows, since Fuego cannot impose privacy on a non-private ledger. There is no bridge and no wrapped asset, which means no bridge operator, no wrapped token, and no additional failure surface to trust."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is Fuego audited?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Fuego makes no audit claim, and this site does not make one on its behalf. The verification path is the source: the protocol, the wallet, and the parameters listed here are public, and each one can be checked against the implementation. Read the code, then decide."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://usexfg.org/#website",
+          "url": "https://usexfg.org/",
+          "name": "Fuego Reserve",
+          "inLanguage": "en"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body class="answers-page">
+    <nav class="nav-surface">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo/fuego-nav.png" alt="Fuego" width="28" height="28" />
+          <span>Fuego Reserve</span>
+        </a>
+        <div class="nav-links" id="nav-links">
+          <a href="index.html">Reserve</a>
+          <a href="index.html#vault">Vault</a>
+          <a href="index.html#swaps">Exchange</a>
+          <a href="index.html#accrual">Accrual</a>
+          <a href="index.html#specs">Specs</a>
+          <a href="answers.html" aria-current="page">Answers</a>
+          <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
+          <a href="index.html#heat" class="nav-heat">ΗΞΔŦ</a>
+        </div>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <main id="main-content" class="page-wrapper answers-main">
+      <article class="qpage">
+        <p class="section-label">Answers</p>
+        <h1>Answers, plainly.</h1>
+        <p class="lede">
+          Eight questions a skeptical visitor actually asks, answered without persuasion.
+          Where a number appears here, it is the number the network runs on.
+        </p>
+
+        <section id="what-is-xfg">
+          <h2>What is XFG?</h2>
+          <p>
+            Fuego (XFG) is the native privacy coin of the Fuego network, a CryptoNote chain
+            built around ring signatures. Each transaction is signed with a one-time key, so
+            the chain records a signature without a sender. The supply is hard-capped at
+            8,000,008 XFG with no premine and no inflation schedule.
+          </p>
+        </section>
+
+        <section id="how-many-xfg">
+          <h2>How many XFG will ever exist?</h2>
+          <p>
+            8,000,008 XFG, and no more. The cap is a consensus rule: there is no tail emission
+            and no inflation schedule. XFG burned for other purposes returns to miners as block
+            reward, so scarcity holds across generations instead of being scheduled away.
+          </p>
+        </section>
+
+        <section id="premine-or-ico">
+          <h2>Is XFG premined, or sold through an ICO?</h2>
+          <p>
+            Neither. The network launched publicly with proof of work from block zero, with
+            zero premine and no ICO or development tax. Every XFG in circulation was mined into
+            existence, and no allocation was reserved to distribute to anyone.
+          </p>
+        </section>
+
+        <section id="privacy">
+          <h2>What privacy does XFG actually provide?</h2>
+          <p>
+            Three layers. Ring signatures mix each transaction with a changing set of decoys,
+            between 8 and 32. Stealth one-time sub-addresses mean every payment arrives at a
+            fresh address, so receivers cannot be linked. Dandelion++ obscures the originating
+            IP address at the network layer, and the network carries pluggable privacy
+            transports.
+          </p>
+        </section>
+
+        <section id="heat">
+          <h2>What is HEAT, and how do you get it?</h2>
+          <p>
+            HEAT is an XFG-coloured flatcoin that tracks the Fuego Cost Index, a price index
+            created by miners submitting their local energy costs. You mint it by burning XFG
+            at the Hearth pool rate; the burn is one-way and final. HEAT can then be locked into
+            a term-locked certificate that earns yield from protocol fees.
+          </p>
+        </section>
+
+        <section id="hearth">
+          <h2>What is the Hearth?</h2>
+          <p>
+            The Hearth is Fuego's on-chain exchange floor. Constant-product pools price HEAT
+            against XFG by live TWAP, with no oracle and no outside market maker. Users own the
+            liquidity in the pools; protocol-held reserves stand behind them as a backstop. It
+            is where HEAT is minted — XFG burned into the floor — and where private asset
+            markets find their price.
+          </p>
+        </section>
+
+        <section id="private-exchange">
+          <h2>What is the Private Exchange?</h2>
+          <p>
+            A peer-to-peer cross-chain exchange. Swaps settle through adaptor signatures and
+            DLEQ proofs, so a swap is indistinguishable from an ordinary private XFG transfer on
+            the Fuego side. Swaps into Fuego are private by default. A swap out to a public chain
+            is only as private as that chain allows — Fuego cannot impose privacy on a
+            non-private ledger. There is no bridge and no wrapped asset, which means no bridge
+            operator, no wrapped token, and no additional failure surface to trust.
+          </p>
+        </section>
+
+        <section id="audit">
+          <h2>Is Fuego audited?</h2>
+          <p>
+            Fuego makes no audit claim, and this site does not make one on its behalf. The
+            verification path is the source: the protocol, the wallet, and the parameters listed
+            here are public, and each one can be checked against the implementation. Read the
+            code, then decide.
+          </p>
+        </section>
+
+        <section class="sources" id="where-to-check">
+          <h2>Where to check</h2>
+          <ul>
+            <li><span>Protocol and wallet source</span><a href="https://github.com/usexfg/fuego-suite" target="_blank" rel="noopener">github.com/usexfg/fuego-suite</a></li>
+            <li><span>Releases</span><a href="https://github.com/usexfg/fuego-suite/releases" target="_blank" rel="noopener">github.com/usexfg/fuego-suite/releases</a></li>
+            <li><span>Chain explorer</span><a href="http://explorer.usexfg.org/" target="_blank" rel="noopener">explorer.usexfg.org</a></li>
+            <li><span>Full specifications</span><a href="index.html#specs">usexfg.org/#specs</a></li>
+          </ul>
+        </section>
+
+        <p class="updated"><time datetime="2026-10-22">22 October 2026</time></p>
+      </article>
+
+      <footer>
+        <div class="container footer-inner">
+          <div class="footer-left">
+            <img src="assets/logo/fuego-nav.png" alt="Fuego" width="22" height="22" loading="lazy" />
+            <span>Fuego Reserve</span>
+          </div>
+          <div class="footer-links">
+            <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
+          <a href="index.html#heat" class="nav-heat">ΗΞΔŦ</a>
+            <a href="https://discord.gg/VnASAJc" target="_blank" rel="noopener">Discord</a>
+            <a href="http://explorer.usexfg.org/" target="_blank" rel="noopener">Explorer</a>
+            <a href="https://bitcointalk.org/index.php?topic=2712001" target="_blank" rel="noopener">Bitcointalk</a>
+            <a href="https://twitter.com/usexfg" target="_blank" rel="noopener">𝕏</a>
+            <a href="/answers.html">Answers</a>
+          </div>
+          <div class="footer-right">
+            <span class="mono">₲ 8,000,008</span>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      (function () {
+        'use strict';
+        var toggle = document.querySelector('.nav-toggle');
+        var links = document.querySelector('.nav-links');
+        if (!toggle || !links) return;
+        toggle.addEventListener('click', function () {
+          var open = links.classList.toggle('open');
+          toggle.classList.toggle('open', open);
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -4,11 +4,11 @@
    the main site (style.css), one prose column, no decoration.
    ============================================================ */
 
-body.questions-page {
+body.answers-page {
   background: var(--obsidian);
 }
 
-.questions-main {
+.answers-main {
   position: relative;
   z-index: 2;
   max-width: 780px;
@@ -114,7 +114,7 @@ body.questions-page {
 }
 
 @media (max-width: 768px) {
-  .questions-main {
+  .answers-main {
     padding: 140px 20px 0;
   }
   .qpage .lede,

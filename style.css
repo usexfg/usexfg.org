@@ -858,6 +858,7 @@ nav {
 .orbit-node-upright:hover img,
 .orbit-node-upright.is-dragging img {
   transform: scale(1.4);
+  filter: brightness(1.28);
 }
 .orbit-tooltip {
   position: absolute;
@@ -1538,18 +1539,20 @@ html.js [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
    (mobile/touch keeps native document scroll above)
    ============================================================ */
 @media (min-width: 861px) and (pointer: fine) {
-  html, body {
+  /* Scoped to the home page. Other pages (answers.html) scroll natively. */
+  html.home-page,
+  html.home-page body {
     overflow: hidden;
     height: 100%;
   }
 
-  .page-wrapper {
+  html.home-page .page-wrapper {
     position: fixed;
     inset: 0;
     overflow: hidden;
   }
 
-  .page-section {
+  html.home-page .page-section {
     position: absolute;
     inset: 0;
     overflow-y: auto;
@@ -1560,17 +1563,17 @@ html.js [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
     z-index: 0;
   }
 
-  .page-section.active {
+  html.home-page .page-section.active {
     opacity: 1;
     pointer-events: auto;
     z-index: 1;
   }
 
-  .page-dots {
+  html.home-page .page-dots {
     display: flex;
   }
 
-  section[id] {
+  html.home-page section[id] {
     scroll-margin-top: 0;
   }
 }
