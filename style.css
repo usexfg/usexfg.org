@@ -785,13 +785,31 @@ nav {
   overflow: hidden;
   z-index: 10;
   box-shadow: 0 0 70px rgba(197, 160, 89, 0.28);
+  transition: border-color 0.8s ease, box-shadow 0.8s ease;
 }
 .xfg-galaxy-core img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
   transform: translateY(-3%) scale(0.79);
+  transition: opacity 0.8s ease;
+}
+.xfg-galaxy-core .core-flame {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.xfg-galaxy-core:hover .core-base {
+  opacity: 0;
+}
+.xfg-galaxy-core:hover .core-flame {
+  opacity: 1;
+}
+.xfg-galaxy-core:hover {
+  border-color: rgba(197, 160, 89, 0.7);
+  box-shadow: 0 0 80px rgba(232, 98, 44, 0.18), 0 0 70px rgba(197, 160, 89, 0.32);
 }
 .orbit-ring {
   position: absolute;
