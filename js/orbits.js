@@ -55,8 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let coinIdx = 0;
-  let activeDragNode = null;
-  let startX, startY;
 
   ringsConfig.forEach((ring) => {
     const ringEl = document.createElement("div");
@@ -88,8 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
       upright.className = "orbit-node-upright";
       upright.style.transform = `rotate(-${angle}deg)`;
 
-      const dragTarget = document.createElement("div");
-      dragTarget.className = "orbit-node-drag-target";
+      const hitTarget = document.createElement("div");
+      hitTarget.className = "orbit-node-hit";
 
       const img = document.createElement("img");
       /* Single-tone maison treatment: every external chain is rendered in muted gold. */
@@ -110,51 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
 
-      dragTarget.appendChild(img);
-      dragTarget.appendChild(tooltip);
+      hitTarget.appendChild(img);
+      hitTarget.appendChild(tooltip);
 
-      // Robust pointer capture for flawless dragging
-      dragTarget.addEventListener('pointerdown', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        activeDragNode = dragTarget;
-        startX = e.clientX;
-        startY = e.clientY;
-        
-        dragTarget.style.transition = 'none';
-        upright.classList.add('is-dragging');
-        dragTarget.setPointerCapture(e.pointerId);
-      });
-
-      dragTarget.addEventListener('pointermove', (e) => {
-        if (activeDragNode !== dragTarget) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        dragTarget.style.transform = `translate(${dx}px, ${dy}px)`;
-      });
-
-      const releaseDrag = (e) => {
-        if (activeDragNode === dragTarget) {
-          dragTarget.releasePointerCapture(e.pointerId);
-          activeDragNode = null;
-          
-          dragTarget.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-          dragTarget.style.transform = 'translate(0px, 0px)';
-          upright.classList.remove('is-dragging');
-          
-          setTimeout(() => {
-            if (activeDragNode !== dragTarget) {
-              dragTarget.style.transition = 'none';
-            }
-          }, 600);
-        }
-      };
-
-      dragTarget.addEventListener('pointerup', releaseDrag);
-      dragTarget.addEventListener('pointercancel', releaseDrag);
-
-      upright.appendChild(dragTarget);
+      upright.appendChild(hitTarget);
       counterSpin.appendChild(upright);
       offset.appendChild(counterSpin);
       placement.appendChild(offset);
