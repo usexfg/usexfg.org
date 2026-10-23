@@ -794,18 +794,33 @@ nav {
   height: 100%;
   object-fit: contain;
   object-position: center;
-  transform: translateY(-3%) scale(0.79);
-  transition: opacity 0.8s ease;
+  transform: translateY(1%) scale(0.79);
+  z-index: 1;
 }
-.xfg-galaxy-core .core-flame {
-  opacity: 0;
-  transform: scale(0.9);
+.xfg-galaxy-core .core-base {
+  transition: opacity 0.25s ease 1.2s;
 }
 .xfg-galaxy-core:hover .core-base {
   opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.xfg-galaxy-core .core-flame {
+  opacity: 0;
+  transform: translateY(-3%) scale(0.85);
+  z-index: 2;
+  transition: opacity 0.35s ease;
 }
 .xfg-galaxy-core:hover .core-flame {
   opacity: 1;
+  transition: opacity 0.25s ease 1.2s;
+}
+.xfg-galaxy-core .core-dust {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
 }
 .xfg-galaxy-core:hover {
   border-color: rgba(197, 160, 89, 0.7);
@@ -864,17 +879,31 @@ nav {
   user-select: none;
 }
 .orbit-node-hit img {
+  position: absolute;
+  inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
   pointer-events: none;
-  opacity: 0.62;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.orbit-node-hit .coin-mono {
+  opacity: 1;
+  z-index: 1;
+}
+.orbit-node-hit .coin-color {
+  opacity: 0;
+  z-index: 2;
+}
+.orbit-node-upright:hover .coin-mono {
+  opacity: 0;
+}
+.orbit-node-upright:hover .coin-color {
+  opacity: 1;
 }
 .orbit-node-upright:hover img {
   transform: scale(1.35);
-  opacity: 1;
 }
 .orbit-tooltip {
   position: absolute;
