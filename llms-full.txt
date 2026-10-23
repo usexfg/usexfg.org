@@ -68,7 +68,7 @@ Designed to preserve purchasing power from the silent tax of fiat currency infla
 
 Privacy is the final threshold behind which every God-given freedom stands. Lose it, and they all fall. We build Fuego to hold that line.
 
-The 8P approach to R&D is the mechanism: Preserve Pillars of Privacy, plus P2P Purchasing Power. Not a slogan, a vow. Every commit shall pertain to one or both pillars.
+The 8P approach to R&D is the mechanism: Preserve Pillars of Privacy Plus P2P Purchasing Power. Not a slogan - a vow. Every commit shall pertain to at least one of those pillars.
 
 **Purchasing Power:** the Hearth Floor, private certificates of deposit, the ΗΞΔŦ flatcoin, and private exchange as anti-delisting.
 

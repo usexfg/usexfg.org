@@ -183,6 +183,8 @@ code {
 }
 
 .container {
+  width: 100%;
+  min-width: 0;
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 32px;
@@ -1389,13 +1391,26 @@ footer {
 
   .footer-inner {
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
     text-align: center;
   }
 
   .footer-links {
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px 24px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .footer-links a {
+    padding: 8px 0;
+    white-space: nowrap;
+  }
+
+  .rd-column {
+    padding: 24px 20px;
   }
 }
 
@@ -1407,6 +1422,18 @@ footer {
   .hero-eyebrow::before,
   .hero-eyebrow::after {
     width: 20px;
+  }
+
+  .xfg-galaxy-core {
+    width: 21.5%;
+    height: 21.5%;
+  }
+
+  .orbit-node-offset {
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    margin-left: -16px;
   }
 }
 
@@ -1474,6 +1501,12 @@ footer {
     width: 100%;
     max-width: 440px;
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .xfg-galaxy-wrapper {
+    width: calc(100% - 16px);
   }
 }
 
