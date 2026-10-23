@@ -811,8 +811,8 @@ nav {
 .orbit-node-offset {
   position: absolute;
   top: 0; left: 50%;
-  width: 44px; height: 44px;
-  margin-top: -22px; margin-left: -22px;
+  width: 40px; height: 40px;
+  margin-top: -20px; margin-left: -20px;
   pointer-events: none;
 }
 .orbit-node-counter-spin {
@@ -851,11 +851,12 @@ nav {
   object-position: center;
   border-radius: 50%;
   pointer-events: none;
-  transition: transform 0.2s ease;
+  opacity: 0.62;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 .orbit-node-upright:hover img {
-  transform: scale(1.4);
-  filter: brightness(1.28);
+  transform: scale(1.35);
+  opacity: 1;
 }
 .orbit-tooltip {
   position: absolute;

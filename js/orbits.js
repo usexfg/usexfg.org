@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
       hitTarget.className = "orbit-node-hit";
 
       const img = document.createElement("img");
-      /* Single-tone maison treatment: every external chain is rendered in muted gold. */
-      img.src = `coins/mono/${coin.id}.png?v=3`;
+      /* Original chain colours, held back so the house mark stays the centre. */
+      img.src = `coins/${coin.id}.png?v=4`;
       img.alt = coin.name;
       img.draggable = false;
       
@@ -99,14 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tooltip.className = "orbit-tooltip";
       tooltip.innerText = coin.name;
 
-      img.onerror = () => {
-        if (!img.dataset.fallback) {
-          img.dataset.fallback = '1';
-          img.src = `coins/${coin.id}.png?v=2`;
-        } else {
-          placement.remove();
-        }
-      };
+      img.onerror = () => placement.remove();
 
       hitTarget.appendChild(img);
       hitTarget.appendChild(tooltip);
