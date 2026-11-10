@@ -1158,7 +1158,11 @@ nav {
 
 .marquee-line {
   overflow: hidden;
-  margin-bottom: 14px;
+  margin-bottom: -18px;
+}
+
+.marquee-line:last-child {
+  margin-bottom: 0;
 }
 
 .marquee-line div {
