@@ -77,36 +77,28 @@
 
 /* ============================================================
    CHIAROSCURO — Renaissance varnish over the maison
-   Deep obsidian, cooler gold-leaf edges, oil-paint grain,
-   single light-source candle falloff. Applied via body class.
+   Deep obsidian, cooler gold-leaf edges, candle falloff.
+   Colors only — no borders, radius, padding, or type changes.
    Copy and titles unchanged.
    ============================================================ */
 
 .chiaroscuro {
   /* Deeper recessed panel black */
   --panel-bg: #111110;
-  /* Cooler champagne rim — less amber warmth than the base bezel */
-  --bezel-outer: 1px solid rgba(176, 152, 96, 0.26);
+  /* Cooler champagne rim — grayer gold, less amber */
+  --bezel-outer: 1px solid rgba(150, 145, 135, 0.26);
   --bezel-inner: 1px solid rgba(234, 246, 249, 0.03);
-}
-
-/* Oil-paint canvas grain across the whole page */
-.chiaroscuro body::after {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='o'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015 0.025' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.3 0 0 0 0.05 0 0.3 0 0 0.05 0 0 0.3 0 0.05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23o)' opacity='0.07'/%3E%3C/svg%3E");
-  opacity: 0.07;
 }
 
 /* Nav surface: deeper, cooler gold-leaf rim */
 .chiaroscuro .nav-surface {
-  background: #0D0D0C;
-  border-color: rgba(176, 152, 96, 0.30);
+  background: #0C0C0B;
+  border-color: rgba(150, 145, 135, 0.30);
 }
 
 /* Section surfaces: panel with gold-leaf edge (hero excluded) */
 .chiaroscuro .section {
   background: var(--panel-bg);
-  border: var(--bezel-outer);
-  border-radius: var(--bezel-radius);
 }
 
 .chiaroscuro .section-dark {
@@ -121,41 +113,29 @@
 .chiaroscuro .hero { background: #0A0A0A; }
 
 /* Hero text — candle against dark */
-.chiaroscuro .hero-eyebrow { color: #B39E6B; }
+.chiaroscuro .hero-eyebrow { color: #A8A080; }
 .chiaroscuro .hero-eyebrow::before,
 .chiaroscuro .hero-eyebrow::after {
-  background: linear-gradient(90deg, transparent, #B39E6B, transparent);
+  background: linear-gradient(90deg, transparent, #A8A080, transparent);
 }
 .chiaroscuro .hero h1 { color: var(--flame-white); }
 .chiaroscuro .hero h1 em { color: #C5A059; }
 .chiaroscuro .hero-sub { color: #8A8A8A; }
 
-/* Buttons: gold-leaf rimmed */
-.chiaroscuro .btn-primary {
-  background: transparent;
-  color: #C5A059;
-  border: 1px solid rgba(197, 160, 89, 0.3);
-}
-.chiaroscuro .btn-primary:hover {
-  background: rgba(197, 160, 89, 0.12);
-  color: var(--flame-white);
-  box-shadow: 0 0 28px rgba(197, 160, 89, 0.18);
-}
-.chiaroscuro .btn-ghost { border-color: rgba(197, 160, 89, 0.26); color: #B39E6B; }
-.chiaroscuro .btn-ghost:hover { border-color: #C5A059; color: var(--flame-white); }
-.chiaroscuro .btn-sm { border-color: rgba(197, 160, 89, 0.16); color: #8A8A8A; }
+.chiaroscuro .btn-ghost { border-color: rgba(150, 145, 135, 0.26); color: #A8A080; }
+.chiaroscuro .btn-ghost:hover { border-color: #A8A080; color: var(--flame-white); }
+.chiaroscuro .btn-sm { border-color: rgba(150, 145, 135, 0.16); color: #6F6B60; }
 
 /* Stat separators */
-.chiaroscuro .stat { border-color: rgba(176, 152, 96, 0.14); }
-.chiaroscuro .stat-value { color: #EDEDED; }
-.chiaroscuro .stat-label { color: #7A7462; }
+.chiaroscuro .stat { border-color: rgba(150, 145, 135, 0.14); }
+.chiaroscuro .stat-value { color: #E4E0D8; }
+.chiaroscuro .stat-label { color: #6F6B60; }
 
 /* Cards / bezel panels */
 .chiaroscuro .card,
 .chiaroscuro .rd-column,
 .chiaroscuro .pillar {
   background: var(--panel-bg);
-  border: var(--bezel-outer);
 }
 
 /* Section titles under chiaroscuro */
@@ -164,11 +144,9 @@
 .chiaroscuro .section-sub { color: #9A9A9A; }
 
 /* Marquee softened under chiaroscuro */
-.chiaroscuro .marquee-line span { color: #7A7462; }
-.chiaroscuro .marquee-line:nth-child(odd) span { color: #C5A059; }
+.chiaroscuro .marquee-line span { color: #6F6B60; }
+.chiaroscuro .marquee-line:nth-child(odd) span { color: #A8A080; }
 
-/* Footer rim */
-.chiaroscuro footer { border-top: var(--bezel-outer); }
 
 html {
   -webkit-font-smoothing: antialiased;
