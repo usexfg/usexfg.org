@@ -1231,7 +1231,7 @@ nav {
 
 .marquee-line {
   overflow: hidden;
-  margin-bottom: -18px;
+  margin-bottom: -8px;
 }
 
 .marquee-line:last-child {
