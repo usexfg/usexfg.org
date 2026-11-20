@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  if (window.FuegoGalaxy && window.FuegoGalaxy.mounted) return;
   const galaxy = document.getElementById("xfg-galaxy");
   if (!galaxy) return;
 

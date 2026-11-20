@@ -1731,3 +1731,196 @@ html.js [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
     scroll-margin-top: 0;
   }
 }
+
+/* Private exchange — cinematic galaxy */
+.is-3d {
+  overflow: hidden;
+  background: #070605;
+  touch-action: pan-y;
+}
+
+.is-3d .xfg-galaxy-core {
+  display: none !important;
+}
+
+.is-3d .xfg-galaxy-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  touch-action: pan-y;
+}
+
+.is-3d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(ellipse at 50% 46%, transparent 46%, rgba(0, 0, 0, 0.58) 100%);
+}
+
+.galaxy-hud,
+.galaxy-hold,
+.galaxy-reticle {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.galaxy-hud {
+  inset: 0;
+}
+
+.galaxy-hint,
+.galaxy-keys,
+.galaxy-readout {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  margin: 0;
+}
+
+.galaxy-hint,
+.galaxy-keys {
+  bottom: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  white-space: nowrap;
+}
+
+.galaxy-keys {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.is-3d.is-briefing .galaxy-keys {
+  opacity: 1;
+}
+
+.is-3d.is-open .galaxy-hint {
+  opacity: 0;
+}
+
+.galaxy-readout {
+  bottom: 48px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: var(--flame-white);
+  min-height: 1.2em;
+}
+
+.galaxy-withdraw {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  pointer-events: none;
+  opacity: 0;
+  min-height: 44px;
+  padding: 0 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(7, 6, 5, 0.72);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  border-radius: var(--bezel-radius);
+  cursor: pointer;
+}
+
+.is-3d.is-flight .galaxy-withdraw {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.galaxy-hold {
+  width: 72px;
+  height: 72px;
+  transform: translate(-50%, -50%);
+}
+
+.galaxy-hold svg {
+  width: 72px;
+  height: 72px;
+  transform: rotate(-90deg);
+}
+
+.galaxy-hold-track,
+.galaxy-hold-arc {
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.galaxy-hold-track {
+  stroke: rgba(197, 160, 89, 0.28);
+}
+
+.galaxy-hold-arc {
+  stroke: #c5a059;
+  stroke-dasharray: 176;
+  stroke-dashoffset: 176;
+  stroke-linecap: round;
+}
+
+.galaxy-reticle {
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(197, 160, 89, 0.8);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.is-3d.is-flight .galaxy-reticle {
+  opacity: 1;
+}
+
+html.galaxy-flight,
+html.galaxy-flight body {
+  overflow: hidden;
+}
+
+html.galaxy-flight #xfg-galaxy {
+  position: fixed;
+  inset: 0;
+  width: auto;
+  height: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  margin: 0;
+  z-index: 280;
+  transform: none !important;
+  touch-action: none;
+}
+
+html.galaxy-flight .xfg-galaxy-canvas,
+html.galaxy-flight .is-3d {
+  touch-action: none;
+}
+
+html.galaxy-flight .xfg-galaxy-canvas {
+  cursor: none;
+}
+
+html.galaxy-flight nav,
+html.galaxy-flight .page-dots,
+html.galaxy-flight .swaps-text {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.is-3d:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
