@@ -1,0 +1,69 @@
+name: SEO, AEO & GEO chores
+
+on:
+  schedule:
+    - cron: "17 9 * * 1" # weekly (Mon 09:17 UTC)
+  workflow_dispatch:
+  push:
+    branches: [main, master, restyling, "feat/**"]
+    paths:
+      - "**.html"
+      - "**.css"
+      - "**.js"
+      - "robots.txt"
+      - "sitemap.xml"
+      - "llms.txt"
+      - "llms-full.txt"
+      - "scripts/seo_chores.py"
+      - ".github/workflows/seo-chores.yml"
+  pull_request:
+    paths:
+      - "**.html"
+      - "**.css"
+      - "**.js"
+      - "robots.txt"
+      - "sitemap.xml"
+      - "llms.txt"
+      - "llms-full.txt"
+      - "scripts/seo_chores.py"
+      - ".github/workflows/seo-chores.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-chores-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chores:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run SEO/AEO/GEO chores
+        id: chores
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python3 scripts/seo_chores.py --no-sync
+          else
+            python3 scripts/seo_chores.py
+          fi
+
+      - name: Commit sitemap lastmod updates
+        if: github.event_name != 'pull_request'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(seo): sync sitemap lastmod [skip ci]"
+          file_pattern: sitemap.xml
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
