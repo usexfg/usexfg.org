@@ -316,6 +316,7 @@
 
   var clock = new THREE.Clock();
   var clockTime = 0;
+  var prevPos = new THREE.Vector3();
 
   function fitDistance(R, aspect, margin) {
     var vf = FOV * Math.PI / 360;
@@ -349,11 +350,26 @@
     '<div class="gf-bar top"></div><div class="gf-bar bottom"></div>' +
     '<div class="gf-stage"></div>' +
     '<div class="gf-labels"></div>' +
+    '<div class="gf-dossier">' +
+      '<div class="gf-dossier-inner">' +
+        '<h2 class="gf-dossier-name"></h2>' +
+        '<p class="gf-dossier-blurb"></p>' +
+        '<div class="gf-dossier-grid">' +
+          '<div class="gf-dossier-row"><span class="gd-label">Network Type</span><span class="gd-val">—</span></div>' +
+          '<div class="gf-dossier-row"><span class="gd-label">Status in deXFG</span><span class="gd-val">—</span></div>' +
+          '<div class="gf-dossier-row"><span class="gd-label">Gas Asset</span><span class="gd-val">—</span></div>' +
+          '<div class="gf-dossier-row"><span class="gd-label">TVL</span><span class="gd-val">—</span></div>' +
+          '<div class="gf-dossier-row"><span class="gd-label">Circulating Supply</span><span class="gd-val">—</span></div>' +
+          '<div class="gf-dossier-row"><span class="gd-label">Max Supply</span><span class="gd-val">—</span></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
     '<div class="gf-hud">' +
       '<div class="gf-title"><span class="gf-eyebrow">deXFG — Private Exchange</span>' +
       '<span class="gf-head">The Galaxy</span></div>' +
       '<button class="gf-close" type="button" aria-label="Collapse galaxy overview">Collapse</button>' +
       '<button class="gf-overview" type="button">Overview</button>' +
+      '<button class="gf-freefly" type="button">Free Fly</button>' +
       '<div class="gf-hint">Drag to fly &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Select a planet</div>' +
     '</div>';
   document.body.appendChild(overlay);
@@ -366,6 +382,109 @@
   live.className = 'visually-hidden';
   live.setAttribute('aria-live', 'polite');
   document.body.appendChild(live);
+
+  /* --- Dossier: network detail panel, prints on focus --- */
+  var dossierEl = overlay.querySelector('.gf-dossier');
+  var dNameEl = dossierEl.querySelector('.gf-dossier-name');
+  var dBlurbEl = dossierEl.querySelector('.gf-dossier-blurb');
+  var dRows = Array.prototype.slice.call(dossierEl.querySelectorAll('.gf-dossier-row')).map(function (r) {
+    return { label: r.querySelector('.gd-label'), val: r.querySelector('.gd-val') };
+  });
+  var dCurrent = null, dStatsId = null, dPrintLen = 0, dNameDone = false, dRowsIn = 0;
+  var dInAt = 0, dText = '';
+  var dRowVisible = [true, true, true, false, false, false];
+
+  var dossierStash = ['—', '—', '—'];
+  function dossierSet(rowIdx, val) {
+    if (rowIdx < dRows.length) dRows[rowIdx].val.textContent = val;
+  }
+  function revealRow(i) {
+    if (dRowVisible[i] || !dRows[i]) return;
+    dRowVisible[i] = true;
+    dRows[i].val.classList.add('visible');
+    dRows[i].val.style.transitionDelay = Math.max(0, i - 3) * 0.09 + 's';
+  }
+  function resetDossierRows() {
+    dRowVisible = [true, true, true, false, false, false];
+    dRows.forEach(function (r) { r.val.classList.remove('visible'); });
+  }
+  function dossierStaticInfo(mesh) {
+    var info = DEXXFG_CHAINS && DEXXFG_CHAINS.get(mesh.userData.coin[0]);
+    return {
+      type: info && info.type || '—',
+      status: info && info.status || '—',
+      symbol: info && info.symbol || '—',
+      blurb: info && info.blurb || ''
+    };
+  }
+  function closeDossier() {
+    follow = null;
+    dCurrent = null; dStatsId = null; dPrintLen = 0; dNameDone = false; dRowsIn = 0; dInAt = 0;
+    dNameEl.textContent = ''; dBlurbEl.textContent = '';
+    dRows.forEach(function (r) { r.val.textContent = '—'; });
+    resetDossierRows();
+    dossierEl.classList.remove('on', 'has-name', 'has-blurb', 'has-rows');
+  }
+  function showDossier(mesh) {
+    closeDossier();
+    dossierEl.classList.add('on');
+    follow = mesh;
+    dCurrent = mesh;
+    dStatsId = mesh.userData.coin[0];
+    dText = mesh.userData.coin[1];
+    dPrintLen = 0; dNameDone = false; dRowsIn = 0; dInAt = 0;
+    var info = dossierStaticInfo(mesh);
+    dossierStash = [info.type, info.status, info.symbol];
+    dRows[0].val.classList.add('visible');
+    dRows[1].val.classList.add('visible');
+    dRows[2].val.classList.add('visible');
+    DEXXFG_CHAINS && DEXXFG_CHAINS.stats(applyStats);
+  }
+  function applyStats(statsById) {
+    if (!dStatsId || !statsById) return;
+    var s = statsById[dStatsId];
+    if (!s) return;
+    if (s.tvl != null) dossierSet(3, DEXXFG_CHAINS.fmtUsd(s.tvl));
+    if (s.circulating != null) dossierSet(4, DEXXFG_CHAINS.fmtCount(s.circulating));
+    if (s.max != null) dossierSet(5, DEXXFG_CHAINS.fmtCount(s.max));
+    if (s.tvl != null) revealRow(3);
+    if (s.circulating != null) revealRow(4);
+    if (s.max != null) revealRow(5);
+  }
+
+  /* --- Free Fly --- */
+  var freeFlyBtn = overlay.querySelector('.gf-freefly');
+  var visor = document.createElement('div');
+  visor.id = 'gf-visor';
+  overlay.insertBefore(visor, overlay.querySelector('.gf-hud'));
+  var freeFly = false;
+  var keyDir = new THREE.Vector3();
+  var KEYV = {
+    'w': [0, 0, 1], 's': [0, 0, -1], 'a': [-1, 0, 0], 'd': [1, 0, 0],
+    ' ': [0, 1, 0], 'shift': [0, 1, 0], 'e': [0, -1, 0]
+  };
+  var FFLY = 22;
+  function setFreeFly(on) {
+    freeFly = !!on;
+    freeFlyBtn.classList.toggle('on', on);
+    visor.classList.toggle('on', on);
+    goOverview();
+  }
+  function toggleFreeFly() { setFreeFly(!freeFly); }
+  function flyFrame(dt) {
+    if (!freeFly) { keyDir.set(0, 0, 0); return; }
+    var up = new THREE.Vector3(0, 1, 0);
+    var fwd = new THREE.Vector3().subVectors(tgt.look, galaxy.position);
+    if (fwd.length() > 1e-6) fwd.normalize(); else fwd.set(0, 0, 1);
+    var right = new THREE.Vector3().crossVectors(fwd, up).normalize();
+    if (right.length() < 0.1) right.set(1, 0, 0);
+    var upV = new THREE.Vector3().crossVectors(right, fwd).normalize();
+    tgt.look.addScaledVector(right, keyDir.x * FFLY * dt);
+    tgt.look.addScaledVector(upV, keyDir.y * FFLY * dt);
+    tgt.look.addScaledVector(fwd, keyDir.z * FFLY * dt);
+    if (tgt.look.y < -15) tgt.look.y = -15;
+    if (tgt.look.y > 30) tgt.look.y = 30;
+  }
 
   /* --- Hint chip + hold progress ring + tooltip --- */
   var hint = document.createElement('div');
@@ -441,6 +560,10 @@
     if (mode !== 'flight') return;
     follow = null;
     overviewBtn.classList.remove('on');
+    closeDossier();
+    freeFlyBtn.classList.remove('on');
+    visor.classList.remove('on');
+    freeFly = false;
     mode = 'hero';
     overlay.classList.remove('on');
     document.body.classList.remove('galaxy-flight');
@@ -459,6 +582,7 @@
   overviewBtn.addEventListener('click', function () { goOverview(); });
 
   function goOverview() {
+    if (dCurrent) closeDossier();
     follow = null;
     overviewBtn.classList.remove('on');
     tgt.look.set(0, 1.5, 0);
@@ -469,13 +593,24 @@
 
   document.addEventListener('keydown', function (e) {
     if (mode !== 'flight') return;
-    if (e.key === 'Escape') { exitFlight(); return; }
-    var step = 0.12;
-    if (e.key === 'ArrowLeft')  { tgt.theta -= step; e.preventDefault(); }
-    if (e.key === 'ArrowRight') { tgt.theta += step; e.preventDefault(); }
-    if (e.key === 'ArrowUp')    { tgt.phi = Math.max(0.30, tgt.phi - step * 0.6); e.preventDefault(); }
-    if (e.key === 'ArrowDown')  { tgt.phi = Math.min(1.46, tgt.phi + step * 0.6); e.preventDefault(); }
+    if (e.key === 'Escape') { if (dCurrent) closeDossier(); else exitFlight(); return; }
+    if (e.key === 'f' && !freeFly) { toggleFreeFly(); return; }
+    if (freeFly) {
+      var v = KEYV[e.key.toLowerCase()];
+      if (v) { keyDir.set(v[0], v[1], v[2]); e.preventDefault(); }
+    } else {
+      hideDossierOnMove();
+      var step = 0.12;
+      if (e.key === 'ArrowLeft')  { tgt.theta -= step; e.preventDefault(); }
+      if (e.key === 'ArrowRight') { tgt.theta += step; e.preventDefault(); }
+      if (e.key === 'ArrowUp')    { tgt.phi = Math.max(0.30, tgt.phi - step * 0.6); e.preventDefault(); }
+      if (e.key === 'ArrowDown')  { tgt.phi = Math.min(1.46, tgt.phi + step * 0.6); e.preventDefault(); }
+    }
   });
+  document.addEventListener('keyup', function (e) {
+    if (freeFly) keyDir.set(0, 0, 0);
+  });
+  overlay.querySelector('.gf-freefly').addEventListener('click', function () { toggleFreeFly(); });
 
   /* --- Pointer flight controls --- */
   var drag = { on: false, x: 0, y: 0, id: null, moved: 0, downT: 0 };
@@ -489,6 +624,7 @@
     if (pointers.size === 1) {
       drag.on = true; drag.x = e.clientX; drag.y = e.clientY;
       drag.id = e.pointerId; drag.moved = 0; drag.downT = performance.now();
+      if (mode === 'flight') hideDossierOnMove();
     } else if (pointers.size === 2) {
       var p = Array.from(pointers.values());
       pinchDist = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
@@ -500,7 +636,12 @@
     if (pointers.size === 2) {
       var q = Array.from(pointers.values());
       var d = Math.hypot(q[0].x - q[1].x, q[0].y - q[1].y);
-      if (pinchDist > 0) { tgt.radius /= d / pinchDist; clampView(); drag.moved += Math.abs(d - pinchDist); }
+      if (pinchDist > 0) {
+        tgt.radius /= d / pinchDist;
+        clampView();
+        drag.moved += Math.abs(d - pinchDist);
+      }
+      if (Math.abs(pinchDist - d) > 3) hideDossierOnMove();
       pinchDist = d;
       return;
     }
@@ -511,6 +652,7 @@
     tgt.theta -= dx * 0.0052;
     tgt.phi   -= dy * 0.0052;
     clampView();
+    if (drag.moved > 6) hideDossierOnMove();
   });
   function endPointer(e) {
     pointers.delete(e.pointerId);
@@ -527,6 +669,7 @@
     e.preventDefault();
     tgt.radius *= 1 + e.deltaY * 0.0009;
     clampView();
+    hideDossierOnMove();
   }, { passive: false });
 
   /* --- Raycast: tooltip in hero, fly-to in flight --- */
@@ -564,13 +707,16 @@
     tooltip.classList.remove('on');
   });
 
+  function hideDossierOnMove() {
+    if (dCurrent) closeDossier();
+  }
   function handleTap(e) {
     var hit = pick(e);
     if (hit) {
-      follow = hit;
+      showDossier(hit);
       tgt.radius = hit.userData.size * 5.6;
       overviewBtn.classList.add('on');
-      live.textContent = 'Flying to ' + hit.userData.coin[1] + '.';
+      live.textContent = 'Focused on ' + hit.userData.coin[1] + '.';
     } else if (follow) {
       goOverview();
     }
@@ -617,14 +763,17 @@
   /* --- Render loop --- */
   var tmpV = new THREE.Vector3();
 
-  function frame() {
+  function frame(forceDt) {
+    loopStats.frames++;
     requestAnimationFrame(frame);
-    var dt = Math.min(clock.getDelta(), 0.05);
+    var dt = forceDt !== undefined ? forceDt : Math.min(clock.getDelta(), 0.05);
+    if (dt <= 0) loopStats.skipped++;
+    loopStats.lastDt = dt;
     clockTime += dt;
     var t = clockTime;
 
     var inView = mode === 'flight' || wrapper.getBoundingClientRect().bottom > 0;
-    if (!inView || document.hidden) return;
+    if (!inView || document.hidden) { loopStats.skippedHidden++; return; }
 
     /* hold progress */
     if (hold.active) {
@@ -658,6 +807,12 @@
       view.look.z + r * cp * Math.cos(view.theta)
     );
     camera.lookAt(view.look);
+
+    /* moving HUD detection: labels/hint fade while camera travels */
+    var camSpeed = camera.position.distanceTo(prevPos) / dt;
+    prevPos.copy(camera.position);
+    if (camSpeed > 0.002) overlay.classList.add('moving');
+    else if (camSpeed < 0.0005) overlay.classList.remove('moving');
 
     /* galaxy retract */
     var sk = 1 - Math.exp(-dt * 3);
@@ -704,6 +859,28 @@
     dust.rotation.y += dt * 0.008;
     stars.rotation.y += dt * 0.002;
 
+    /* free fly */
+    flyFrame(dt);
+
+    /* dossier: typewriter while focused */
+    if (dCurrent && follow) {
+      dPrintLen += dt * 8.5;
+      if (dPrintLen > dText.length) dPrintLen = dText.length;
+      dNameEl.textContent = dText.slice(0, Math.floor(dPrintLen));
+      if (!dNameDone && dPrintLen >= dText.length) {
+        dNameDone = true;
+        dossierSet(0, dossierStash[0]); dossierSet(1, dossierStash[1]); dossierSet(2, dossierStash[2]);
+        var info = dossierStaticInfo(dCurrent);
+        dBlurbEl.textContent = info.blurb;
+        dossierEl.classList.add('has-name');
+        dInAt = t + 0.5;
+      }
+      if (dInAt && t >= dInAt) {
+        var n = Math.min(dRows.length, (t - dInAt) / 0.07);
+        for (var ri = 0; ri < n; ri++) revealRow(3 + ri);
+      }
+    }
+
     /* labels in flight mode, overview only */
     var showLabels = mode === 'flight' && !follow && view.radius > flightFit() * 0.8;
     var w = window.innerWidth, h = window.innerHeight;
@@ -730,12 +907,25 @@
   }
 
   /* tuning + test handle */
+  var loopStats = { skipped: 0, skippedHidden: 0, lastDt: 0, frames: 0 };
   window.__galaxy = {
     planets: planets,
     camera: camera,
     mode: function () { return mode; },
+    loop: function () { return loopStats; },
+    follow: function () { return follow; },
+    dossier: function () { return {
+      dCurrent: !!dCurrent,
+      dText: dText,
+      dPrintLen: dPrintLen,
+      dNameDone: dNameDone,
+      nameText: dNameEl ? dNameEl.textContent : null,
+      blurbText: dBlurbEl ? dBlurbEl.textContent.slice(0, 40) : null,
+      rows: dRows ? dRows.map(function (r) { return r.val.textContent; }) : null
+    }; },
     enterFlight: enterFlight,
-    exitFlight: exitFlight
+    exitFlight: exitFlight,
+    tick: function (dt) { frame(dt); }
   };
 
   frame();

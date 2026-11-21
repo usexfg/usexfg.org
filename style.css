@@ -1953,3 +1953,184 @@ body.galaxy-flight { overflow: hidden; }
   .gf-overview { left: 18px; }
   .gf-hint { bottom: 60px; font-size: 9px; }
 }
+
+
+/* ============================================================
+   deXFG GALAXY — dossier panel (network close-up), visor, gold effects
+   ============================================================ */
+
+/* moving HUD: labels fade while the camera travels */
+#galaxy-flight.on.moving .gf-labels { opacity: 0; }
+
+.gf-dossier {
+  position: absolute;
+  right: 28px;
+  top: 58px;
+  bottom: 0;
+  display: none;
+  pointer-events: none;
+  z-index: 2;
+}
+#galaxy-flight.on .gf-dossier { display: block; }
+.gf-dossier-inner {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(340px, 80vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 42px 28px;
+  border-left: 1px solid rgba(197, 160, 89, 0.28);
+  border-top: 1px solid rgba(197, 160, 89, 0.28);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.28);
+  border-radius: 0 0 0 8px;
+  background: rgba(10, 10, 10, 0.62);
+}
+.gf-dossier-name {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--flame-white);
+  opacity: 0;
+  display: none;
+}
+.gf-dossier.has-name .gf-dossier-name { display: block; opacity: 1; transition: opacity 0.5s ease 0.25s; }
+.gf-dossier-blurb {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  color: rgba(234, 246, 249, 0.55);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease, max-height 0.6s ease;
+}
+.gf-dossier.has-name .gf-dossier-blurb { opacity: 1; max-height: 100px; }
+.gf-dossier-grid { margin-top: 8px; }
+.gf-dossier-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid rgba(197, 160, 89, 0.12);
+  padding-top: 5px;
+}
+.gf-dossier-row:first-of-type { border-top: none; padding-top: 0; }
+.gd-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+.gd-val {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--flame-white);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gd-val.visible { opacity: 1; }
+
+/* --- visor (free fly) --- */
+#gf-visor {
+  position: absolute;
+  inset: 0;
+  display: none;
+  z-index: 1;
+  pointer-events: none;
+}
+#galaxy-flight #gf-visor.on,
+#galaxy-flight.on #gf-visor.on { display: block; }
+#gf-visor .visor-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-style: solid;
+  border-color: rgba(197, 160, 89, 0.22);
+}
+#gf-visor .visor-bar.top { top: 0; border-width: 1px 0 0; height: 12px; }
+#gf-visor .visor-bar.bottom { bottom: 0; border-width: 0 0 1px; height: 12px; }
+#gf-visor .visor-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-style: solid;
+  border-color: rgba(197, 160, 89, 0.28);
+  opacity: 0.75;
+}
+#gf-visor .visor-corner.tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+#gf-visor .visor-corner.tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+#gf-visor .visor-corner.bl { bottom: 0; left: 0; border-width: 0 2px 2px 0; }
+#gf-visor .visor-corner.br { bottom: 0; right: 0; border-width: 2px 0 2px 2px; }
+
+/* --- free fly button (placed top right of HUD) --- */
+.gf-freefly {
+  position: absolute;
+  top: 64px;
+  right: 28px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--flame-white);
+  background: rgba(10, 10, 10, 0.5);
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.gf-freefly:hover,
+.gf-freefly.on { border-color: var(--gold); }
+.gf-freefly:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* --- gold text effects (rustic sheet + liquid gold) --- */
+@property --gold-angle { syntax: '<angle>'; inherits: true; initial-value: 0deg; }
+@keyframes goldRibbon {
+  0%   { --gold-angle: 0deg;   background-position-x: 100%; }
+  50%  { --gold-angle: 8deg;   background-position-x: 0%; }
+  100% { --gold-angle: 0deg;   background-position-x: 100%; }
+}
+.gold-seal {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(180deg, #E8C089, #B7834D 55%, #8C734B);
+  text-shadow: 0 1px 0 #0A0A0A, 2px 2px 0 rgba(0, 0, 0, 0.62);
+  -webkit-text-stroke: 0.5px rgba(197, 160, 89, 0.5);
+}
+.gold-liquid {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(var(--gold-angle) at 70% 30%, #8C734B, #C5A059, #E8D8B8, #C5A059, #8C734B);
+  background-size: 320% 320%;
+  animation: goldRibbon 7s ease-in-out infinite;
+}
+.gold-liquid:hover {
+  background-position-x: 50%;
+  animation-duration: 3.5s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gold-liquid { animation: none; background-position-x: 50%; }
+}
+@media (max-width: 900px) {
+  .gf-dossier { right: 18px; top: 60px; }
+  .gf-dossier-inner { width: calc(80vw - 36px); padding: 34px 18px; }
+  .gf-visor .visor-bar { display: none; }
+  .gf-visor .visor-corner { display: none; }
+}
