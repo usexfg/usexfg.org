@@ -437,6 +437,7 @@
     dPrintLen = 0; dNameDone = false; dRowsIn = 0; dInAt = 0;
     var info = dossierStaticInfo(mesh);
     dossierStash = [info.type, info.status, info.symbol];
+    if (dStatsId === 'fuego') dossierStash[1] = 'Native';
     dRows[0].val.classList.add('visible');
     dRows[1].val.classList.add('visible');
     dPrivacyAns = (DEXXFG_CHAINS && DEXXFG_CHAINS.swapPrivacy) ? DEXXFG_CHAINS.swapPrivacy(dStatsId) : 'Public';
@@ -449,6 +450,17 @@
   function applyStats(statsById) {
     if (!dStatsId || !statsById) return;
     var s = statsById[dStatsId];
+    if (dStatsId === 'fuego') {
+      /* The Fuego Reserve is the native network of facilitation, not a
+         supported listing — and its supply figures are the reserve's own. */
+      dossierSet(1, 'Native');
+      dossierSet(5, DEXXFG_CHAINS.fmtCount(7700000));
+      dossierSet(6, DEXXFG_CHAINS.fmtCount(8000008));
+      if (s && s.tvl != null) { dossierSet(4, DEXXFG_CHAINS.fmtUsd(s.tvl)); revealRow(4); }
+      revealRow(5);
+      revealRow(6);
+      return;
+    }
     if (!s) return;
     if (s.tvl != null) dossierSet(4, DEXXFG_CHAINS.fmtUsd(s.tvl));
     if (s.circulating != null) dossierSet(5, DEXXFG_CHAINS.fmtCount(s.circulating));
