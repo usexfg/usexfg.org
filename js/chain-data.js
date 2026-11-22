@@ -50,7 +50,10 @@
     peaq:       ['peaq', 'peaq', 'PEAQ', 'DePIN L1', 'DePIN L1 for machine economy swap routes.'],
     sei:        ['sei', 'Sei', 'SEI', 'Parallel L1', 'Parallelised L1 with native order-matching design.'],
     ton:        ['the-open-network', 'TON', 'TON', 'L1', 'Telegram-rooted L1; private entry via adaptor signatures.'],
-    fuego:     ['fuego', 'Fuego Reserve', 'XFG', 'Private reserve · the galaxy core', 'Sovereign Sound Money Banking & Private Purchasing Power Chain']
+    /* No CoinGecko entry exists for Fuego XFG — the reserve is its own source
+       of truth, so its supply figures come from the reserve itself, not a
+       third-party coin site. */
+    fuego:     [null, 'Fuego Reserve', 'XFG', 'Private reserve · the galaxy core', 'Sovereign Sound Money Banking & Private Purchasing Power Chain']
   };
 
   var STATUS = 'Supported network · arriving with v11';
