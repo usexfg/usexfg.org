@@ -367,8 +367,7 @@
       '</div>' +
     '</div>' +
     '<div class="gf-hud">' +
-      '<div class="gf-title"><span class="gf-eyebrow">deXFG — Private Exchange</span>' +
-      '<span class="gf-head">The Exchange</span></div>' +
+      '<div class="gf-title"><span class="gf-eyebrow">deXFG — Private Exchange</span></div>' +
       '<button class="gf-close" type="button" aria-label="Collapse galaxy overview">Collapse</button>' +
       '<button class="gf-overview" type="button">Overview</button>' +
       '<button class="gf-freefly" type="button">Free Fly</button>' +
