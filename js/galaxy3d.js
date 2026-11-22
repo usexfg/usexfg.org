@@ -292,7 +292,8 @@
 
     function refreshStatsOverlay() {
       if (!statsOverlay) return;
-      if (selected.node) {
+      var inFlight = phase === 'flight' || phase === 'retract' || phase === 'withdraw';
+      if (selected.node && inFlight) {
         statsOverlay.style.display = 'block';
         populateStatsOverlay(selected.node.dataCoin);
       } else {
@@ -1462,6 +1463,18 @@
       mounted = false;
     }
     window.FuegoGalaxy = { mounted: mounted, stats: window.orbitData || null };
+    window.FuegoGalaxy.debug = function () {
+      var g = document.getElementById('xfg-galaxy');
+      return {
+        phase: g ? g.dataset.galaxyPhase : null,
+        holding: holding,
+        gliding: gliding,
+        activeAutoFly: activeAutoFly,
+        selected: selected.node ? selected.node.dataCoin : null,
+        isHoldingClass: !!(g && g.classList.contains('is-holding')),
+        rafAlive: (typeof window.__rafTest) === 'undefined' ? 'unknown' : window.__rafTest
+      };
+    };
     fetch('/data/networks.json')
       .then(function (res) { return res.json(); })
       .then(function (data) {

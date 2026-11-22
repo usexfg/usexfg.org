@@ -1955,6 +1955,14 @@ html.galaxy-flight .swaps-text {
   pointer-events: none;
 }
 
+html.galaxy-flight .page-section:not([data-section="swaps"]) {
+  display: none;
+}
+
+html.galaxy-flight #xfg-galaxy {
+  background: #050505;
+}
+
 .is-3d:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
