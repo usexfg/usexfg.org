@@ -19,7 +19,7 @@
     matic:      ['matic-network', 'Polygon', 'POL', 'Ethereum L2 / sidechain', 'Ethereum-side liquidity rail; renamed token POL, still the gas asset.'],
     ltc:        ['litecoin', null, 'LTC', 'Proof-of-work UTXO', 'PoW UTXO; one of the longest-lived networks in the swap set.'],
     dash:       ['dash', 'Dash', 'DASH', 'Proof-of-work, optional shield', 'PoW with optional privacy features; trustless cross-chain settlement.'],
-    zec:        ['zcash', null, 'ZEC', 'Proof-of-work shielded pool', 'Shielded-pool PoW chain; privacy-preserving swap counterpart.'],
+    zec:        ['zcash', null, 'ZEC', 'Proof-of-work shielded pool', 'Zcash — shielded-pool PoW chain; deXFG swap legs run through the unshielded pool, so the outward swap is not private-to-private.'],
     arb:        ['arbitrum', 'Arbitrum', 'ETH', 'Ethereum L2 (optimistic)', 'Optimistic rollup; ETH gas, deep DEX liquidity, bridgeless Fuego entry.'],
     base:       ['base', 'Base', 'ETH', 'Ethereum L2 (OP stack)', 'OP-stack L2; swap routes settle without a canonical bridge.'],
     cro:        ['cronos', 'Cronos', 'CRO', 'EVM L1', 'EVM L1; reserve entry and exit through private order flow.'],
@@ -27,7 +27,7 @@
     dcr:        ['decred', null, 'DCR', 'PoW/PoS hybrid', 'Hybrid consensus; treasury-governed network in the swap set.'],
     gleec:      [null, null, 'GLEEC', 'EVM ecosystem', 'Small-cap EVM ecosystem; listed for private cross-chain settlement.'],
     robinhood:  [null, null, '—', 'Listed network', 'Custodial-adjacent listing route into private swap flow; no native gas asset.'],
-    bob:        [null, 'BOB', 'BOB', 'Bitcoin-secured L2', 'Build-on-Bitcoin L2; inherits Bitcoin settlement for swap legs.'],
+    bob:        [null, 'BOB', 'ETH', 'EVM L2', 'Bank of Bitcoin — ZK rollup on Ethereum secured by Bitcoin, with EVM smart contracts; ETH gas, swap-wired into the private order flow.'],
     unichain:   [null, 'Unichain', 'ETH', 'Ethereum L2 (OP stack)', 'Uniswap’s OP-stack L2; swap-native liquidity, ETH gas.'],
     plasma:     [null, 'Plasma', '—', 'Stable-focused L1', 'Stablecoin-focused L1 in the deXFG network set.'],
     pls:        ['pulsechain', null, 'PLS', 'Proof-of-stake L1', 'PoS L1 fork lineage; private entry without a bridge wrapper.'],
@@ -44,17 +44,33 @@
     abstract:   [null, 'Abstract', 'ABSTRACT', 'Ethereum L2', 'Consumer-focused OP-stack L2 in the deXFG set.'],
     plume:      ['plume', 'Plume', 'PLUME', 'RWA L2', 'RWA-focused L2; tokenised-asset swap routes.'],
     soneium:    [null, 'Soneium', 'ETH', 'Ethereum L2', 'Startale/Sony OP-stack L2; ETH gas.'],
-    doma:       [null, 'Doma', '—', 'L1', 'Doma network; listed for private settlement.'],
+    doma:       [null, 'Doma', 'ETH', 'Domain-focused EVM', 'Doma — domain-focused EVM network in the deXFG set; ETH gas, wallet-tier entry.'],
     beam:       ['beam', 'Beam', 'BEAM', 'Gaming L1', 'Gaming L1; MERIT-aligned economy, bridgeless swap entry.'],
     moonriver:  ['moonriver', 'Moonriver', 'MOVR', 'Kusama L1', 'Kusama-canary EVM L1; MOVR gas.'],
     peaq:       ['peaq', 'peaq', 'PEAQ', 'DePIN L1', 'DePIN L1 for machine economy swap routes.'],
     sei:        ['sei', 'Sei', 'SEI', 'Parallel L1', 'Parallelised L1 with native order-matching design.'],
-    ton:        ['the-open-network', 'TON', 'TON', 'L1', 'Telegram-rooted L1; private entry via adaptor signatures.']
+    ton:        ['the-open-network', 'TON', 'TON', 'L1', 'Telegram-rooted L1; private entry via adaptor signatures.'],
+    fuego:     ['fuego', 'Fuego Reserve', 'XFG', 'Private reserve · the galaxy core', 'Sovereign Sound Money Banking & Private Purchasing Power Chain']
   };
 
   var STATUS = 'Supported network · arriving with v11';
   var CACHE_KEY = 'dexfg-stats-v1';
   var TTL_MS = 10 * 60 * 1000;
+
+  /* Swapping XFG OUT to a network is private-to-private only where the swap
+     leg is shielded end to end. Monero (ring signatures + PTLC) is the privacy
+     network. The Fuego Reserve leg itself is shielded (XFG ring signatures /
+     MuSig2 PTLC), so swapping out of the reserve is private. Everything else is
+     a public leg: transparent UTXO/EVM rails, or shielded pools whose swaps run
+     through an unshielded pool (e.g. Zcash). */
+  var PRIVATE_TO_PRIVATE = { monero: true, fuego: true };
+  function isPrivateToPrivate(id) {
+    var v = Object.prototype.hasOwnProperty.call(PRIVATE_TO_PRIVATE, id) ? PRIVATE_TO_PRIVATE[id] : false;
+    return !!v;
+  }
+  function swapPrivacy(id) {
+    return isPrivateToPrivate(id) ? 'Private' : 'Public';
+  }
 
   function fmtUsd(n) {
     if (n == null || !isFinite(n)) return '—';
@@ -94,10 +110,24 @@
 
     function done() {
       if (--remaining > 0) return;
-      cache = { ts: Date.now(), data: result };
+      var data = result;
+      /* Networks whose native coin is ETH report the Ethereum supply figures
+         (Arbitrum/Base/Unichain/Linea/zkSync/Scroll/Soneium/Ink/Abstract/Doma…). */
+      var eth = data['eth'];
+      if (eth) {
+        Object.keys(REGISTRY).forEach(function (id) {
+          if (id === 'eth' || REGISTRY[id][2] !== 'ETH') return;
+          data[id] = data[id] || {};
+          data[id].price = eth.price;
+          data[id].circulating = eth.circulating;
+          data[id].total = eth.total;
+          data[id].max = eth.max;
+        });
+      }
+      cache = { ts: Date.now(), data: data };
       try { sessionStorage.setItem(CACHE_KEY, JSON.stringify(cache)); } catch (e) {}
       var cbs = inflight; inflight = null;
-      cbs.forEach(function (cb) { cb(result); });
+      cbs.forEach(function (cb) { cb(data); });
     }
 
     /* Chain TVL — DefiLlama */
@@ -133,6 +163,8 @@
     info: function (id) { return REGISTRY[id]; },
     stats: fetchStats,
     fmtUsd: fmtUsd,
-    fmtCount: fmtCount
+    fmtCount: fmtCount,
+    isPrivateToPrivate: isPrivateToPrivate,
+    swapPrivacy: swapPrivacy
   };
 })();

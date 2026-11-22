@@ -139,6 +139,7 @@
   });
   var ship = new THREE.Mesh(new THREE.SphereGeometry(6.2, 48, 32), shipMat);
   shipGroup.add(ship);
+  ship.userData = { coin: ['fuego', 'Fuego Reserve'], size: 6.2 };
 
   var loader = new THREE.TextureLoader();
   loader.load('coins/xfg-mark.png?v=4', function (tex0) {
@@ -357,6 +358,7 @@
         '<div class="gf-dossier-grid">' +
           '<div class="gf-dossier-row"><span class="gd-label">Network Type</span><span class="gd-val">—</span></div>' +
           '<div class="gf-dossier-row"><span class="gd-label">Status in deXFG</span><span class="gd-val">—</span></div>' +
+          '<div class="gf-dossier-row"><span class="gd-label">Outward Swap Privacy</span><span class="gd-val">—</span></div>' +
           '<div class="gf-dossier-row"><span class="gd-label">Gas Asset</span><span class="gd-val">—</span></div>' +
           '<div class="gf-dossier-row"><span class="gd-label">TVL</span><span class="gd-val">—</span></div>' +
           '<div class="gf-dossier-row"><span class="gd-label">Circulating Supply</span><span class="gd-val">—</span></div>' +
@@ -392,7 +394,8 @@
   });
   var dCurrent = null, dStatsId = null, dPrintLen = 0, dNameDone = false, dRowsIn = 0;
   var dInAt = 0, dText = '';
-  var dRowVisible = [true, true, true, false, false, false];
+  var dPrivacyAns = 'Public';
+  var dRowVisible = [true, true, true, true, false, false, false];
 
   var dossierStash = ['—', '—', '—'];
   function dossierSet(rowIdx, val) {
@@ -405,7 +408,7 @@
     dRows[i].val.style.transitionDelay = Math.max(0, i - 3) * 0.09 + 's';
   }
   function resetDossierRows() {
-    dRowVisible = [true, true, true, false, false, false];
+    dRowVisible = [true, true, true, true, false, false, false];
     dRows.forEach(function (r) { r.val.classList.remove('visible'); });
   }
   function dossierStaticInfo(mesh) {
@@ -437,19 +440,23 @@
     dossierStash = [info.type, info.status, info.symbol];
     dRows[0].val.classList.add('visible');
     dRows[1].val.classList.add('visible');
-    dRows[2].val.classList.add('visible');
+    dPrivacyAns = (DEXXFG_CHAINS && DEXXFG_CHAINS.swapPrivacy) ? DEXXFG_CHAINS.swapPrivacy(dStatsId) : 'Public';
+    dossierSet(2, dPrivacyAns);
+    dRows[2].val.classList.toggle('private', dPrivacyAns === 'Private');
+    dRows[3].val.classList.add('visible');
+    dossierSet(3, dossierStash[2]);
     DEXXFG_CHAINS && DEXXFG_CHAINS.stats(applyStats);
   }
   function applyStats(statsById) {
     if (!dStatsId || !statsById) return;
     var s = statsById[dStatsId];
     if (!s) return;
-    if (s.tvl != null) dossierSet(3, DEXXFG_CHAINS.fmtUsd(s.tvl));
-    if (s.circulating != null) dossierSet(4, DEXXFG_CHAINS.fmtCount(s.circulating));
-    if (s.max != null) dossierSet(5, DEXXFG_CHAINS.fmtCount(s.max));
-    if (s.tvl != null) revealRow(3);
-    if (s.circulating != null) revealRow(4);
-    if (s.max != null) revealRow(5);
+    if (s.tvl != null) dossierSet(4, DEXXFG_CHAINS.fmtUsd(s.tvl));
+    if (s.circulating != null) dossierSet(5, DEXXFG_CHAINS.fmtCount(s.circulating));
+    if (s.max != null) dossierSet(6, DEXXFG_CHAINS.fmtCount(s.max));
+    if (s.tvl != null) revealRow(4);
+    if (s.circulating != null) revealRow(5);
+    if (s.max != null) revealRow(6);
   }
 
   /* --- Free Fly --- */
@@ -683,7 +690,7 @@
     ndc.x = ((e.clientX - r.left) / r.width) * 2 - 1;
     ndc.y = -((e.clientY - r.top) / r.height) * 2 + 1;
     ray.setFromCamera(ndc, camera);
-    var hits = ray.intersectObjects(planets, false);
+    var hits = ray.intersectObjects([ship].concat(planets), false);
     return hits.length ? hits[0].object : null;
   }
 
@@ -872,7 +879,7 @@
       dNameEl.textContent = dText.slice(0, Math.floor(dPrintLen));
       if (!dNameDone && dPrintLen >= dText.length) {
         dNameDone = true;
-        dossierSet(0, dossierStash[0]); dossierSet(1, dossierStash[1]); dossierSet(2, dossierStash[2]);
+        dossierSet(0, dossierStash[0]); dossierSet(1, dossierStash[1]); dossierSet(2, dPrivacyAns); dossierSet(3, dossierStash[2]);
         var info = dossierStaticInfo(dCurrent);
         dBlurbEl.textContent = info.blurb;
         dossierEl.classList.add('has-name');

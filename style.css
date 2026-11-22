@@ -2042,6 +2042,7 @@ body.galaxy-flight { overflow: hidden; }
   text-overflow: ellipsis;
 }
 .gd-val.visible { opacity: 1; }
+.gd-val.private { color: var(--gold); }
 
 /* --- visor (free fly) --- */
 #gf-visor {
