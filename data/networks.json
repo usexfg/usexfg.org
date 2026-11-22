@@ -1,0 +1,44 @@
+{
+  "networks": [
+    {
+      "id": "xfg",
+      "name": "XFG",
+      "type": "Privacy",
+      "nativeCoin": "XFG",
+      "status": "Watched",
+      "maxSupply": 800008,
+      "circulatingSupply": null,
+      "tvl": null
+    },
+    {
+      "id": "sol",
+      "name": "Solana",
+      "type": "L1",
+      "nativeCoin": "SOL",
+      "status": "Active",
+      "maxSupply": null,
+      "circulatingSupply": "591,961,507",
+      "tvl": null
+    },
+    {
+      "id": "bnb",
+      "name": "BNB",
+      "type": "EVM L1",
+      "nativeCoin": "BNB",
+      "status": "Active",
+      "maxSupply": "200,000,000",
+      "circulatingSupply": "131,510,178",
+      "tvl": null
+    },
+    {
+      "id": "monero",
+      "name": "Monero",
+      "type": "Privacy",
+      "nativeCoin": "XMR",
+      "status": "Active",
+      "maxSupply": null,
+      "circulatingSupply": "18,834,248",
+      "tvl": null
+    }
+  ]
+}

@@ -3,6 +3,18 @@
 (function () {
   'use strict';
 
+  var coarse = window.matchMedia('(pointer: coarse)').matches;
+  var orbitUi = null;
+  var orbitFloater = null;
+  var orbitOverlay = null;
+  var selected = { node: null };
+  var planets = [];
+  var gliding = false;
+  var activeAutoFly = false;
+  var hover = { node: null, cameraPoint: new THREE.Vector2(), lastX: 0, lastY: 0 };
+  var camera = null;
+  var scene = null;
+
   var HOLD_MS = 780;
   var RETRACT_S = 2.65;
   var RETURN_S = 2.15;
@@ -64,8 +76,10 @@
     var galaxy = document.getElementById('xfg-galaxy');
     if (!galaxy || galaxy.dataset.galaxyReady) return false;
 
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(34, 1, 0.08, 640);
+
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var coarse = window.matchMedia('(pointer: coarse)').matches;
     var mobile = coarse || window.matchMedia('(max-width: 860px)').matches;
     var dprCap = mobile ? 1.5 : 2;
 
@@ -95,8 +109,6 @@
     renderer.setClearColor(0x070605, 1);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap));
 
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(34, 1, 0.08, 640);
     camera.position.set(0.4, 8.2, 88);
     camera.lookAt(0, 0, 0);
 
@@ -143,7 +155,6 @@
     coreLight.position.set(0, 0, 0);
     ship.add(coreLight);
 
-    var planets = [];
     var coinIndex = 0;
     SHELLS.forEach(function (shell) {
       var group = new THREE.Group();
@@ -158,6 +169,8 @@
         var body = planetBody(size, mobile);
         node.add(body.mesh);
         node.add(body.atmos);
+        node.dataCoin = coin.id;
+        node.dataName = coin.name;
         group.add(node);
         node.position.set(Math.cos((i / shell.count) * Math.PI * 2) * shell.radius, 0, Math.sin((i / shell.count) * Math.PI * 2) * shell.radius);
         planets.push({
@@ -199,6 +212,10 @@
       core.hidden = true;
       core.setAttribute('aria-hidden', 'true');
     }
+    var badge = galaxy.querySelector('.galaxy-badge');
+    if (badge) galaxy.appendChild(badge);
+    document.documentElement.classList.add('galaxy-ready');
+    if (badge) badge.textContent = 'Hold to enter.';
 
     var phase = 'idle';
     var elapsed = 0;
@@ -213,7 +230,6 @@
     var pointerId = null;
     var lastX = 0;
     var lastY = 0;
-    var gliding = false;
     var pitch = -0.35;
     var keys = {};
     var readoutName = '';
@@ -221,6 +237,68 @@
     var raf = 0;
     var looping = false;
     var clock = new THREE.Clock();
+    var statsOverlay = null;
+    var hoverRaycaster = new THREE.Raycaster();
+
+    function dom(tag, className, parent, attrs) {
+      var el = document.createElement(tag);
+      if (className) el.className = className;
+      if (parent) parent.appendChild(el);
+      if (attrs) Object.keys(attrs).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+      return el;
+    }
+
+    var statsLabels = { type: 'Type', nativeCoin: 'Native Coin', maxSupply: 'Max Supply', circulatingSupply: 'Circulating Supply', tvl: 'Current TVL', status: 'Current Status' };
+    statsOverlay = buildStatsOverlay(galaxy);
+    window.refreshStatsOverlay = refreshStatsOverlay;
+
+    function statsText(value) {
+      return value == null ? '\u2014' : value;
+    }
+
+    function buildStatsOverlay(galaxyEl) {
+      var overlay = dom('div', 'galaxy-stats-overlay', galaxyEl, { role: 'status', 'aria-live': 'polite' });
+      var head = dom('div', 'galaxy-stats-head', overlay);
+      dom('h3', 'galaxy-stats-name', head).textContent = '';
+      var close = dom('button', 'galaxy-stats-close', head, { type: 'button', 'aria-label': 'Close stats' });
+      close.textContent = '\u00d7';
+      dom('dl', 'galaxy-stats-body', overlay);
+      ['type', 'nativeCoin', 'maxSupply', 'circulatingSupply', 'tvl', 'status'].forEach(function (key) {
+        var row = dom('div', 'galaxy-stat', overlay);
+        row.setAttribute('data-stat', key);
+        dom('span', 'galaxy-stat-key', row).textContent = statsLabels[key];
+        dom('span', 'galaxy-stat-val', row).textContent = '\u2014';
+      });
+      close.addEventListener('click', function () {
+        gliding = false;
+        activeAutoFly = false;
+        refreshStatsOverlay();
+      });
+      return overlay;
+    }
+
+    function populateStatsOverlay(coinId) {
+      var info = null;
+      if (window.orbitData) {
+        info = window.orbitData.find ? window.orbitData.find(function (n) { return n.id === coinId; }) : null;
+      }
+      statsOverlay.querySelectorAll('.galaxy-stat').forEach(function (row) {
+        var key = row.getAttribute('data-stat');
+        var value = info ? info[key] : null;
+        row.querySelector('.galaxy-stat-val').textContent = statsText(value);
+      });
+      statsOverlay.querySelector('.galaxy-stats-name').textContent = info ? info.name : '';
+    }
+
+    function refreshStatsOverlay() {
+      if (!statsOverlay) return;
+      if (selected.node) {
+        statsOverlay.style.display = 'block';
+        populateStatsOverlay(selected.node.dataCoin);
+      } else {
+        statsOverlay.style.display = 'none';
+      }
+    }
 
     function setPhase(next) {
       phase = next;
@@ -229,6 +307,7 @@
       document.documentElement.classList.toggle('galaxy-flight', open);
       galaxy.classList.toggle('is-flight', next === 'flight');
       galaxy.classList.toggle('is-open', open);
+      if (galaxy.classList.contains('is-3d')) galaxy.classList.toggle('galaxy-open', open);
       hud.withdraw.hidden = next !== 'flight';
       if (next === 'flight') {
         keysTimer = 0;
@@ -330,6 +409,7 @@
 
     function startHold(clientX, clientY, fromKey) {
       if (phase === 'flight' || phase === 'retract' || phase === 'withdraw') return;
+      if ((gliding || activeAutoFly) && !fromKey) return;
       if (phase !== 'dwell' && phase !== 'intro') return;
       holding = true;
       holdFromKey = !!fromKey;
@@ -369,7 +449,10 @@
     }
 
     function beginWithdraw() {
-      if (phase !== 'flight') return;
+      if (phase !== 'flight') {
+        if (orbitUi) { orbitUi.style.display = 'none'; orbitOverlay && orbitOverlay.classList.add('orbit-backdrop-gone'); }
+        return;
+      }
       camFrom.copy(camera.position);
       camera.getWorldDirection(forward);
       lookFrom.copy(camera.position).add(forward);
@@ -407,10 +490,78 @@
       camera.quaternion.copy(flightQuat);
     }
 
+    function galaxyOver(hovered) {
+      galaxy.classList.toggle('galaxy-over', !!hovered);
+      window.dispatchEvent(new CustomEvent('orbit.hover', { detail: { planet: hovered, selected: null } }));
+    }
+
+    function selectPlanet(node) {
+      if (selected.node === node) {
+        beginAutoFly();
+        return;
+      }
+      if (selected.node && selected.node.classList && selected.node.classList.remove) selected.node.classList.remove('orbit-planet--selected');
+      selected.node = node;
+      galaxy.classList.toggle('galaxy-over', !!node);
+      if (node && node.classList && node.classList.add) node.classList.add('orbit-planet--selected');
+      if (phase === 'flight' || phase === 'retract' || phase === 'withdraw') gliding = true;
+      if (phase === 'idle') beginRetract();
+      beginAutoFly();
+      galaxyOver(node);
+      refreshStatsOverlay();
+    }
+
+    function syncHover() {
+      if (gliding || activeAutoFly) return;
+      hoverRaycaster.setFromCamera(hover.cameraPoint, camera);
+      var hits = hoverRaycaster.intersectObjects(planets.map(function (p) { return p.node; }), true);
+      var node = null;
+      var minDist = 40;
+      for (var i = 0; i < hits.length; i++) {
+        var root = hits[i].object;
+        while (root && root.parent && root.parent !== scene) root = root.parent;
+        if (root && root.dataCoin && root.getWorldPosition(world) && world.distanceTo(camera.position) < minDist) {
+          minDist = world.distanceTo(camera.position);
+          node = root;
+        }
+      }
+      if (!node && galaxy.clientWidth > 0) {
+        // Fallback: pick the nearest planet projected onto the screen near the pointer.
+        var gw = galaxy.clientWidth, gh = galaxy.clientHeight;
+        var px = (hover.cameraPoint.x + 1) / 2 * gw;
+        var py = (1 - hover.cameraPoint.y) / 2 * gh;
+        var proj = new THREE.Vector3();
+        var best = null, bestD = 60;
+        planets.forEach(function (p) {
+          p.node.getWorldPosition(proj);
+          proj.project(camera);
+          var sx = (proj.x + 1) / 2 * gw;
+          var sy = (1 - proj.y) / 2 * gh;
+          var d = Math.hypot(sx - px, sy - py);
+          if (d < bestD) { bestD = d; best = p; }
+        });
+        if (best) node = best.node;
+      }
+      if (node !== hover.node) {
+        galaxyOver(node);
+        hover.node = node;
+        galaxy.style.cursor = node ? 'pointer' : '';
+      }
+    }
+
     function updateReadout() {
       var best = null;
       var bestD = 7.2;
       system.getWorldPosition(center);
+      if (selected.node) {
+        var sel = planets.find(function (p) { return p.node === selected.node; });
+        var selName = sel ? sel.name : '';
+        if (selName !== readoutName) {
+          readoutName = selName;
+          hud.readout.textContent = selName;
+        }
+        return;
+      }
       if (camera.position.distanceTo(center) < 14) {
         best = { name: 'Fuego Reserve' };
         bestD = camera.position.distanceTo(center);
@@ -430,6 +581,18 @@
       }
     }
 
+    function beginAutoFly() {
+      if (phase !== 'flight') return;
+      if (reduce) return;
+      activeAutoFly = true;
+      gliding = true;
+      keys = { w: true, s: false, a: false, d: false };
+      var target = selected.node ? planets.find(function (p) { return p.node === selected.node; }) : null;
+      window.dispatchEvent(new CustomEvent('orbit.fly', {
+        detail: { planet: target ? target.name : null }
+      }));
+      setTimeout(function () { activeAutoFly = false; gliding = false; keys = { w: false, s: false, a: false, d: false }; }, 60000);
+    }
     function update(dt) {
       var motion = reduce ? 0 : dt;
       elapsed += motion;
@@ -445,7 +608,7 @@
         }
       }
 
-      if (holding) {
+      if (holding && !gliding && !selected.node) {
         holdT += dt * 1000;
         var amount = Math.min(1, holdT / HOLD_MS);
         setHoldVisual(amount);
@@ -478,6 +641,13 @@
         }
       } else if (phase === 'dwell') {
         if (!reduce) applyDwell(elapsed);
+        if (coarse && hover.node && !selected.node) {
+          gliding = true;
+          setTimeout(function () { galaxy.classList.toggle('galaxy-over', false); }, 900);
+        } else if (!gliding && keysTimer <= 5.5) {
+          keysTimer += dt;
+          if (keysTimer > 5.5) galaxy.classList.remove('is-briefing');
+        }
       } else if (phase === 'retract' || phase === 'withdraw') {
         retractT += dt;
         var dur = phase === 'withdraw' ? RETURN_S : RETRACT_S;
@@ -498,6 +668,7 @@
           }
         }
       } else if (phase === 'flight') {
+        if (selected.node && !activeAutoFly) beginAutoFly();
         camera.getWorldDirection(forward);
         right.crossVectors(forward, Y);
         if (right.lengthSq() < 0.0001) right.set(1, 0, 0);
@@ -530,8 +701,10 @@
           camera.position.copy(center).add(world.normalize().multiplyScalar(hull));
           flyVel.multiplyScalar(0.15);
         }
-        keysTimer += dt;
-        if (keysTimer > 5.5) galaxy.classList.remove('is-briefing');
+        if (!gliding && keysTimer <= 5.5) {
+          keysTimer += dt;
+          if (keysTimer > 5.5) galaxy.classList.remove('is-briefing');
+        }
         updateReadout();
       }
     }
@@ -542,7 +715,16 @@
       if (!sectionOn() && phase !== 'flight' && phase !== 'retract' && phase !== 'withdraw') return;
       var dt = Math.min(clock.getDelta(), 0.05);
       update(dt);
+      if (phase === 'dwell' || phase === 'intro') syncHover();
       renderer.render(scene, camera);
+      if (orbitUi) {
+        var label = (selected.node && planets.find(function (p) { return p.node === selected.node; })
+          ? planets.find(function (p) { return p.node === selected.node; }).name : '') ||
+          (orbitFloater && orbitFloater.textContent) ||
+          'Select a world.';
+        orbitFloater && (orbitFloater.textContent = label);
+        orbitUi.style.display = (gliding || phase === 'flight' || phase === 'retract' || phase === 'withdraw') ? 'block' : 'none';
+      }
     }
 
     function startLoop() {
@@ -566,17 +748,29 @@
     galaxy.addEventListener('pointerdown', function (e) {
       if (e.target.closest && e.target.closest('.galaxy-withdraw')) return;
       if (e.pointerType === 'mouse' && e.button !== 0) return;
+      var actionBtn = e.target.closest && e.target.closest('.galaxy-orb-btn[data-action]');
+      if (actionBtn) {
+        actionBtn.blur();
+        var kind = actionBtn.dataset.action;
+        if (phase === 'dwell' && kind === 'home' && selected.node) selected.node = null;
+        if ((phase === 'flight' || phase === 'dwell') && kind === 'reset' && selected.node) selected.node = null;
+        if (kind === 'plan' && phase === 'dwell') window.location.assign('plan.html');
+        if (kind === 'activity' && phase === 'dwell') window.location.assign('activity.html');
+        refreshStatsOverlay();
+        return;
+      }
       if (phase === 'flight') {
         pointerId = e.pointerId;
         lastX = e.clientX;
         lastY = e.clientY;
-        gliding = true;
         galaxy.setPointerCapture(e.pointerId);
         return;
       }
       pointerId = e.pointerId;
       lastX = e.clientX;
       lastY = e.clientY;
+      if (e.pointerType === 'touch' && !gliding && !reduce && phase !== 'flight') syncHover();
+      if ((e.pointerType === 'mouse' || e.pointerType === 'touch') && hover.node && !reduce && hover.node !== selected.node && phase !== 'flight') selectPlanet(hover.node);
       startHold(e.clientX, e.clientY, false);
       try { galaxy.setPointerCapture(e.pointerId); } catch (err) { /* already captured */ }
     });
@@ -589,7 +783,17 @@
         lastY = e.clientY;
         return;
       }
-      if (!holding) return;
+      if (!holding) {
+        var rect = galaxy.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          hover.cameraPoint.set(
+            2 * (e.clientX - rect.left) / rect.width - 1,
+            1 - 2 * (e.clientY - rect.top) / rect.height
+          );
+        }
+        syncHover();
+        return;
+      }
       placeHold(e.clientX, e.clientY);
       var dx = e.clientX - holdOrigin.x;
       var dy = e.clientY - holdOrigin.y;
@@ -599,8 +803,11 @@
     function endPointer(e) {
       if (pointerId !== null && e.pointerId !== pointerId) return;
       pointerId = null;
-      gliding = false;
-      if (holding && !holdFromKey) cancelHold();
+      if (gliding && !activeAutoFly) {
+        gliding = false;
+        flyVel.set(0, 0, 0);
+      }
+      if (holding && !holdFromKey && !selected.node) cancelHold();
     }
     galaxy.addEventListener('pointerup', endPointer);
     galaxy.addEventListener('pointercancel', endPointer);
@@ -625,6 +832,13 @@
       if (phase === 'flight') {
         keys[k] = true;
         if (e.key === 'Shift') keys.shift = true;
+        if ((e.key === 'Enter' || e.code === 'Enter') && !gliding && !activeAutoFly && !holding && !selected.node) {
+          e.preventDefault();
+          e.stopPropagation();
+          gliding = true;
+          wish.set(0, 0, 0);
+          wish.y = 1;
+        }
         if (k === 'escape' && !e.repeat) {
           e.preventDefault();
           e.stopPropagation();
@@ -689,7 +903,20 @@
     syncLoop();
     window.addEventListener('focus', syncLoop);
     window.addEventListener('pageshow', syncLoop);
+    onMobileReady();
     return true;
+  }
+
+  function onMobileReady() {
+    if (orbitUi) orbitUi.style.display = coarse ? 'flex' : 'none';
+  }
+
+  function dom(tag, className, parent, attrs) {
+    var el = document.createElement(tag);
+    if (className) el.className = className;
+    if (parent) parent.appendChild(el);
+    if (attrs) Object.keys(attrs).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+    return el;
   }
 
   function pageKey(e) {
@@ -701,6 +928,21 @@
   function buildHud(galaxy, coarse) {
     var hud = document.createElement('div');
     hud.className = 'galaxy-hud';
+    var buttons = [
+      { action: 'home', label: 'Home' },
+      { action: 'plan', label: 'Plan' },
+      { action: 'activity', label: 'Activity' },
+      { action: 'reset', label: 'Reset' }
+    ];
+    var menuRoot = dom('div', 'galaxy-orb', hud);
+    buttons.forEach(function (b) {
+      var btn = dom('button', 'galaxy-orb-btn', menuRoot, { type: 'button', 'data-action': b.action });
+      btn.textContent = b.label;
+      btn.setAttribute('aria-label', 'Galaxy menu: ' + b.label);
+    });
+    var badges = dom('div', 'galaxy-orbit-badges', hud);
+    badges.setAttribute('role', 'status');
+    badges.setAttribute('aria-live', 'polite');
     var hint = document.createElement('p');
     hint.className = 'galaxy-hint';
     hint.textContent = 'Hold to enter.';
@@ -754,9 +996,9 @@
 
   function buildStars(scene, mobile) {
     var sprite = starSprite();
-    addStarLayer(scene, sprite, mobile ? 720 : 1800, 90, 210, mobile ? 1.15 : 1.35, 0.62, 0.86);
-    addStarLayer(scene, sprite, mobile ? 160 : 380, 28, 70, 2.1, 0.28, 0.2);
-    addStarLayer(scene, sprite, mobile ? 40 : 70, 18, 46, 2.8, 0.45, 1);
+    addStarLayer(scene, sprite, mobile ? 1100 : 2100, 90, 210, mobile ? 1.15 : 1.35, 0.62, 0.86);
+    addStarLayer(scene, sprite, mobile ? 180 : 380, 28, 70, 2.1, 0.28, 0.2);
+    addStarLayer(scene, sprite, mobile ? 45 : 70, 18, 46, 2.8, 0.45, 1);
   }
 
   function starSprite() {
@@ -1219,7 +1461,14 @@
     } catch (err) {
       mounted = false;
     }
-    window.FuegoGalaxy = { mounted: mounted };
+    window.FuegoGalaxy = { mounted: mounted, stats: window.orbitData || null };
+    fetch('/data/networks.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data && data.networks) window.orbitData = data.networks;
+        if (window.refreshStatsOverlay) window.refreshStatsOverlay();
+      })
+      .catch(function () {});
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
