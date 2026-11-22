@@ -2078,8 +2078,8 @@ body.galaxy-flight { overflow: hidden; }
 /* --- free fly button (placed top right of HUD) --- */
 .gf-freefly {
   position: absolute;
-  top: 64px;
-  right: 28px;
+  top: 70px;
+  right: 150px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
