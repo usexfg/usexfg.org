@@ -542,6 +542,7 @@
   function enterFlight() {
     if (mode !== 'hero') return;
     cancelHold();
+    closeDossier();
     mode = 'flight';
     document.body.classList.add('galaxy-flight');
     overlay.classList.add('on');

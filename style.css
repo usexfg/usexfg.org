@@ -1971,7 +1971,7 @@ body.galaxy-flight { overflow: hidden; }
   pointer-events: none;
   z-index: 2;
 }
-#galaxy-flight.on .gf-dossier { display: block; }
+#galaxy-flight.on .gf-dossier.on { display: block; }
 .gf-dossier-inner {
   position: absolute;
   right: 0;
