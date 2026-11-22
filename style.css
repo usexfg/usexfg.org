@@ -1933,6 +1933,23 @@ html.galaxy-ready .galaxy-badge { display: block; }
 
 .is-3d.is-flight .galaxy-reticle {
   opacity: 1;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(7, 6, 5, 0.7);
+}
+
+.is-3d.is-flight .galaxy-reticle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+  background: #c5a059;
 }
 
 html.galaxy-flight,
@@ -1959,7 +1976,11 @@ html.galaxy-flight .is-3d {
 }
 
 html.galaxy-flight .xfg-galaxy-canvas {
-  cursor: none;
+  cursor: crosshair;
+}
+
+html.galaxy-flight .is-3d.galaxy-over .xfg-galaxy-canvas {
+  cursor: pointer;
 }
 
 html.galaxy-flight nav,

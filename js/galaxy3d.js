@@ -228,6 +228,7 @@
     var holdOrigin = { x: 0, y: 0 };
     var holdFromKey = false;
     var pointerId = null;
+    var flightDrag = 0;
     var lastX = 0;
     var lastY = 0;
     var pitch = -0.35;
@@ -313,8 +314,12 @@
       hud.withdraw.hidden = next !== 'flight';
       if (next !== 'flight') {
         galaxy.style.cursor = '';
+        canvas.style.cursor = '';
         hover.node = null;
         galaxy.classList.remove('galaxy-over');
+      } else {
+        galaxy.style.cursor = 'crosshair';
+        canvas.style.cursor = 'crosshair';
       }
       if (next === 'flight') {
         keysTimer = 0;
@@ -370,10 +375,11 @@
 
     function retractAmount() {
       if (phase === 'dwell' || phase === 'intro' || phase === 'idle') return 0;
-      if (phase === 'flight') return 1;
+      var cap = 0.5;
+      if (phase === 'flight') return cap;
       var u = RETRACT_S <= 0 ? 1 : Math.min(1, retractT / (phase === 'withdraw' ? RETURN_S : RETRACT_S));
       var e = reduce ? 1 : easeInOut(u);
-      return retractDir > 0 ? e : 1 - e;
+      return (retractDir > 0 ? e : 1 - e) * cap;
     }
 
     function layoutPlanets(motionT) {
@@ -446,7 +452,9 @@
       camera.getWorldDirection(forward);
       lookFrom.copy(camera.position).add(forward.multiplyScalar(12));
       camTo.set(1.4, 70, 48);
+      camTo.lerp(camFrom, 0.5);
       lookTo.set(0, 12, 0);
+      lookTo.lerp(lookFrom, 0.5);
       retractT = 0;
       retractDir = 1;
       setPhase('retract');
@@ -527,7 +535,6 @@
         }
         return;
       }
-      if (gliding || activeAutoFly) return;
       hoverRaycaster.setFromCamera(hover.cameraPoint, camera);
       var hits = hoverRaycaster.intersectObjects(planets.map(function (p) { return p.node; }), true);
       var node = null;
@@ -560,8 +567,24 @@
       if (node !== hover.node) {
         galaxyOver(node);
         hover.node = node;
-        galaxy.style.cursor = node ? 'pointer' : '';
       }
+      var cursor = node ? 'pointer' : 'crosshair';
+      galaxy.style.cursor = cursor;
+      canvas.style.cursor = cursor;
+    }
+
+    function aimAt(clientX, clientY) {
+      var rect = galaxy.getBoundingClientRect();
+      if (rect.width < 1 || rect.height < 1) return;
+      hover.cameraPoint.set(
+        2 * (clientX - rect.left) / rect.width - 1,
+        1 - 2 * (clientY - rect.top) / rect.height
+      );
+      if (hud.reticle) {
+        hud.reticle.style.left = (clientX - rect.left) + 'px';
+        hud.reticle.style.top = (clientY - rect.top) + 'px';
+      }
+      syncHover();
     }
 
     function updateReadout() {
@@ -668,7 +691,7 @@
         camera.position.lerpVectors(camFrom, camTo, e);
         lookNow.lerpVectors(lookFrom, lookTo, e);
         camera.lookAt(lookNow);
-        camera.fov = 38 + (52 - 38) * (phase === 'withdraw' ? 1 - e : k);
+        camera.fov = 38 + (52 - 38) * k;
         camera.updateProjectionMatrix();
         if (u >= 1) {
           if (phase === 'retract') seedFlight();
@@ -774,7 +797,9 @@
         pointerId = e.pointerId;
         lastX = e.clientX;
         lastY = e.clientY;
-        galaxy.setPointerCapture(e.pointerId);
+        flightDrag = 0;
+        aimAt(e.clientX, e.clientY);
+        try { galaxy.setPointerCapture(e.pointerId); } catch (err) { /* already captured */ }
         return;
       }
       if (phase !== 'dwell' && phase !== 'intro') return;
@@ -786,24 +811,19 @@
 
     galaxy.addEventListener('pointermove', function (e) {
       if (pointerId !== null && e.pointerId !== pointerId) return;
-      if (phase === 'flight' && gliding) {
-        applyFlightLook(e.clientX - lastX, e.clientY - lastY);
-        lastX = e.clientX;
-        lastY = e.clientY;
-        return;
-      }
-      if (!holding) {
-        if (phase !== 'flight') return;
-        var rect = galaxy.getBoundingClientRect();
-        if (rect.width > 0 && rect.height > 0) {
-          hover.cameraPoint.set(
-            2 * (e.clientX - rect.left) / rect.width - 1,
-            1 - 2 * (e.clientY - rect.top) / rect.height
-          );
+      if (phase === 'flight') {
+        aimAt(e.clientX, e.clientY);
+        if (pointerId !== null) {
+          var mx = e.clientX - lastX;
+          var my = e.clientY - lastY;
+          flightDrag += Math.abs(mx) + Math.abs(my);
+          if (flightDrag > 8) applyFlightLook(mx, my);
+          lastX = e.clientX;
+          lastY = e.clientY;
         }
-        syncHover();
         return;
       }
+      if (!holding) return;
       placeHold(e.clientX, e.clientY);
       var dx = e.clientX - holdOrigin.x;
       var dy = e.clientY - holdOrigin.y;
@@ -812,7 +832,13 @@
 
     function endPointer(e) {
       if (pointerId !== null && e.pointerId !== pointerId) return;
+      var tapped = phase === 'flight' && flightDrag < 8;
       pointerId = null;
+      flightDrag = 0;
+      if (tapped) {
+        aimAt(e.clientX, e.clientY);
+        if (hover.node) selectPlanet(hover.node);
+      }
       if (gliding && !activeAutoFly) {
         gliding = false;
         flyVel.set(0, 0, 0);
@@ -1016,7 +1042,7 @@
     galaxy.appendChild(hud);
     galaxy.appendChild(hold);
     galaxy.appendChild(reticle);
-    return { hint: hint, readout: readout, keys: keys, withdraw: withdraw, hold: hold, arc: arc };
+    return { hint: hint, readout: readout, keys: keys, withdraw: withdraw, hold: hold, arc: arc, reticle: reticle };
   }
 
   function buildStars(scene, mobile) {
