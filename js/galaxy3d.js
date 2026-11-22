@@ -258,6 +258,7 @@
 
     function buildStatsOverlay(galaxyEl) {
       var overlay = dom('div', 'galaxy-stats-overlay', galaxyEl, { role: 'status', 'aria-live': 'polite' });
+      overlay.style.display = 'none';
       var head = dom('div', 'galaxy-stats-head', overlay);
       dom('h3', 'galaxy-stats-name', head).textContent = '';
       var close = dom('button', 'galaxy-stats-close', head, { type: 'button', 'aria-label': 'Close stats' });
