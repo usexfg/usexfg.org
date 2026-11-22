@@ -311,6 +311,11 @@
       galaxy.classList.toggle('is-open', open);
       if (galaxy.classList.contains('is-3d')) galaxy.classList.toggle('galaxy-open', open);
       hud.withdraw.hidden = next !== 'flight';
+      if (next !== 'flight') {
+        galaxy.style.cursor = '';
+        hover.node = null;
+        galaxy.classList.remove('galaxy-over');
+      }
       if (next === 'flight') {
         keysTimer = 0;
         galaxy.classList.add('is-briefing');
@@ -498,6 +503,7 @@
     }
 
     function selectPlanet(node) {
+      if (phase !== 'flight') return;
       if (selected.node === node) {
         beginAutoFly();
         return;
@@ -506,14 +512,21 @@
       selected.node = node;
       galaxy.classList.toggle('galaxy-over', !!node);
       if (node && node.classList && node.classList.add) node.classList.add('orbit-planet--selected');
-      if (phase === 'flight' || phase === 'retract' || phase === 'withdraw') gliding = true;
-      if (phase === 'idle') beginRetract();
+      gliding = true;
       beginAutoFly();
       galaxyOver(node);
       refreshStatsOverlay();
     }
 
     function syncHover() {
+      if (phase !== 'flight') {
+        galaxy.style.cursor = '';
+        if (hover.node) {
+          hover.node = null;
+          galaxyOver(null);
+        }
+        return;
+      }
       if (gliding || activeAutoFly) return;
       hoverRaycaster.setFromCamera(hover.cameraPoint, camera);
       var hits = hoverRaycaster.intersectObjects(planets.map(function (p) { return p.node; }), true);
@@ -643,10 +656,7 @@
         }
       } else if (phase === 'dwell') {
         if (!reduce) applyDwell(elapsed);
-        if (coarse && hover.node && !selected.node) {
-          gliding = true;
-          setTimeout(function () { galaxy.classList.toggle('galaxy-over', false); }, 900);
-        } else if (!gliding && keysTimer <= 5.5) {
+        if (!gliding && keysTimer <= 5.5) {
           keysTimer += dt;
           if (keysTimer > 5.5) galaxy.classList.remove('is-briefing');
         }
@@ -717,7 +727,6 @@
       if (!sectionOn() && phase !== 'flight' && phase !== 'retract' && phase !== 'withdraw') return;
       var dt = Math.min(clock.getDelta(), 0.05);
       update(dt);
-      if (phase === 'dwell' || phase === 'intro') syncHover();
       renderer.render(scene, camera);
       if (orbitUi) {
         var label = (selected.node && planets.find(function (p) { return p.node === selected.node; })
@@ -752,12 +761,12 @@
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       var actionBtn = e.target.closest && e.target.closest('.galaxy-orb-btn[data-action]');
       if (actionBtn) {
+        if (phase !== 'flight') return;
         actionBtn.blur();
         var kind = actionBtn.dataset.action;
-        if (phase === 'dwell' && kind === 'home' && selected.node) selected.node = null;
-        if ((phase === 'flight' || phase === 'dwell') && kind === 'reset' && selected.node) selected.node = null;
-        if (kind === 'plan' && phase === 'dwell') window.location.assign('plan.html');
-        if (kind === 'activity' && phase === 'dwell') window.location.assign('activity.html');
+        if ((kind === 'home' || kind === 'reset') && selected.node) selected.node = null;
+        if (kind === 'plan') window.location.assign('plan.html');
+        if (kind === 'activity') window.location.assign('activity.html');
         refreshStatsOverlay();
         return;
       }
@@ -768,13 +777,11 @@
         galaxy.setPointerCapture(e.pointerId);
         return;
       }
+      if (phase !== 'dwell' && phase !== 'intro') return;
       pointerId = e.pointerId;
       lastX = e.clientX;
       lastY = e.clientY;
-      if (e.pointerType === 'touch' && !gliding && !reduce && phase !== 'flight') syncHover();
-      if ((e.pointerType === 'mouse' || e.pointerType === 'touch') && hover.node && !reduce && hover.node !== selected.node && phase !== 'flight') selectPlanet(hover.node);
       startHold(e.clientX, e.clientY, false);
-      try { galaxy.setPointerCapture(e.pointerId); } catch (err) { /* already captured */ }
     });
 
     galaxy.addEventListener('pointermove', function (e) {
@@ -786,6 +793,7 @@
         return;
       }
       if (!holding) {
+        if (phase !== 'flight') return;
         var rect = galaxy.getBoundingClientRect();
         if (rect.width > 0 && rect.height > 0) {
           hover.cameraPoint.set(
@@ -813,21 +821,31 @@
     }
     galaxy.addEventListener('pointerup', endPointer);
     galaxy.addEventListener('pointercancel', endPointer);
+    galaxy.addEventListener('pointerleave', function () {
+      if (holding && phase !== 'flight') cancelHold();
+    });
     galaxy.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 
     ['touchstart', 'touchend', 'touchcancel'].forEach(function (type) {
       galaxy.addEventListener(type, function (e) { e.stopPropagation(); }, { passive: true });
     });
     galaxy.addEventListener('touchmove', function (e) {
-      if (phase === 'flight' || holding) e.preventDefault();
-      e.stopPropagation();
+      if (phase === 'flight') {
+        e.preventDefault();
+        e.stopPropagation();
+      }
     }, { passive: false });
     galaxy.addEventListener('wheel', function (e) {
       if (phase === 'flight' || phase === 'retract' || phase === 'withdraw') {
         e.preventDefault();
         e.stopPropagation();
+        return;
       }
+      if (holding) cancelHold();
     }, { passive: false });
+    window.addEventListener('scroll', function () {
+      if (holding && phase !== 'flight') cancelHold();
+    }, true);
 
     window.addEventListener('keydown', function (e) {
       var k = e.key.toLowerCase();
@@ -880,6 +898,11 @@
     if (window.ResizeObserver) new ResizeObserver(resize).observe(galaxy);
 
     var section = galaxy.closest('.page-section');
+    if (section) {
+      section.addEventListener('scroll', function () {
+        if (holding && phase !== 'flight') cancelHold();
+      }, { passive: true });
+    }
     if (section && window.MutationObserver) {
       new MutationObserver(syncLoop).observe(section, { attributes: true, attributeFilter: ['class'] });
     }

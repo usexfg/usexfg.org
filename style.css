@@ -1723,6 +1723,11 @@ html.js [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
     z-index: 1;
   }
 
+  html.home-page .page-section:not(.active) #xfg-galaxy,
+  html.home-page .page-section:not(.active) #xfg-galaxy * {
+    pointer-events: none !important;
+  }
+
   html.home-page .page-dots {
     display: flex;
   }
@@ -1751,6 +1756,15 @@ html.js [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
   display: block;
   z-index: 1;
   touch-action: pan-y;
+}
+
+.is-3d:not(.is-flight),
+.is-3d:not(.is-flight) .xfg-galaxy-canvas {
+  cursor: default !important;
+}
+
+.is-3d:not(.is-flight) .orbit-node-upright {
+  pointer-events: none;
 }
 
 .is-3d::after {
@@ -2019,13 +2033,15 @@ html.galaxy-flight #xfg-galaxy {
   color: var(--flame-white);
 }
 
-html.galaxy-ready .galaxy-orb { display: flex; }
+html.galaxy-ready .galaxy-orb { display: none; }
+html.galaxy-flight .galaxy-orb { display: flex; }
 html.galaxy-ready .galaxy-orb-btn { bottom: 52px; }
 html.galaxy-ready .galaxy-orb-btn:nth-child(2) { bottom: 35px; }
 html.galaxy-ready .galaxy-orb-btn:nth-child(3) { bottom: 18px; }
 
 @media (pointer: fine) {
-  html.galaxy-ready .galaxy-orb { display: none; }
+  html.galaxy-ready .galaxy-orb,
+  html.galaxy-flight .galaxy-orb { display: none; }
 }
 
 /* ---- DeXFG network stats overlay ---- */
