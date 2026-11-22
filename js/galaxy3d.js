@@ -765,7 +765,9 @@
 
   function frame(forceDt) {
     loopStats.frames++;
-    requestAnimationFrame(frame);
+    /* requestAnimationFrame passes a timestamp as the first argument — never
+       let it reach dt. (It used to spin the galaxy ~1000x too fast.) */
+    requestAnimationFrame(function () { frame(); });
     var dt = forceDt !== undefined ? forceDt : Math.min(clock.getDelta(), 0.05);
     if (dt <= 0) loopStats.skipped++;
     loopStats.lastDt = dt;
@@ -925,7 +927,10 @@
     }; },
     enterFlight: enterFlight,
     exitFlight: exitFlight,
-    tick: function (dt) { frame(dt); }
+    tick: function (dt) { frame(typeof dt === 'number' && dt > 0 && dt <= 0.05 ? dt : undefined); },
+    view: function () { return { theta: view.theta, phi: view.phi, radius: view.radius, look: view.look.toArray() }; },
+    tgt: function () { return { theta: tgt.theta, phi: tgt.phi, radius: tgt.radius, look: tgt.look.toArray() }; },
+    scale: function () { return galaxy.scale.x; }
   };
 
   frame();
