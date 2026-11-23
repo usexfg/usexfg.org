@@ -46,7 +46,7 @@
     soneium:    [null, 'Soneium', 'ETH', 'Ethereum L2', 'Startale/Sony OP-stack L2; ETH gas.'],
     doma:       [null, 'Doma', 'ETH', 'Domain-focused EVM', 'Doma — domain-focused EVM network in the deXFG set; ETH gas, wallet-tier entry.'],
     beam:       ['beam', 'Beam', 'BEAM', 'Gaming L1', 'Gaming L1; MERIT-aligned economy, bridgeless swap entry.'],
-    moonriver:  ['moonriver', 'Moonriver', 'MOVR', 'Kusama L1', 'Kusama-canary EVM L1; MOVR gas.'],
+    moonriver:  ['moonriver', null, 'MOVR', 'ERC-20 on Base (L2)', 'MOVR migrated to Base (Ethereum L2); no longer a Kusama parachain.'],
     peaq:       ['peaq', 'peaq', 'PEAQ', 'DePIN L1', 'DePIN L1 for machine economy swap routes.'],
     sei:        ['sei', 'Sei', 'SEI', 'Parallel L1', 'Parallelised L1 with native order-matching design.'],
     ton:        ['the-open-network', 'TON', 'TON', 'L1', 'Telegram-rooted L1; private entry via adaptor signatures.'],
