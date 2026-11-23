@@ -423,7 +423,7 @@
     follow = null;
     dCurrent = null; dStatsId = null; dPrintLen = 0; dNameDone = false; dRowsIn = 0; dInAt = 0;
     dNameEl.textContent = ''; dBlurbEl.textContent = '';
-    dRows.forEach(function (r) { r.val.textContent = '—'; });
+    dRows.forEach(function (r) { r.val.textContent = '—'; r.val.classList.remove('private', 'gold-liquid'); });
     resetDossierRows();
     dossierEl.classList.remove('on', 'has-name', 'has-blurb', 'has-rows');
   }
@@ -442,7 +442,10 @@
     dRows[1].val.classList.add('visible');
     dPrivacyAns = (DEXXFG_CHAINS && DEXXFG_CHAINS.swapPrivacy) ? DEXXFG_CHAINS.swapPrivacy(dStatsId) : 'Public';
     dossierSet(2, dPrivacyAns);
-    dRows[2].val.classList.toggle('private', dPrivacyAns === 'Private');
+    var isPrivate = dPrivacyAns === 'Private';
+    dRows[2].val.classList.toggle('private', isPrivate);
+    dRows[2].val.classList.toggle('gold-liquid', isPrivate);
+    dRows[2].val.classList.add('visible');
     dRows[3].val.classList.add('visible');
     dossierSet(3, dossierStash[2]);
     DEXXFG_CHAINS && DEXXFG_CHAINS.stats(applyStats);
