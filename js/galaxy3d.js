@@ -152,6 +152,9 @@
     var system = new THREE.Group();
     scene.add(system);
     var ship = buildShip(system, renderer, mobile);
+    ship.dataCoin = 'xfg';
+    ship.dataName = 'Fuego Reserve';
+    ship.dataSize = 5.2;
     coreLight.position.set(0, 0, 0);
     ship.add(coreLight);
 
@@ -171,6 +174,7 @@
         node.add(body.atmos);
         node.dataCoin = coin.id;
         node.dataName = coin.name;
+        node.dataSize = size;
         group.add(node);
         node.position.set(Math.cos((i / shell.count) * Math.PI * 2) * shell.radius, 0, Math.sin((i / shell.count) * Math.PI * 2) * shell.radius);
         planets.push({
@@ -229,6 +233,12 @@
     var holdFromKey = false;
     var pointerId = null;
     var flightDrag = 0;
+    var followNode = null;
+    var orbitReady = false;
+    var overviewRadius = 40;
+    var overviewPhi = 1;
+    var orbitView = { theta: 0, phi: 1, radius: 40, look: new THREE.Vector3() };
+    var orbitTgt = { theta: 0, phi: 1, radius: 40, look: new THREE.Vector3() };
     var lastX = 0;
     var lastY = 0;
     var pitch = -0.35;
@@ -249,7 +259,23 @@
       return el;
     }
 
-    var statsLabels = { type: 'Type', nativeCoin: 'Native Coin', maxSupply: 'Max Supply', circulatingSupply: 'Circulating Supply', tvl: 'Current TVL', status: 'Current Status' };
+    var statsLabels = { type: 'Type', nativeCoin: 'Native Coin', privacy: 'Outward Swap', status: 'Status', tvl: 'Current TVL', circulatingSupply: 'Circulating Supply', maxSupply: 'Max Supply' };
+    var chainMeta = {
+      btc: ['BTC', 'Proof-of-work reserve'], eth: ['ETH', 'Proof-of-stake settlement'], sol: ['SOL', 'High-throughput L1'],
+      bnb: ['BNB', 'EVM L1'], monero: ['XMR', 'Privacy — CryptoNote'], doge: ['DOGE', 'Proof-of-work UTXO'],
+      avax: ['AVAX', 'Subnet L1'], bch: ['BCH', 'Proof-of-work UTXO'], matic: ['POL', 'Ethereum L2 / sidechain'],
+      ltc: ['LTC', 'Proof-of-work UTXO'], dash: ['DASH', 'Proof-of-work'], zec: ['ZEC', 'Proof-of-work shielded pool'],
+      arb: ['ETH', 'Ethereum L2'], base: ['ETH', 'Ethereum L2'], cro: ['CRO', 'EVM L1'], kmd: ['KMD', 'PoW multichain'],
+      dcr: ['DCR', 'PoW/PoS hybrid'], gleec: ['GLEEC', 'EVM ecosystem'], robinhood: ['—', 'Listed network'],
+      bob: ['ETH', 'EVM L2'], unichain: ['ETH', 'Ethereum L2'], plasma: ['—', 'Stable-focused L1'],
+      pls: ['PLS', 'Proof-of-stake L1'], monad: ['MON', 'Parallel EVM L1'], linea: ['ETH', 'zkEVM L2'],
+      zksync: ['ETH', 'zkEVM L2'], hyperevm: ['HYPE', 'EVM over L1'], ink: ['INK', 'Ethereum L2'],
+      rootstock: ['RBTC', 'Bitcoin L2'], gnosis: ['xDAI', 'Ethereum sidechain'], flare: ['FLR', 'Data L1'],
+      kaia: ['KAIA', 'L1'], scroll: ['ETH', 'zkEVM L2'], abstract: ['ABSTRACT', 'Ethereum L2'],
+      plume: ['PLUME', 'RWA L2'], soneium: ['ETH', 'Ethereum L2'], doma: ['ETH', 'Domain-focused EVM'],
+      beam: ['BEAM', 'Gaming L1'], moonriver: ['MOVR', 'Kusama L1'], peaq: ['PEAQ', 'DePIN L1'],
+      sei: ['SEI', 'Parallel L1'], ton: ['TON', 'L1'], xfg: ['XFG', 'Private reserve']
+    };
     statsOverlay = buildStatsOverlay(galaxy);
     window.refreshStatsOverlay = refreshStatsOverlay;
 
@@ -265,31 +291,40 @@
       var close = dom('button', 'galaxy-stats-close', head, { type: 'button', 'aria-label': 'Close stats' });
       close.textContent = '\u00d7';
       dom('dl', 'galaxy-stats-body', overlay);
-      ['type', 'nativeCoin', 'maxSupply', 'circulatingSupply', 'tvl', 'status'].forEach(function (key) {
+      ['type', 'nativeCoin', 'privacy', 'status', 'tvl', 'circulatingSupply', 'maxSupply'].forEach(function (key) {
         var row = dom('div', 'galaxy-stat', overlay);
         row.setAttribute('data-stat', key);
         dom('span', 'galaxy-stat-key', row).textContent = statsLabels[key];
         dom('span', 'galaxy-stat-val', row).textContent = '\u2014';
       });
-      close.addEventListener('click', function () {
-        gliding = false;
-        activeAutoFly = false;
-        refreshStatsOverlay();
+      close.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        goOverview();
       });
       return overlay;
     }
 
-    function populateStatsOverlay(coinId) {
+    function populateStatsOverlay(coinId, fallbackName) {
       var info = null;
       if (window.orbitData) {
         info = window.orbitData.find ? window.orbitData.find(function (n) { return n.id === coinId; }) : null;
       }
+      var meta = chainMeta[coinId] || null;
+      var privacy = coinId === 'monero' || coinId === 'xfg' ? 'Private' : (coinId ? 'Public' : '\u2014');
+      var values = {
+        type: (info && info.type) || (meta && meta[1]) || null,
+        nativeCoin: (info && info.nativeCoin) || (meta && meta[0]) || null,
+        privacy: privacy,
+        status: (info && info.status) || (coinId ? 'Arriving with v11' : null),
+        tvl: info ? info.tvl : null,
+        circulatingSupply: info ? info.circulatingSupply : null,
+        maxSupply: info ? info.maxSupply : null
+      };
       statsOverlay.querySelectorAll('.galaxy-stat').forEach(function (row) {
         var key = row.getAttribute('data-stat');
-        var value = info ? info[key] : null;
-        row.querySelector('.galaxy-stat-val').textContent = statsText(value);
+        row.querySelector('.galaxy-stat-val').textContent = statsText(values[key]);
       });
-      statsOverlay.querySelector('.galaxy-stats-name').textContent = info ? info.name : '';
+      statsOverlay.querySelector('.galaxy-stats-name').textContent = (info && info.name) || fallbackName || '';
     }
 
     function refreshStatsOverlay() {
@@ -297,7 +332,7 @@
       var inFlight = phase === 'flight' || phase === 'retract' || phase === 'withdraw';
       if (selected.node && inFlight) {
         statsOverlay.style.display = 'block';
-        populateStatsOverlay(selected.node.dataCoin);
+        populateStatsOverlay(selected.node.dataCoin, selected.node.dataName);
       } else {
         statsOverlay.style.display = 'none';
       }
@@ -468,6 +503,7 @@
         if (orbitUi) { orbitUi.style.display = 'none'; orbitOverlay && orbitOverlay.classList.add('orbit-backdrop-gone'); }
         return;
       }
+      releaseFocus();
       camFrom.copy(camera.position);
       camera.getWorldDirection(forward);
       lookFrom.copy(camera.position).add(forward);
@@ -483,12 +519,90 @@
     }
 
     function seedFlight() {
-      camera.getWorldDirection(forward);
-      pitch = Math.asin(Math.max(-1, Math.min(1, forward.y)));
-      flightQuat.copy(camera.quaternion);
+      captureOrbit();
       flyVel.set(0, 0, 0);
+      followNode = null;
       setPhase('flight');
       canvas.focus({ preventScroll: true });
+    }
+
+    function captureOrbit() {
+      system.getWorldPosition(center);
+      world.copy(camera.position).sub(center);
+      var radius = Math.max(world.length(), 8);
+      var phi = Math.acos(Math.max(-1, Math.min(1, world.y / radius)));
+      var theta = Math.atan2(world.x, world.z);
+      orbitView.theta = orbitTgt.theta = theta;
+      orbitView.phi = orbitTgt.phi = phi;
+      orbitView.radius = orbitTgt.radius = radius;
+      overviewRadius = radius;
+      overviewPhi = phi;
+      orbitView.look.copy(center);
+      orbitTgt.look.copy(center);
+      orbitReady = true;
+    }
+
+    function clampOrbit() {
+      if (orbitTgt.phi < 0.3) orbitTgt.phi = 0.3;
+      if (orbitTgt.phi > 1.46) orbitTgt.phi = 1.46;
+      var minR = followNode ? Math.max((followNode.dataSize || 1) * 3.4, 3.2) : 8;
+      var maxR = overviewRadius * 1.9;
+      if (orbitTgt.radius < minR) orbitTgt.radius = minR;
+      if (orbitTgt.radius > maxR) orbitTgt.radius = maxR;
+    }
+
+    function applyOrbit(dt) {
+      if (followNode) followNode.getWorldPosition(orbitTgt.look);
+      var damp = 1 - Math.exp(-dt * 4.6);
+      var spin = orbitTgt.theta - orbitView.theta;
+      if (spin > Math.PI) orbitView.theta += Math.PI * 2;
+      if (spin < -Math.PI) orbitView.theta -= Math.PI * 2;
+      orbitView.theta += (orbitTgt.theta - orbitView.theta) * damp;
+      orbitView.phi += (orbitTgt.phi - orbitView.phi) * damp;
+      orbitView.radius += (orbitTgt.radius - orbitView.radius) * damp;
+      orbitView.look.lerp(orbitTgt.look, damp);
+      var r = orbitView.radius;
+      var cp = Math.sin(orbitView.phi);
+      var sp = Math.cos(orbitView.phi);
+      camera.position.set(
+        orbitView.look.x + r * cp * Math.sin(orbitView.theta),
+        orbitView.look.y + r * sp,
+        orbitView.look.z + r * cp * Math.cos(orbitView.theta)
+      );
+      camera.lookAt(orbitView.look);
+    }
+
+    function releaseFocus() {
+      followNode = null;
+      if (selected.node && selected.node.classList && selected.node.classList.remove) selected.node.classList.remove('orbit-planet--selected');
+      selected.node = null;
+      gliding = false;
+      activeAutoFly = false;
+      refreshStatsOverlay();
+    }
+
+    function goOverview() {
+      releaseFocus();
+      if (!orbitReady) return;
+      system.getWorldPosition(orbitTgt.look);
+      orbitTgt.radius = overviewRadius;
+      orbitTgt.phi = overviewPhi;
+      clampOrbit();
+    }
+
+    function focusNode(node) {
+      if (!node || phase !== 'flight') return;
+      if (selected.node && selected.node !== node && selected.node.classList && selected.node.classList.remove) selected.node.classList.remove('orbit-planet--selected');
+      selected.node = node;
+      followNode = node;
+      if (node.classList && node.classList.add) node.classList.add('orbit-planet--selected');
+      var size = node.dataSize || 1;
+      orbitTgt.radius = Math.max(size * 5.6, 4.2);
+      node.getWorldPosition(orbitTgt.look);
+      clampOrbit();
+      galaxyOver(node);
+      hud.readout.textContent = node.dataName || '';
+      refreshStatsOverlay();
     }
 
     function applyFlightLook(dx, dy) {
@@ -511,19 +625,16 @@
     }
 
     function selectPlanet(node) {
-      if (phase !== 'flight') return;
-      if (selected.node === node) {
-        beginAutoFly();
-        return;
+      focusNode(node);
+    }
+
+    function pickCoin(object) {
+      var node = object;
+      while (node && node !== scene) {
+        if (node.dataCoin) return node;
+        node = node.parent;
       }
-      if (selected.node && selected.node.classList && selected.node.classList.remove) selected.node.classList.remove('orbit-planet--selected');
-      selected.node = node;
-      galaxy.classList.toggle('galaxy-over', !!node);
-      if (node && node.classList && node.classList.add) node.classList.add('orbit-planet--selected');
-      gliding = true;
-      beginAutoFly();
-      galaxyOver(node);
-      refreshStatsOverlay();
+      return null;
     }
 
     function syncHover() {
@@ -536,33 +647,27 @@
         return;
       }
       hoverRaycaster.setFromCamera(hover.cameraPoint, camera);
-      var hits = hoverRaycaster.intersectObjects(planets.map(function (p) { return p.node; }), true);
+      var pickList = planets.map(function (p) { return p.node; });
+      pickList.push(ship);
+      var hits = hoverRaycaster.intersectObjects(pickList, true);
       var node = null;
-      var minDist = 40;
-      for (var i = 0; i < hits.length; i++) {
-        var root = hits[i].object;
-        while (root && root.parent && root.parent !== scene) root = root.parent;
-        if (root && root.dataCoin && root.getWorldPosition(world) && world.distanceTo(camera.position) < minDist) {
-          minDist = world.distanceTo(camera.position);
-          node = root;
-        }
-      }
+      if (hits.length) node = pickCoin(hits[0].object);
       if (!node && galaxy.clientWidth > 0) {
-        // Fallback: pick the nearest planet projected onto the screen near the pointer.
         var gw = galaxy.clientWidth, gh = galaxy.clientHeight;
         var px = (hover.cameraPoint.x + 1) / 2 * gw;
         var py = (1 - hover.cameraPoint.y) / 2 * gh;
         var proj = new THREE.Vector3();
-        var best = null, bestD = 60;
+        var best = null, bestD = 28;
         planets.forEach(function (p) {
           p.node.getWorldPosition(proj);
           proj.project(camera);
+          if (proj.z < -1 || proj.z > 1) return;
           var sx = (proj.x + 1) / 2 * gw;
           var sy = (1 - proj.y) / 2 * gh;
           var d = Math.hypot(sx - px, sy - py);
-          if (d < bestD) { bestD = d; best = p; }
+          if (d < bestD) { bestD = d; best = p.node; }
         });
-        if (best) node = best.node;
+        if (best) node = best;
       }
       if (node !== hover.node) {
         galaxyOver(node);
@@ -703,40 +808,8 @@
           }
         }
       } else if (phase === 'flight') {
-        if (selected.node && !activeAutoFly) beginAutoFly();
-        camera.getWorldDirection(forward);
-        right.crossVectors(forward, Y);
-        if (right.lengthSq() < 0.0001) right.set(1, 0, 0);
-        else right.normalize();
-        wish.set(0, 0, 0);
-        if (keys.w || keys.arrowup || gliding) wish.add(forward);
-        if (keys.s || keys.arrowdown) wish.sub(forward);
-        if (keys.d || keys.arrowright) wish.add(right);
-        if (keys.a || keys.arrowleft) wish.sub(right);
-        if (keys.q || keys[' ']) wish.y += 1;
-        if (keys.e || keys.c) wish.y -= 1;
-        var boosting = !!(keys.shift);
-        if (wish.lengthSq() > 0) wish.normalize();
-        var accel = boosting ? 46 : 18;
-        flyVel.add(wish.multiplyScalar(accel * dt));
-        flyVel.multiplyScalar(Math.pow(boosting ? 0.55 : 0.42, dt));
-        var cap = boosting ? 36 : 13;
-        if (flyVel.length() > cap) flyVel.setLength(cap);
-        camera.position.x += flyVel.x * dt;
-        camera.position.y += flyVel.y * dt;
-        camera.position.z += flyVel.z * dt;
-        if (camera.position.length() > 108) {
-          camera.position.setLength(108);
-          flyVel.multiplyScalar(0.3);
-        }
-        system.getWorldPosition(center);
-        world.copy(camera.position).sub(center);
-        var hull = 6.2 * system.scale.x;
-        if (world.length() < hull) {
-          camera.position.copy(center).add(world.normalize().multiplyScalar(hull));
-          flyVel.multiplyScalar(0.15);
-        }
-        if (!gliding && keysTimer <= 5.5) {
+        if (orbitReady) applyOrbit(dt);
+        if (keysTimer <= 5.5) {
           keysTimer += dt;
           if (keysTimer > 5.5) galaxy.classList.remove('is-briefing');
         }
@@ -817,7 +890,12 @@
           var mx = e.clientX - lastX;
           var my = e.clientY - lastY;
           flightDrag += Math.abs(mx) + Math.abs(my);
-          if (flightDrag > 8) applyFlightLook(mx, my);
+          if (flightDrag > 8 && orbitReady) {
+            if (followNode) releaseFocus();
+            orbitTgt.theta -= mx * 0.0052;
+            orbitTgt.phi -= my * 0.0052;
+            clampOrbit();
+          }
           lastX = e.clientX;
           lastY = e.clientY;
         }
@@ -837,7 +915,8 @@
       flightDrag = 0;
       if (tapped) {
         aimAt(e.clientX, e.clientY);
-        if (hover.node) selectPlanet(hover.node);
+        if (hover.node) focusNode(hover.node);
+        else if (followNode) goOverview();
       }
       if (gliding && !activeAutoFly) {
         gliding = false;
@@ -865,6 +944,11 @@
       if (phase === 'flight' || phase === 'retract' || phase === 'withdraw') {
         e.preventDefault();
         e.stopPropagation();
+        if (phase === 'flight' && orbitReady) {
+          if (followNode && Math.abs(e.deltaY) > 2) releaseFocus();
+          orbitTgt.radius *= 1 + e.deltaY * 0.0009;
+          clampOrbit();
+        }
         return;
       }
       if (holding) cancelHold();
@@ -876,19 +960,22 @@
     window.addEventListener('keydown', function (e) {
       var k = e.key.toLowerCase();
       if (phase === 'flight') {
-        keys[k] = true;
-        if (e.key === 'Shift') keys.shift = true;
-        if ((e.key === 'Enter' || e.code === 'Enter') && !gliding && !activeAutoFly && !holding && !selected.node) {
-          e.preventDefault();
-          e.stopPropagation();
-          gliding = true;
-          wish.set(0, 0, 0);
-          wish.y = 1;
-        }
         if (k === 'escape' && !e.repeat) {
           e.preventDefault();
           e.stopPropagation();
-          beginWithdraw();
+          if (followNode) goOverview();
+          else beginWithdraw();
+          return;
+        }
+        var step = 0.12;
+        if (k === 'arrowleft') orbitTgt.theta -= step;
+        if (k === 'arrowright') orbitTgt.theta += step;
+        if (k === 'arrowup') orbitTgt.phi -= step * 0.6;
+        if (k === 'arrowdown') orbitTgt.phi += step * 0.6;
+        if (k === 'arrowleft' || k === 'arrowright' || k === 'arrowup' || k === 'arrowdown') {
+          clampOrbit();
+          e.preventDefault();
+          e.stopPropagation();
           return;
         }
         if (pageKey(e)) {
@@ -1004,8 +1091,8 @@
     keys.className = 'galaxy-keys';
     keys.hidden = true;
     keys.textContent = coarse
-      ? 'Drag to look. Hold to glide.'
-      : 'Drag to look. WASD to fly. Esc withdraws.';
+      ? 'Drag to orbit. Tap a planet.'
+      : 'Drag to orbit. Scroll to zoom. Select a planet.';
     var withdraw = document.createElement('button');
     withdraw.type = 'button';
     withdraw.className = 'galaxy-withdraw';
