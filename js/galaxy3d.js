@@ -455,7 +455,7 @@
          supported listing — and its supply figures are the reserve's own. */
       dossierSet(1, 'Native');
       dossierSet(5, DEXXFG_CHAINS.fmtCount(7700000));
-      dossierSet(6, DEXXFG_CHAINS.fmtCount(8000008));
+      dossierSet(6, '8M8');
       if (s && s.tvl != null) { dossierSet(4, DEXXFG_CHAINS.fmtUsd(s.tvl)); revealRow(4); }
       revealRow(5);
       revealRow(6);
