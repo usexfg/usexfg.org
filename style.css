@@ -1818,12 +1818,18 @@ html.js [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
   opacity: 1;
 }
 
+.is-3d.is-flight .galaxy-keys {
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+}
+
 .is-3d.is-open .galaxy-hint {
   opacity: 0;
 }
 
 .galaxy-readout {
-  bottom: 48px;
+  bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  z-index: 6;
+  max-width: calc(100% - 32px);
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 28px;
@@ -2055,10 +2061,26 @@ html.galaxy-flight #xfg-galaxy {
 }
 
 html.galaxy-ready .galaxy-orb { display: none; }
-html.galaxy-flight .galaxy-orb { display: flex; }
-html.galaxy-ready .galaxy-orb-btn { bottom: 52px; }
-html.galaxy-ready .galaxy-orb-btn:nth-child(2) { bottom: 35px; }
-html.galaxy-ready .galaxy-orb-btn:nth-child(3) { bottom: 18px; }
+html.galaxy-flight .galaxy-orb {
+  display: flex;
+  top: max(16px, env(safe-area-inset-top));
+  left: 16px;
+  bottom: auto;
+  right: auto;
+  transform: none;
+  align-items: flex-start;
+  z-index: 8;
+  pointer-events: auto;
+}
+html.galaxy-flight .galaxy-orb-btn,
+html.galaxy-flight .galaxy-orb-btn:nth-child(2),
+html.galaxy-flight .galaxy-orb-btn:nth-child(3) {
+  position: static;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  pointer-events: auto;
+}
 
 @media (pointer: fine) {
   html.galaxy-ready .galaxy-orb,
@@ -2068,16 +2090,28 @@ html.galaxy-ready .galaxy-orb-btn:nth-child(3) { bottom: 18px; }
 /* ---- DeXFG network stats overlay ---- */
 .galaxy-stats-overlay {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 40px;
+  left: 16px;
+  right: 16px;
+  top: 108px;
   z-index: 6;
+  max-width: 420px;
+  max-height: min(52vh, 420px);
+  overflow: auto;
   font-family: var(--font-mono);
   color: var(--flame-white);
   background: rgba(7, 6, 5, 0.88);
   border: 1px solid rgba(197, 160, 89, 0.35);
   border-radius: var(--bezel-radius);
   padding: 10px 14px;
+}
+
+@media (min-width: 861px) {
+  .galaxy-stats-overlay {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    top: 64px;
+  }
 }
 
 .galaxy-stats-head {
@@ -2104,14 +2138,13 @@ html.galaxy-ready .galaxy-orb-btn:nth-child(3) { bottom: 18px; }
 
 .galaxy-stats-body {
   display: grid;
-  grid-template-columns: auto auto;
-  gap: 2px 14px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 14px;
   margin: 10px 0 0;
 }
 
 .galaxy-stat {
-  display: flex;
-  gap: 10px;
+  display: contents;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;

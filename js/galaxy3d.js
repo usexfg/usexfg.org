@@ -280,8 +280,77 @@
     window.refreshStatsOverlay = refreshStatsOverlay;
 
     function statsText(value) {
-      return value == null ? '\u2014' : value;
+      return value == null || value === '' ? '\u2014' : value;
     }
+
+    function fmtCount(n) {
+      if (n == null || !isFinite(n)) return null;
+      return Math.round(n).toLocaleString('en-US');
+    }
+
+    function fmtUsd(n) {
+      if (n == null || !isFinite(n)) return null;
+      if (n >= 1e12) return '$' + (n / 1e12).toFixed(2) + 'T';
+      if (n >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+      if (n >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+      if (n >= 1e3) return '$' + (n / 1e3).toFixed(1) + 'K';
+      return '$' + n.toFixed(0);
+    }
+
+    var liveStats = {};
+    var geckoId = {
+      btc: 'bitcoin', eth: 'ethereum', sol: 'solana', bnb: 'binancecoin', monero: 'monero', doge: 'dogecoin',
+      avax: 'avalanche-2', bch: 'bitcoin-cash', matic: 'matic-network', ltc: 'litecoin', dash: 'dash', zec: 'zcash',
+      arb: 'arbitrum', base: 'base', cro: 'cronos', kmd: 'komodo', dcr: 'decred', pls: 'pulsechain', monad: 'monad',
+      linea: 'linea', zksync: 'zksync', hyperevm: 'hyperliquid', rootstock: 'rootstock', gnosis: 'gnosis',
+      flare: 'flare', kaia: 'kaia', scroll: 'scroll', plume: 'plume', beam: 'beam', moonriver: 'moonriver',
+      peaq: 'peaq', sei: 'sei', ton: 'the-open-network'
+    };
+    var llamaName = {
+      btc: 'Bitcoin', eth: 'Ethereum', sol: 'Solana', bnb: 'Binance', avax: 'Avalanche', matic: 'Polygon',
+      dash: 'Dash', arb: 'Arbitrum', base: 'Base', cro: 'Cronos', kmd: 'Komodo', bob: 'BOB', unichain: 'Unichain',
+      plasma: 'Plasma', monad: 'Monad', linea: 'Linea', zksync: 'zkSync Era', hyperevm: 'HyperEVM', ink: 'Ink',
+      rootstock: 'Rootstock', gnosis: 'Gnosis', flare: 'Flare', kaia: 'Kaia', scroll: 'Scroll', abstract: 'Abstract',
+      plume: 'Plume', soneium: 'Soneium', doma: 'Doma', beam: 'Beam', moonriver: 'Moonriver', peaq: 'peaq',
+      sei: 'Sei', ton: 'TON'
+    };
+    var ownSupply = { btc: 1, eth: 1, sol: 1, bnb: 1, monero: 1, doge: 1, avax: 1, bch: 1, matic: 1, ltc: 1, dash: 1, zec: 1, cro: 1, kmd: 1, dcr: 1, pls: 1, monad: 1, hyperevm: 1, rootstock: 1, gnosis: 1, flare: 1, kaia: 1, plume: 1, beam: 1, moonriver: 1, peaq: 1, sei: 1, ton: 1 };
+
+    function loadLiveStats() {
+      var ids = Object.keys(geckoId).map(function (k) { return geckoId[k]; });
+      var byGecko = {};
+      Object.keys(geckoId).forEach(function (id) { byGecko[geckoId[id]] = id; });
+      var byLlama = {};
+      Object.keys(llamaName).forEach(function (id) { byLlama[llamaName[id].toLowerCase()] = id; });
+      fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + ids.join(',') + '&per_page=250')
+        .then(function (r) { return r.json(); })
+        .then(function (list) {
+          if (!list || !list.forEach) return;
+          list.forEach(function (c) {
+            var id = byGecko[c.id];
+            if (!id || !ownSupply[id]) return;
+            liveStats[id] = liveStats[id] || {};
+            if (c.circulating_supply != null) liveStats[id].circulatingSupply = fmtCount(c.circulating_supply);
+            if (c.max_supply != null) liveStats[id].maxSupply = fmtCount(c.max_supply);
+          });
+          if (window.refreshStatsOverlay) window.refreshStatsOverlay();
+        })
+        .catch(function () {});
+      fetch('https://api.llama.fi/chains')
+        .then(function (r) { return r.json(); })
+        .then(function (list) {
+          if (!list || !list.forEach) return;
+          list.forEach(function (c) {
+            var id = byLlama[String(c.name || '').toLowerCase()];
+            if (!id || c.tvl == null) return;
+            liveStats[id] = liveStats[id] || {};
+            liveStats[id].tvl = fmtUsd(c.tvl);
+          });
+          if (window.refreshStatsOverlay) window.refreshStatsOverlay();
+        })
+        .catch(function () {});
+    }
+    loadLiveStats();
 
     function buildStatsOverlay(galaxyEl) {
       var overlay = dom('div', 'galaxy-stats-overlay', galaxyEl, { role: 'status', 'aria-live': 'polite' });
@@ -290,9 +359,9 @@
       dom('h3', 'galaxy-stats-name', head).textContent = '';
       var close = dom('button', 'galaxy-stats-close', head, { type: 'button', 'aria-label': 'Close stats' });
       close.textContent = '\u00d7';
-      dom('dl', 'galaxy-stats-body', overlay);
+      var body = dom('dl', 'galaxy-stats-body', overlay);
       ['type', 'nativeCoin', 'privacy', 'status', 'tvl', 'circulatingSupply', 'maxSupply'].forEach(function (key) {
-        var row = dom('div', 'galaxy-stat', overlay);
+        var row = dom('div', 'galaxy-stat', body);
         row.setAttribute('data-stat', key);
         dom('span', 'galaxy-stat-key', row).textContent = statsLabels[key];
         dom('span', 'galaxy-stat-val', row).textContent = '\u2014';
@@ -310,15 +379,16 @@
         info = window.orbitData.find ? window.orbitData.find(function (n) { return n.id === coinId; }) : null;
       }
       var meta = chainMeta[coinId] || null;
+      var live = liveStats[coinId] || {};
       var privacy = coinId === 'monero' || coinId === 'xfg' ? 'Private' : (coinId ? 'Public' : '\u2014');
       var values = {
         type: (info && info.type) || (meta && meta[1]) || null,
         nativeCoin: (info && info.nativeCoin) || (meta && meta[0]) || null,
         privacy: privacy,
         status: (info && info.status) || (coinId ? 'Arriving with v11' : null),
-        tvl: info ? info.tvl : null,
-        circulatingSupply: info ? info.circulatingSupply : null,
-        maxSupply: info ? info.maxSupply : null
+        tvl: live.tvl || (info ? info.tvl : null),
+        circulatingSupply: live.circulatingSupply || (info ? info.circulatingSupply : null),
+        maxSupply: coinId === 'xfg' ? '8,000,008' : (live.maxSupply || (info ? info.maxSupply : null))
       };
       statsOverlay.querySelectorAll('.galaxy-stat').forEach(function (row) {
         var key = row.getAttribute('data-stat');
@@ -860,10 +930,7 @@
         if (phase !== 'flight') return;
         actionBtn.blur();
         var kind = actionBtn.dataset.action;
-        if ((kind === 'home' || kind === 'reset') && selected.node) selected.node = null;
-        if (kind === 'plan') window.location.assign('plan.html');
-        if (kind === 'activity') window.location.assign('activity.html');
-        refreshStatsOverlay();
+        if (kind === 'home' || kind === 'reset') goOverview();
         return;
       }
       if (phase === 'flight') {
@@ -1067,9 +1134,7 @@
     var hud = document.createElement('div');
     hud.className = 'galaxy-hud';
     var buttons = [
-      { action: 'home', label: 'Home' },
-      { action: 'plan', label: 'Plan' },
-      { action: 'activity', label: 'Activity' },
+      { action: 'home', label: 'Overview' },
       { action: 'reset', label: 'Reset' }
     ];
     var menuRoot = dom('div', 'galaxy-orb', hud);
