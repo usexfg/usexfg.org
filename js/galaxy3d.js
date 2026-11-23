@@ -129,27 +129,21 @@
   }
   var spriteTex = glowSpriteTexture();
 
-  /* --- Mothership: the gargantuan base sphere --- */
+  /* --- Mothership: the Fuego Reserve as a gold mirror-ball ---
+     The Reserve's face is the disco-ball hull from the private-exchange
+     galaxy: longitude/latitude seams of gold leaf, a cut equator with the
+     ember core showing through, and a slow specular roll. The halo and
+     station rings around it stay with this galaxy. */
   var shipGroup = new THREE.Group();
   galaxy.add(shipGroup);
 
-  var shipMat = new THREE.MeshStandardMaterial({
-    color: 0x2b241a, roughness: 0.32, metalness: 0.5,
-    emissive: 0xC5A059, emissiveIntensity: 0.3
-  });
-  var ship = new THREE.Mesh(new THREE.SphereGeometry(6.2, 48, 32), shipMat);
-  shipGroup.add(ship);
-  ship.userData = { coin: ['fuego', 'Fuego Reserve'], size: 6.2 };
+  var SHIP_RADIUS = 6.2;
+  var SHIP_LOCAL_RADIUS = 5.2;
+  var shipBall = buildFuegoMothership(shipGroup, SHIP_RADIUS / SHIP_LOCAL_RADIUS);
+  var ship = shipBall.hull;
+  ship.userData = { coin: ['fuego', 'Fuego Reserve'], size: SHIP_RADIUS };
 
   var loader = new THREE.TextureLoader();
-  loader.load('coins/xfg-mark.png?v=4', function (tex0) {
-    var tex = brandedTexture(tex0.image || tex0, 340, 50);
-    shipMat.map = tex;
-    shipMat.emissiveMap = tex;
-    shipMat.color.setHex(0xffffff);
-    shipMat.emissiveIntensity = 0.75;
-    shipMat.needsUpdate = true;
-  });
 
   /* halo sprite */
   var halo = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -172,6 +166,115 @@
   ringB.rotation.x = Math.PI / 2 - 0.3;
   ringB.rotation.y = 0.4;
   shipGroup.add(ringA, ringB);
+
+  function buildFuegoMothership(parent, scale) {
+    var group = new THREE.Group();
+    group.scale.setScalar(scale);
+    parent.add(group);
+
+    var hullMat = fuegoHullMaterial();
+    var hull = new THREE.Mesh(new THREE.SphereGeometry(SHIP_LOCAL_RADIUS, 64, 40), hullMat);
+    group.add(hull);
+
+    var coreMat = fuegoCoreMaterial();
+    var core = new THREE.Mesh(new THREE.SphereGeometry(4.55, 48, 32), coreMat);
+    group.add(core);
+
+    var trench = new THREE.Mesh(
+      new THREE.TorusGeometry(5.18, 0.045, 8, 96),
+      new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    trench.rotation.x = Math.PI / 2;
+    group.add(trench);
+
+    return { group: group, hull: hull, core: core, trench: trench, hullMat: hullMat, coreMat: coreMat };
+  }
+
+  function fuegoHullMaterial() {
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        hold: { value: 0 },
+        keyDir: { value: new THREE.Vector3(0.45, 0.72, 0.42).normalize() }
+      },
+      vertexShader: [
+        'varying vec3 vN;',
+        'varying vec3 vP;',
+        'varying vec3 vW;',
+        'void main() {',
+        '  vN = normalize(normalMatrix * normal);',
+        '  vP = position;',
+        '  vec4 w = modelMatrix * vec4(position, 1.0);',
+        '  vW = w.xyz;',
+        '  gl_Position = projectionMatrix * viewMatrix * w;',
+        '}'
+      ].join('\n'),
+      fragmentShader: [
+        'uniform float time;',
+        'uniform float hold;',
+        'uniform vec3 keyDir;',
+        'varying vec3 vN;',
+        'varying vec3 vP;',
+        'varying vec3 vW;',
+        'float hash(vec3 p) {',
+        '  return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453);',
+        '}',
+        'void main() {',
+        '  float lat = vP.y / 5.2;',
+        '  if (abs(lat) < 0.055) discard;',
+        '  vec3 n = normalize(vN);',
+        '  vec3 viewDir = normalize(cameraPosition - vW);',
+        '  float ndl = clamp(dot(n, keyDir), 0.0, 1.0);',
+        '  float fres = pow(1.0 - abs(dot(n, viewDir)), 2.6);',
+        '  float lon = atan(vP.z, vP.x);',
+        '  float seam = smoothstep(0.455, 0.5, abs(fract(lon * 5.2) - 0.5));',
+        '  seam += smoothstep(0.455, 0.5, abs(fract(lat * 8.0) - 0.5));',
+        '  float city = step(0.82, hash(floor(vP * 6.5))) * (1.0 - ndl);',
+        '  float band = exp(-pow(lat * 8.0, 2.0));',
+        '  vec3 gold = vec3(0.773, 0.627, 0.349);',
+        '  vec3 ember = vec3(0.910, 0.384, 0.173);',
+        '  vec3 rim = vec3(0.353, 0.478, 0.612);',
+        '  vec3 col = vec3(0.07, 0.062, 0.05) * (0.42 + ndl * 1.35);',
+        '  col += gold * seam * 0.72;',
+        '  col += gold * band * 0.28;',
+        '  col += ember * city * (0.85 + 0.4 * fract(sin(time * 0.7 + lat * 18.0)));',
+        '  col += rim * fres * 0.62;',
+        '  col += ember * fres * hold * 0.45;',
+        '  col += gold * hold * band * 0.35;',
+        '  gl_FragColor = vec4(col, 1.0);',
+        '}'
+      ].join('\n')
+    });
+  }
+
+  function fuegoCoreMaterial() {
+    return new THREE.ShaderMaterial({
+      uniforms: { time: { value: 0 } },
+      vertexShader: [
+        'varying vec3 vN;',
+        'varying vec3 vW;',
+        'void main() {',
+        '  vN = normalize(normalMatrix * normal);',
+        '  vec4 w = modelMatrix * vec4(position, 1.0);',
+        '  vW = w.xyz;',
+        '  gl_Position = projectionMatrix * viewMatrix * w;',
+        '}'
+      ].join('\n'),
+      fragmentShader: [
+        'uniform float time;',
+        'varying vec3 vN;',
+        'varying vec3 vW;',
+        'void main() {',
+        '  float fres = pow(1.0 - abs(dot(normalize(vN), normalize(cameraPosition - vW))), 1.6);',
+        '  float pulse = 0.82 + 0.18 * sin(time * 1.3);',
+        '  vec3 ember = vec3(0.910, 0.384, 0.173);',
+        '  vec3 gold = vec3(0.773, 0.627, 0.349);',
+        '  vec3 col = mix(ember, gold, fres) * pulse;',
+        '  gl_FragColor = vec4(col, 1.0);',
+        '}'
+      ].join('\n')
+    });
+  }
 
   /* --- Planets --- */
   var planets = [];
@@ -800,8 +903,10 @@
     if (!inView || document.hidden) { loopStats.skippedHidden++; return; }
 
     /* hold progress */
+    var holdAmt = 0;
     if (hold.active) {
       var p = (performance.now() - hold.start) / HOLD_MS;
+      holdAmt = Math.min(1, p);
       if (p >= 1) {
         cancelHold();
         enterFlight();
@@ -809,6 +914,7 @@
         hrFg.style.strokeDashoffset = HR_C * (1 - p);
       }
     }
+    shipBall.hullMat.uniforms.hold.value += (holdAmt - shipBall.hullMat.uniforms.hold.value) * (1 - Math.exp(-dt * 9));
 
     /* camera damping */
     var k = 1 - Math.exp(-dt * 4.6);
@@ -844,6 +950,8 @@
 
     /* mothership motion */
     ship.rotation.y += dt * 0.05;
+    shipBall.hullMat.uniforms.time.value = t;
+    shipBall.coreMat.uniforms.time.value = t;
     halo.material.opacity = 0.26 + Math.sin(t * 0.8) * 0.05;
     coreLight.intensity = 1.4 + Math.sin(t * 1.1) * 0.18;
 
