@@ -211,65 +211,58 @@
     };
   }
 
-  /* The G is cut from the house mark's own vector outline: the five
-     facets of the XFG coin, extruded as one clean gold piece. */
+  /* One solid G, cut from a single outline with a single void — no facets,
+     no raster, no stuck-on bar. Generous bevels and a darker edge give it
+     the feel of cast gold bullion. */
   function fuegoGEmblem(parent) {
     var group = new THREE.Group();
     group.position.y = 7.15;
     parent.add(group);
 
-    new THREE.FileLoader().load('assets/logo/fuego-mark-mono.svg', function (text) {
-      var doc = new DOMParser().parseFromString(text, 'image/svg+xml');
-      var path = doc.querySelector('path');
-      if (!path) return;
-      var tokens = path.getAttribute('d').match(/[MCLZ]|-?\d*\.?\d+/g) || [];
-      var subs = [], shape = null, k = 0;
-      while (k < tokens.length) {
-        var t = tokens[k++];
-        if (t === 'M') {
-          shape = []; subs.push(shape);
-          shape.push([+tokens[k++], +tokens[k++]]);
-        } else if (t === 'C' && shape) {
-          shape.push([+tokens[k++], +tokens[k++], +tokens[k++], +tokens[k++], +tokens[k++], +tokens[k++]]);
-        }
-      }
-      var scale = 0.0072;
-      var mat = new THREE.MeshStandardMaterial({
-        color: 0xd4af6b, metalness: 0.74, roughness: 0.31,
-        emissive: 0x6b4318, emissiveIntensity: 0.28,
-        side: THREE.DoubleSide
-      });
-      var all = [];
-      subs.forEach(function (sub) {
-        var s = new THREE.Shape();
-        s.moveTo((sub[0][0] - 256) * scale, (256 - sub[0][1]) * scale);
-        for (var i = 1; i < sub.length; i++) {
-          var c = sub[i];
-          s.bezierCurveTo(
-            (c[0] - 256) * scale, (256 - c[1]) * scale,
-            (c[2] - 256) * scale, (256 - c[3]) * scale,
-            (c[4] - 256) * scale, (256 - c[5]) * scale
-          );
-        }
-        var geo = new THREE.ExtrudeGeometry(s, {
-          depth: 0.18, bevelEnabled: true, bevelThickness: 0.02,
-          bevelSize: 0.015, bevelSegments: 1, curveSegments: 5
-        });
-        geo.computeBoundingBox();
-        all.push({ geo: geo, box: geo.boundingBox.clone() });
-        group.add(new THREE.Mesh(geo, mat));
-      });
-      /* centre the assembled mark on the mast */
-      var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-      all.forEach(function (a) {
-        minX = Math.min(minX, a.box.min.x); maxX = Math.max(maxX, a.box.max.x);
-        minY = Math.min(minY, a.box.min.y); maxY = Math.max(maxY, a.box.max.y);
-      });
-      var cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
-      group.children.forEach(function (m) {
-        m.position.x -= cx; m.position.y -= cy; m.position.z -= 0.09;
-      });
+    var outer = new THREE.Shape();
+    outer.moveTo(1.25, 0.78);
+    outer.lineTo(0.62, 1.45);
+    outer.lineTo(-0.62, 1.45);
+    outer.lineTo(-1.25, 0.75);
+    outer.lineTo(-1.25, -0.75);
+    outer.lineTo(-0.62, -1.45);
+    outer.lineTo(0.62, -1.45);
+    outer.lineTo(1.25, -0.78);
+    outer.lineTo(1.25, 0.78);
+
+    /* the void wraps around the crossbar, leaving it part of the same mass */
+    var hole = new THREE.Path();
+    hole.moveTo(0.88, 0.60);
+    hole.lineTo(0.45, 1.08);
+    hole.lineTo(-0.45, 1.08);
+    hole.lineTo(-0.90, 0.62);
+    hole.lineTo(-0.90, -0.62);
+    hole.lineTo(-0.45, -1.08);
+    hole.lineTo(0.45, -1.08);
+    hole.lineTo(0.88, -0.60);
+    hole.lineTo(1.20, -0.30);
+    hole.lineTo(0.18, -0.30);
+    hole.lineTo(0.18, 0.02);
+    hole.lineTo(1.20, 0.02);
+    hole.lineTo(0.88, 0.60);
+    outer.holes.push(hole);
+
+    var geo = new THREE.ExtrudeGeometry(outer, {
+      depth: 0.34, bevelEnabled: true, bevelThickness: 0.06,
+      bevelSize: 0.045, bevelSegments: 3, curveSegments: 6
     });
+    geo.center();
+    var face = new THREE.MeshStandardMaterial({
+      color: 0xd9b571, metalness: 0.62, roughness: 0.24,
+      emissive: 0x8a5a22, emissiveIntensity: 0.3
+    });
+    var edge = new THREE.MeshStandardMaterial({
+      color: 0x8c734b, metalness: 0.7, roughness: 0.3,
+      emissive: 0x3a2410, emissiveIntensity: 0.2
+    });
+    var mesh = new THREE.Mesh(geo, [face, edge]);
+    mesh.renderOrder = 3;
+    group.add(mesh);
     return group;
   }
 
