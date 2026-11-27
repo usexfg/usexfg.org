@@ -211,58 +211,33 @@
     };
   }
 
-  /* One solid G, cut from a single outline with a single void — no facets,
-     no raster, no stuck-on bar. Generous bevels and a darker edge give it
-     the feel of cast gold bullion. */
+  /* The Reserve's G, back on the Fuego nav mark — the house logo itself,
+     lifted off the letterhead as a gold emblem on the letter standard.
+     The mark is the mark: no hand-drawn outline, no facets, no stuck-on
+     bar, no bullion re-touch. The living flame still burns up through its
+     throat. */
   function fuegoGEmblem(parent) {
     var group = new THREE.Group();
     group.position.y = 7.15;
     parent.add(group);
 
-    var outer = new THREE.Shape();
-    outer.moveTo(1.25, 0.78);
-    outer.lineTo(0.62, 1.45);
-    outer.lineTo(-0.62, 1.45);
-    outer.lineTo(-1.25, 0.75);
-    outer.lineTo(-1.25, -0.75);
-    outer.lineTo(-0.62, -1.45);
-    outer.lineTo(0.62, -1.45);
-    outer.lineTo(1.25, -0.78);
-    outer.lineTo(1.25, 0.78);
+    var tex = new THREE.TextureLoader().load('assets/logo/fuego-nav.png');
+    tex.encoding = THREE.sRGBEncoding;
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
-    /* the void wraps around the crossbar, leaving it part of the same mass */
-    var hole = new THREE.Path();
-    hole.moveTo(0.88, 0.60);
-    hole.lineTo(0.45, 1.08);
-    hole.lineTo(-0.45, 1.08);
-    hole.lineTo(-0.90, 0.62);
-    hole.lineTo(-0.90, -0.62);
-    hole.lineTo(-0.45, -1.08);
-    hole.lineTo(0.45, -1.08);
-    hole.lineTo(0.88, -0.60);
-    hole.lineTo(1.20, -0.30);
-    hole.lineTo(0.18, -0.30);
-    hole.lineTo(0.18, 0.02);
-    hole.lineTo(1.20, 0.02);
-    hole.lineTo(0.88, 0.60);
-    outer.holes.push(hole);
+    var mat = new THREE.SpriteMaterial({
+      map: tex,
+      color: 0xe9c987,
+      transparent: true,
+      depthWrite: false,
+      opacity: 1
+    });
+    var sprite = new THREE.Sprite(mat);
+    sprite.scale.set(2.0, 2.0, 1);
+    sprite.position.y = 0;
+    sprite.renderOrder = 9;
+    group.add(sprite);
 
-    var geo = new THREE.ExtrudeGeometry(outer, {
-      depth: 0.34, bevelEnabled: true, bevelThickness: 0.06,
-      bevelSize: 0.045, bevelSegments: 3, curveSegments: 6
-    });
-    geo.center();
-    var face = new THREE.MeshStandardMaterial({
-      color: 0xd9b571, metalness: 0.62, roughness: 0.24,
-      emissive: 0x8a5a22, emissiveIntensity: 0.3
-    });
-    var edge = new THREE.MeshStandardMaterial({
-      color: 0x8c734b, metalness: 0.7, roughness: 0.3,
-      emissive: 0x3a2410, emissiveIntensity: 0.2
-    });
-    var mesh = new THREE.Mesh(geo, [face, edge]);
-    mesh.renderOrder = 3;
-    group.add(mesh);
     return group;
   }
 
