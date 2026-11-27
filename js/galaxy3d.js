@@ -798,8 +798,9 @@
     dRows[0].val.classList.add('visible');
     dRows[1].val.classList.add('visible');
     dPrivacyAns = (DEXXFG_CHAINS && DEXXFG_CHAINS.swapPrivacy) ? DEXXFG_CHAINS.swapPrivacy(dStatsId) : 'Public';
+    if (dStatsId === 'fuego') dPrivacyAns = 'ALL';
     dossierSet(2, dPrivacyAns);
-    var isPrivate = dPrivacyAns === 'Private';
+    var isPrivate = dPrivacyAns === 'Private' || dStatsId === 'fuego';
     dRows[2].val.classList.toggle('private', isPrivate);
     dRows[2].val.classList.toggle('gold-liquid', isPrivate);
     dRows[2].val.classList.add('visible');
