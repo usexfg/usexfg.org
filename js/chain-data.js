@@ -53,7 +53,7 @@
     /* No CoinGecko entry exists for Fuego XFG — the reserve is its own source
        of truth, so its supply figures come from the reserve itself, not a
        third-party coin site. */
-    fuego:     [null, 'Fuego Reserve', 'XFG', 'Private reserve · the galaxy core', 'Sovereign Sound Money Banking & Private Purchasing Power Chain']
+    fuego:     [null, 'Fuego Reserve', 'XFG', 'CryptoNote; Private Reserve', 'Sovereign Sound Money Banking & Private Purchasing Power Chain']
   };
 
   var STATUS = 'Supported network · arriving with v11';

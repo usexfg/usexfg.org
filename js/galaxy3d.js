@@ -187,7 +187,262 @@
     trench.rotation.x = Math.PI / 2;
     group.add(trench);
 
-    return { group: group, hull: hull, core: core, trench: trench, hullMat: hullMat, coreMat: coreMat };
+    /* window lights: the small lit edges of the mirror-ball panels */
+    group.add(fuegoWindowLights(window.innerWidth < 720 ? 70 : 140));
+
+    /* the staff is the Reserve's G itself — a gold letter standard.
+       The flame is not painted on: it burns up through the open throat of
+       the G, exactly as it does in the house mark. */
+    var stemMat = new THREE.MeshStandardMaterial({
+      color: 0x8c734b, metalness: 0.85, roughness: 0.32,
+      emissive: 0x3a2410, emissiveIntensity: 0.2
+    });
+    var stem = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.17, 0.72, 12), stemMat);
+    stem.position.y = 5.44;
+    group.add(stem);
+
+    var gEmblem = fuegoGEmblem(group);
+    var flame = fuegoFlame(group);
+
+    return {
+      group: group, hull: hull, core: core, trench: trench,
+      hullMat: hullMat, coreMat: coreMat,
+      gEmblem: gEmblem, flame: flame
+    };
+  }
+
+  /* The G is cut from the house mark's own vector outline: the five
+     facets of the XFG coin, extruded as one clean gold piece. */
+  function fuegoGEmblem(parent) {
+    var group = new THREE.Group();
+    group.position.y = 7.15;
+    parent.add(group);
+
+    new THREE.FileLoader().load('assets/logo/fuego-mark-mono.svg', function (text) {
+      var doc = new DOMParser().parseFromString(text, 'image/svg+xml');
+      var path = doc.querySelector('path');
+      if (!path) return;
+      var tokens = path.getAttribute('d').match(/[MCLZ]|-?\d*\.?\d+/g) || [];
+      var subs = [], shape = null, k = 0;
+      while (k < tokens.length) {
+        var t = tokens[k++];
+        if (t === 'M') {
+          shape = []; subs.push(shape);
+          shape.push([+tokens[k++], +tokens[k++]]);
+        } else if (t === 'C' && shape) {
+          shape.push([+tokens[k++], +tokens[k++], +tokens[k++], +tokens[k++], +tokens[k++], +tokens[k++]]);
+        }
+      }
+      var scale = 0.0072;
+      var mat = new THREE.MeshStandardMaterial({
+        color: 0xd4af6b, metalness: 0.74, roughness: 0.31,
+        emissive: 0x6b4318, emissiveIntensity: 0.28,
+        side: THREE.DoubleSide
+      });
+      var all = [];
+      subs.forEach(function (sub) {
+        var s = new THREE.Shape();
+        s.moveTo((sub[0][0] - 256) * scale, (256 - sub[0][1]) * scale);
+        for (var i = 1; i < sub.length; i++) {
+          var c = sub[i];
+          s.bezierCurveTo(
+            (c[0] - 256) * scale, (256 - c[1]) * scale,
+            (c[2] - 256) * scale, (256 - c[3]) * scale,
+            (c[4] - 256) * scale, (256 - c[5]) * scale
+          );
+        }
+        var geo = new THREE.ExtrudeGeometry(s, {
+          depth: 0.18, bevelEnabled: true, bevelThickness: 0.02,
+          bevelSize: 0.015, bevelSegments: 1, curveSegments: 5
+        });
+        geo.computeBoundingBox();
+        all.push({ geo: geo, box: geo.boundingBox.clone() });
+        group.add(new THREE.Mesh(geo, mat));
+      });
+      /* centre the assembled mark on the mast */
+      var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      all.forEach(function (a) {
+        minX = Math.min(minX, a.box.min.x); maxX = Math.max(maxX, a.box.max.x);
+        minY = Math.min(minY, a.box.min.y); maxY = Math.max(maxY, a.box.max.y);
+      });
+      var cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+      group.children.forEach(function (m) {
+        m.position.x -= cx; m.position.y -= cy; m.position.z -= 0.09;
+      });
+    });
+    return group;
+  }
+
+  /* Living flame: buoyancy-scrolled FBM, a slow/mid/high flicker stack,
+     and a hot core that cools to ember at the edges and tip. Two offset
+     cards give the plume volume without a fluid sim. */
+  function fuegoFlameMaterial() {
+    /* Physical parameters live here, not sprinkled through the shader:
+       rise = buoyancy, swayLow/Mid = large-vortex and licking bands,
+       flickMid/Fast/Crackle = the three luminance bands of real fire. */
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        rise: { value: 0.62 },
+        swayLow: { value: 0.37 },
+        swayMid: { value: 1.31 },
+        flickMid: { value: 2.7 },
+        flickFast: { value: 6.3 },
+        flickCrackle: { value: 11.7 }
+      },
+      vertexShader: [
+        'varying vec2 vUv;',
+        'void main() {',
+        '  vUv = uv;',
+        '  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
+        '}'
+      ].join('\n'),
+      fragmentShader: [
+        'uniform float time;',
+        'uniform float rise;',
+        'uniform float swayLow;',
+        'uniform float swayMid;',
+        'uniform float flickMid;',
+        'uniform float flickFast;',
+        'uniform float flickCrackle;',
+        'varying vec2 vUv;',
+        'float hash(vec2 p) {',
+        '  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);',
+        '}',
+        'float noise(vec2 p) {',
+        '  vec2 i = floor(p), f = fract(p);',
+        '  f = f * f * (3.0 - 2.0 * f);',
+        '  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),',
+        '             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);',
+        '}',
+        'float fbm(vec2 p) {',
+        '  float v = 0.0, a = 0.5;',
+        '  for (int i = 0; i < 4; i++) { v += a * noise(p); p *= 2.03; a *= 0.5; }',
+        '  return v;',
+        '}',
+        'void main() {',
+        '  float h = clamp(vUv.y, 0.0, 1.0);',
+        '  vec2 np = vec2(vUv.x * 2.6, vUv.y * 2.1 - time * rise);',
+        /* domain warp: the eddies that detach and curl back into the plume */
+        '  vec2 warp = vec2(fbm(np + vec2(0.0, -time * 0.11)),',
+        '                    fbm(np + vec2(5.2, 1.3) - vec2(0.0, time * 0.09)));',
+        '  vec2 wp = np + (warp - 0.5) * 0.85;',
+        '  float n = fbm(wp);',
+        '  float n2 = fbm(wp * 1.7 + vec2(4.7, -time * 0.35));',
+        /* large vortices sway the whole column; small eddies lick the edges */
+        '  float sway = sin(time * swayLow) * 0.10 + sin(time * swayMid + h * 2.6) * 0.05 + (n - 0.5) * 0.18;',
+        /* the XFG flame is sinuous: two slow bends and a hooked tip, not
+           a straight column. The bends drift but never flatten out. */
+        '  float curve = sin(h * 5.4 + time * 0.28) * 0.19 * smoothstep(0.02, 0.55, h);',
+        '  curve += sin(h * 9.2 + time * 0.17 + 1.4) * 0.055 * smoothstep(0.25, 1.0, h);',
+        '  curve += smoothstep(0.72, 1.0, h) * 0.10;',
+        '  float x = (vUv.x - 0.5) - curve - sway * pow(h, 1.2);',
+        '  float w = 0.10 + 0.16 * sin(3.14159265 * pow(h, 0.8));',
+        '  w *= 1.0 - smoothstep(0.66, 1.0, h) * 0.9;',
+        '  w *= 0.55 + 0.45 * smoothstep(0.0, 0.10, h);',
+        '  float d = abs(x) / w + (n2 - 0.5) * 0.5 * (0.35 + h);',
+        '  float body = 1.0 - smoothstep(0.68, 1.02, d);',
+        '  float core = (1.0 - smoothstep(0.0, 0.55, d)) * smoothstep(0.0, 0.10, h);',
+        /* three independent luminance bands — no single sine wave */
+        '  float flick = 0.88 + 0.07 * sin(time * flickMid)',
+        '              + 0.04 * sin(time * flickFast + 1.1)',
+        '              + 0.03 * sin(time * flickCrackle + 2.2);',
+        '  vec3 col = mix(vec3(0.55, 0.06, 0.01), vec3(1.0, 0.31, 0.03), smoothstep(0.0, 0.55, h));',
+        '  col = mix(col, vec3(1.0, 0.70, 0.16), core * 0.9);',
+        '  col = mix(col, vec3(1.0, 0.95, 0.74), core * core * (1.0 - smoothstep(0.0, 0.32, h)) * 0.8);',
+        '  col = mix(col, vec3(0.48, 0.05, 0.01), smoothstep(0.80, 1.0, h) * 0.8);',
+        '  float soot = smoothstep(0.35, 0.75, n2) * smoothstep(0.20, 0.70, h) * 0.14;',
+        '  col *= 1.0 - soot;',
+        '  float a = body * flick * (1.0 - smoothstep(0.88, 1.0, h) * 0.6) * 0.95;',
+        '  gl_FragColor = vec4(col, a);',
+        '}'
+      ].join('\n'),
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      side: THREE.DoubleSide
+    });
+  }
+
+  function fuegoFlame(parent) {
+    var mat = fuegoFlameMaterial();
+    var cards = [];
+    var sizes = [[1.15, 4.0, 7.95], [0.6, 2.8, 7.5]];
+    for (var i = 0; i < sizes.length; i++) {
+      var card = new THREE.Mesh(new THREE.PlaneGeometry(sizes[i][0], sizes[i][1]), mat);
+      card.position.y = sizes[i][2];
+      card.renderOrder = 5 + i;
+      parent.add(card);
+      cards.push(card);
+    }
+
+    var glow = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: spriteTex, color: 0xff5a1e, transparent: true, opacity: 0.22,
+      blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false
+    }));
+    glow.position.y = 7.9;
+    glow.scale.set(4.4, 6.4, 1);
+    glow.renderOrder = 4;
+    parent.add(glow);
+
+    var n = 42;
+    var pos = new Float32Array(n * 3);
+    var seeds = [];
+    for (var e = 0; e < n; e++) {
+      seeds.push({ a: Math.random() * 6.2832, r: 0.08 + Math.random() * 0.4, y: Math.random(), s: 0.5 + Math.random() * 0.8 });
+    }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    var embers = new THREE.Points(geo, new THREE.PointsMaterial({
+      map: spriteTex, color: 0xff8a3d, size: 0.18, transparent: true, opacity: 0.9,
+      blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, sizeAttenuation: true
+    }));
+    embers.renderOrder = 7;
+    parent.add(embers);
+
+    /* fire light: warm, never neutral. The upper source throws the
+       moving shadows; the lower one is the bounce on the gold hull. */
+    var light = new THREE.PointLight(0xff6a24, 2.6, 26, 2);
+    light.position.y = 7.0;
+    parent.add(light);
+
+    var bounce = new THREE.PointLight(0xff3d0d, 1.1, 13, 2);
+    bounce.position.y = 5.7;
+    parent.add(bounce);
+
+    return {
+      mat: mat, cards: cards, glow: glow,
+      pos: pos, attr: geo.attributes.position, seeds: seeds,
+      light: light, bounce: bounce
+    };
+  }
+
+  function fuegoWindowLights(count) {
+    var pos = [];
+    var i = 0, guard = 0;
+    while (pos.length / 3 < count && guard < count * 8) {
+      guard++;
+      var y = 1 - (i / (count * 2)) * 2;
+      i++;
+      if (Math.abs(y) < 0.08) continue;
+      var rad = Math.sqrt(Math.max(0, 1 - y * y));
+      var phi = i * 2.399963;
+      pos.push(
+        Math.cos(phi) * rad * 5.28,
+        y * 5.28,
+        Math.sin(phi) * rad * 5.28
+      );
+    }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    return new THREE.Points(geo, new THREE.PointsMaterial({
+      color: 0xe7c98a,
+      size: 0.26,
+      transparent: true,
+      opacity: 0.85,
+      depthWrite: false,
+      sizeAttenuation: true
+    }));
   }
 
   function fuegoHullMaterial() {
@@ -456,12 +711,15 @@
     '<div class="gf-labels"></div>' +
     '<div class="gf-dossier">' +
       '<div class="gf-dossier-inner">' +
-        '<h2 class="gf-dossier-name"></h2>' +
+        '<div class="gf-dossier-head">' +
+          '<span class="gf-dossier-crest" aria-hidden="true"><img src="assets/logo/fuego-nav.png" alt=""></span>' +
+          '<h2 class="gf-dossier-name"></h2>' +
+        '</div>' +
         '<p class="gf-dossier-blurb"></p>' +
         '<div class="gf-dossier-grid">' +
           '<div class="gf-dossier-row"><span class="gd-label">Network Type</span><span class="gd-val">—</span></div>' +
           '<div class="gf-dossier-row"><span class="gd-label">Status in deXFG</span><span class="gd-val">—</span></div>' +
-          '<div class="gf-dossier-row"><span class="gd-label">Outward Swap Privacy</span><span class="gd-val">—</span></div>' +
+          '<div class="gf-dossier-row"><span class="gd-label">Inward Swap Privacy</span><span class="gd-val">—</span></div>' +
           '<div class="gf-dossier-row"><span class="gd-label">Gas Asset</span><span class="gd-val">—</span></div>' +
           '<div class="gf-dossier-row"><span class="gd-label">TVL</span><span class="gd-val">—</span></div>' +
           '<div class="gf-dossier-row"><span class="gd-label">Circulating Supply</span><span class="gd-val">—</span></div>' +
@@ -528,7 +786,8 @@
     dNameEl.textContent = ''; dBlurbEl.textContent = '';
     dRows.forEach(function (r) { r.val.textContent = '—'; r.val.classList.remove('private', 'gold-liquid'); });
     resetDossierRows();
-    dossierEl.classList.remove('on', 'has-name', 'has-blurb', 'has-rows');
+    dossierEl.classList.remove('on', 'has-name', 'has-blurb', 'has-rows', 'fuego');
+    overlay.classList.remove('fuego-focus');
   }
   function showDossier(mesh) {
     closeDossier();
@@ -536,11 +795,13 @@
     follow = mesh;
     dCurrent = mesh;
     dStatsId = mesh.userData.coin[0];
+    dossierEl.classList.toggle('fuego', dStatsId === 'fuego');
+    overlay.classList.toggle('fuego-focus', dStatsId === 'fuego');
     dText = mesh.userData.coin[1];
     dPrintLen = 0; dNameDone = false; dRowsIn = 0; dInAt = 0;
     var info = dossierStaticInfo(mesh);
     dossierStash = [info.type, info.status, info.symbol];
-    if (dStatsId === 'fuego') dossierStash[1] = 'Native';
+    if (dStatsId === 'fuego') dossierStash[1] = 'Mothership';
     dRows[0].val.classList.add('visible');
     dRows[1].val.classList.add('visible');
     dPrivacyAns = (DEXXFG_CHAINS && DEXXFG_CHAINS.swapPrivacy) ? DEXXFG_CHAINS.swapPrivacy(dStatsId) : 'Public';
@@ -559,9 +820,9 @@
     if (dStatsId === 'fuego') {
       /* The Fuego Reserve is the native network of facilitation, not a
          supported listing — and its supply figures are the reserve's own. */
-      dossierSet(1, 'Native');
-      dossierSet(5, DEXXFG_CHAINS.fmtCount(7700000));
-      dossierSet(6, '8M8');
+      dossierSet(1, 'Mothership');
+      dossierSet(5, '8,000,008');
+      dossierSet(6, '8,000,008');
       if (s && s.tvl != null) { dossierSet(4, DEXXFG_CHAINS.fmtUsd(s.tvl)); revealRow(4); }
       revealRow(5);
       revealRow(6);
@@ -928,6 +1189,8 @@
     if (follow) {
       follow.getWorldPosition(tmpV);
       tgt.look.copy(tmpV);
+      /* the Reserve carries a tall standard — give it headroom */
+      if (follow === ship) tgt.look.y += 2.6;
     }
 
     var r = view.radius, cp = Math.sin(view.phi), sp = Math.cos(view.phi);
@@ -954,6 +1217,38 @@
     shipBall.coreMat.uniforms.time.value = t;
     halo.material.opacity = 0.26 + Math.sin(t * 0.8) * 0.05;
     coreLight.intensity = 1.4 + Math.sin(t * 1.1) * 0.18;
+
+    /* the G standard and its flame face the traveller without tipping over */
+    var yaw = Math.atan2(camera.position.x, camera.position.z);
+    shipBall.gEmblem.rotation.y = yaw;
+    var fl = shipBall.flame;
+    var fu = fl.mat.uniforms;
+    fu.time.value = t;
+    var camLen = Math.hypot(camera.position.x, camera.position.z) || 1;
+    var offX = camera.position.x / camLen * 0.36;
+    var offZ = camera.position.z / camLen * 0.36;
+    for (var c = 0; c < fl.cards.length; c++) {
+      fl.cards[c].rotation.y = yaw;
+      fl.cards[c].position.x = offX;
+      fl.cards[c].position.z = offZ;
+    }
+    /* warm light breathes at the same three frequencies as the fire */
+    fl.glow.material.opacity = 0.18 + 0.05 * Math.sin(t * fu.flickMid.value + 0.7);
+    fl.light.intensity = 2.35 + 0.22 * Math.sin(t * fu.flickMid.value)
+      + 0.12 * Math.sin(t * fu.flickFast.value + 1.1);
+    fl.bounce.intensity = 0.95 + 0.18 * Math.sin(t * fu.swayMid.value + 1.9);
+    /* embers: advected upward, slowing with drag, curling as they cool */
+    for (var e = 0; e < fl.seeds.length; e++) {
+      var sd = fl.seeds[e];
+      sd.y += dt * sd.s * (0.34 - 0.12 * sd.y);
+      if (sd.y > 1) sd.y -= 1;
+      var spread = sd.r * (0.38 + sd.y * 1.55);
+      var ph = sd.a + sd.y * 2.2 + Math.sin(t * 0.6 + sd.a) * 0.12;
+      fl.pos[e * 3]     = Math.cos(ph) * spread;
+      fl.pos[e * 3 + 1] = 5.45 + sd.y * 5.25;
+      fl.pos[e * 3 + 2] = Math.sin(ph) * spread;
+    }
+    fl.attr.needsUpdate = true;
 
     /* planets: orbit, spin, intro pop */
     for (var i = 0; i < planets.length; i++) {

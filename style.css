@@ -1842,6 +1842,21 @@ html.js [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
   overflow: hidden;
 }
 #galaxy-flight.on { display: block; }
+
+/* host-network focus: a quiet gold wash when the Reserve is selected */
+#galaxy-flight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  background:
+    radial-gradient(75% 60% at 82% 40%, rgba(197, 160, 89, 0.12), transparent 62%),
+    radial-gradient(130% 110% at 50% 45%, transparent 58%, rgba(197, 160, 89, 0.055) 100%);
+}
+#galaxy-flight.on.fuego-focus::before { opacity: 1; }
 .gf-stage { position: absolute; inset: 0; touch-action: none; }
 .gf-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
@@ -2043,6 +2058,69 @@ body.galaxy-flight { overflow: hidden; }
 }
 .gd-val.visible { opacity: 1; }
 .gd-val.private { color: var(--gold); }
+
+/* --- Fuego Reserve focus: the host network gets a letterhead --- */
+.gf-dossier-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.gf-dossier-crest {
+  display: none;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(197, 160, 89, 0.42);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(231, 201, 138, 0.16), transparent 65%),
+    rgba(197, 160, 89, 0.05);
+  box-shadow: inset 0 0 0 3px rgba(10, 10, 10, 0.35);
+}
+.gf-dossier.fuego .gf-dossier-crest { display: flex; }
+.gf-dossier-crest img {
+  display: block;
+  width: 19px;
+  height: 19px;
+  opacity: 0.92;
+}
+.gf-dossier.fuego .gf-dossier-inner {
+  border-left-color: rgba(197, 160, 89, 0.52);
+  border-top-color: rgba(197, 160, 89, 0.44);
+  border-bottom-color: rgba(197, 160, 89, 0.44);
+  background:
+    linear-gradient(180deg, rgba(197, 160, 89, 0.08), rgba(197, 160, 89, 0.015) 34%, transparent 60%),
+    linear-gradient(90deg, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.78));
+  -webkit-backdrop-filter: blur(9px) saturate(1.05);
+  backdrop-filter: blur(9px) saturate(1.05);
+}
+.gf-dossier.fuego .gf-dossier-name {
+  font-family: var(--font-display);
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  line-height: 1.02;
+  background: linear-gradient(102deg, #9a7736 0%, #e7c98a 34%, #fff4d6 50%, #d9b571 66%, #8a6a2f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.6)) drop-shadow(0 0 14px rgba(197, 160, 89, 0.18));
+}
+.gf-dossier.fuego .gf-dossier-blurb {
+  font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: 0.005em;
+  color: rgba(243, 234, 216, 0.8);
+}
+.gf-dossier.fuego.has-name .gf-dossier-blurb { max-height: 140px; }
+.gf-dossier.fuego .gf-dossier-row { border-top-color: rgba(197, 160, 89, 0.26); }
+.gf-dossier.fuego .gd-label { color: rgba(214, 183, 122, 0.92); }
+.gf-dossier.fuego .gd-val { color: #f3ead8; }
+.gf-dossier.fuego .gd-val.private { color: #e7c98a; }
 
 /* --- visor (free fly) --- */
 #gf-visor {
