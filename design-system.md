@@ -173,7 +173,7 @@ the scroll container differently.
 
 | Component | Class | Rule |
 |---|---|---|
-| Nav | `.nav-surface` | fixed, 90% / 1100px, 60px tall, 8 items, dot-separated wordmark left |
+| Nav | `.nav-surface` | fixed, 90% / 1100px, 60px tall, mark left, 8 items spread evenly |
 | Footer | `footer` | top rule only, three columns, no box |
 | Primary button | `.btn-primary` | gold fill, obsidian text, uppercase mono 11px |
 | Ghost button | `.btn-ghost` | 1px grey rim, `--gold-dim` text |
@@ -236,14 +236,18 @@ Every page ships the same seven things. Divergence here is the bug that reads
 as "generated", because it is the chrome a reader sees first.
 
 1. `<body class="chiaroscuro">` — the house light.
-2. `style.css?v=35` on all four pages, one version number, bumped together.
+2. `style.css?v=36` on all four pages, one version number, bumped together.
 3. Fonts: the same Google Fonts request (Cormorant + EB Garamond + IBM Plex Mono
    + Golos). A page that drops EB Garamond breaks the ΗΞΔŦ glyph.
 4. Nav: identical eight items in identical order —
    Reserve · Vault · Exchange · Accrual · Specs · Answers · R&D · ΗΞΔŦ.
-   Interior pages prefix section links with `index.html#`. The wordmark is mark
-   plus "Fuego Reserve"; the mark never stands alone.
-5. Footer: mark + "Fuego Reserve", the eight external links, `₲ 8,000,008` in mono.
+   Interior pages prefix section links with `index.html#`. The nav and the
+   footer carry the mark alone — no "Fuego Reserve" lettering; the name lives in
+   the page title, the hero eyebrow and the `h1`. The links take the width the
+   wordmark used to hold and spread evenly across it (`space-evenly` in the nav,
+   `flex: 1` + `space-evenly` in the footer row).
+5. Footer: mark alone, the eight external links spread evenly across the row,
+   `₲ 8,000,008` in mono.
 6. Skip link as the first focusable element, pointing at `#main-content`.
 7. `<meta name="viewport">`, favicons, canonical, and `theme-color: #0A0A0A`.
 
@@ -317,11 +321,12 @@ Fixes applied to the build (the "generated" tells, not the art direction):
 | Four `eco-tag` labels, one of which duplicated its own chip row | Removed; the meta row carries it |
 | `fire-text` class re-declaring `.pillar h3` | Removed from markup and CSS |
 | Broken brand lockup: `href="#"` and an empty `<span>` in the home nav | `#hero` + "Fuego Reserve", matching every other page |
+| "Fuego Reserve" lettering beside the mark in nav and footer, taking a third of the nav's width and sitting in the footer's left cell | Mark alone; the eight nav items and eight footer links spread evenly across the freed width |
 | Footer boxed inside a bordered footer | Footer is a rule and a row |
 | Second palette (`#A8A080`, `#E4E0D8`, `#6F6B60`, four greys) layered as `.chiaroscuro` overrides | Folded into tokens; the class now holds only structural overrides |
 | Label gold at 5.6:1 under 10px caps | `--gold-dim` → `#A8A080`, 7.4:1 |
 | `#3D3D3D`-level footer text and 300-weight body | Three-level text ramp, minimum weight 400 |
-| `style.css?v=24` on two pages, `?v=33` on the third | All four pages at `?v=35` |
+| `style.css?v=24` on two pages, `?v=33` on the third | All four pages at `?v=36` |
 | Dead rules (`.spec-val`, `.swap-pairs`, `.swap-steps`, `.ef-arrow`), duplicated `.heat-title-svg`, `.nav-links a`, `.footer-links a` | Removed |
 | Hard-coded inline palette in `404.html` | Loads `style.css` |
 | `XFG maxSupply: 800008` in `data/networks.json` | `8000008` |
