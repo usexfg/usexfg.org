@@ -335,7 +335,7 @@
   function fuegoFlame(parent) {
     var mat = fuegoFlameMaterial();
     var flameGroup = new THREE.Group();
-    flameGroup.scale.setScalar(0.75); /* shortened by 1/4 */
+    flameGroup.scale.setScalar(0.9); /* try: slightly less shortened than 0.75 */
     parent.add(flameGroup);
     var cards = [];
     var sizes = [[1.15, 4.0, 7.95], [0.6, 2.8, 7.5]];
