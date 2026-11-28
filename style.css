@@ -220,12 +220,13 @@ code {
   letter-spacing: 0.04em;
 }
 
-/* Nav ΗΞΔŦ link */
-.nav-links a.nav-heat {
+/* ΗΞΔŦ link, in the nav and in the footer. The class is on both; the size is
+   inherited unless the nav sets its own. */
+.nav-links a.nav-heat,
+.footer-links a.nav-heat {
   font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
   color: var(--gold-dim);
   letter-spacing: 0.04em;
   line-height: 1;
@@ -234,7 +235,12 @@ code {
   transform: none;
 }
 
-.nav-links a.nav-heat:hover {
+.nav-links a.nav-heat {
+  font-size: 16px;
+}
+
+.nav-links a.nav-heat:hover,
+.footer-links a.nav-heat:hover {
   color: var(--gold);
 }
 
@@ -297,7 +303,6 @@ nav {
   justify-content: space-evenly;
   flex: 1;
   gap: 16px;
-  margin-left: clamp(16px, 3vw, 48px);
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.14em;
@@ -1281,9 +1286,6 @@ footer {
 .footer-links a {
   display: inline-block;
   padding: 16px 0;
-}
-
-.footer-links a {
   color: var(--stone-500);
 }
 

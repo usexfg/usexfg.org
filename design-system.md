@@ -130,8 +130,8 @@ Answers (64ch); 16px/1.8 on Parked (78ch). Nothing below weight 400 — the old
 - Grid gaps: 24px (wallet, eco), 28px (pillars), 56px (R&D columns).
 - Hero: 120/32/80 padding, 700px text column, stats strip 80px below. On
   short viewports (`≤700px` tall, or `≥1100px` wide and `≤820px` tall) it goes
-  to 96/32/32 padding, 16/20/24/32 gaps, 560px text column, and 16/32 stat
-  padding, so the CTA and stat strip stay above the fold.
+  to 96/32/32 padding, 16/20/24/32 gaps, a 560px text column with a 16px sub,
+  and 16/32 stat padding, so the CTA and stat strip stay above the fold.
 - Group with space before adding a rule. Divider hairlines appear only where
   rows must be scanned (specs ledger, sources list, footer top), never around
   a group that padding already separates.
@@ -236,7 +236,7 @@ Every page ships the same seven things. Divergence here is the bug that reads
 as "generated", because it is the chrome a reader sees first.
 
 1. `<body class="chiaroscuro">` — the house light.
-2. `style.css?v=36` on all four pages, one version number, bumped together.
+2. `style.css?v=37` on all four pages, one version number, bumped together.
 3. Fonts: the same Google Fonts request (Cormorant + EB Garamond + IBM Plex Mono
    + Golos). A page that drops EB Garamond breaks the ΗΞΔŦ glyph.
 4. Nav: identical eight items in identical order —
@@ -246,8 +246,10 @@ as "generated", because it is the chrome a reader sees first.
    the page title, the hero eyebrow and the `h1`. The links take the width the
    wordmark used to hold and spread evenly across it (`space-evenly` in the nav,
    `flex: 1` + `space-evenly` in the footer row).
-5. Footer: mark alone, the eight external links spread evenly across the row,
-   `₲ 8,000,008` in mono.
+5. Footer: mark alone, the eight external links spread evenly across the row —
+   GitHub · Discord · Explorer · Bitcointalk · 𝕏 · Answers · Docs · ΗΞΔŦ, with
+   ΗΞΔŦ last, as in the nav — and `₲ 8,000,008` in mono. Both rows give the
+   ΗΞΔŦ link EB Garamond at `--gold-dim`; only the nav sets its own size.
 6. Skip link as the first focusable element, pointing at `#main-content`.
 7. `<meta name="viewport">`, favicons, canonical, and `theme-color: #0A0A0A`.
 
@@ -320,14 +322,17 @@ Fixes applied to the build (the "generated" tells, not the art direction):
 | Five eyebrow labels for seven sections | Two, the ones whose heading cannot say it |
 | Four `eco-tag` labels, one of which duplicated its own chip row | Removed; the meta row carries it |
 | `fire-text` class re-declaring `.pillar h3` | Removed from markup and CSS |
-| Broken brand lockup: `href="#"` and an empty `<span>` in the home nav | `#hero` + "Fuego Reserve", matching every other page |
+| Broken brand lockup: `href="#"` and an empty `<span>` in the home nav | `#hero` + the mark, matching every other page |
 | "Fuego Reserve" lettering beside the mark in nav and footer, taking a third of the nav's width and sitting in the footer's left cell | Mark alone; the eight nav items and eight footer links spread evenly across the freed width |
 | Footer boxed inside a bordered footer | Footer is a rule and a row |
 | Second palette (`#A8A080`, `#E4E0D8`, `#6F6B60`, four greys) layered as `.chiaroscuro` overrides | Folded into tokens; the class now holds only structural overrides |
 | Label gold at 5.6:1 under 10px caps | `--gold-dim` → `#A8A080`, 7.4:1 |
 | `#3D3D3D`-level footer text and 300-weight body | Three-level text ramp, minimum weight 400 |
-| `style.css?v=24` on two pages, `?v=33` on the third | All four pages at `?v=36` |
+| `style.css?v=24` on two pages, `?v=33` on the third | All four pages at `?v=37` |
 | Dead rules (`.spec-val`, `.swap-pairs`, `.swap-steps`, `.ef-arrow`), duplicated `.heat-title-svg`, `.nav-links a`, `.footer-links a` | Removed |
+| The footer's ΗΞΔŦ link carried `class="nav-heat"` with no rule matching it, so it rendered as a grey mono item beside seven like it | `.nav-heat` covers both rows: EB Garamond and `--gold-dim`, with the 16px size scoped to the nav |
+| `.footer-links a` split across two rules; the nav kept the wordmark's 48px left offset after the wordmark was gone | One `.footer-links a` rule; offset dropped so `space-evenly` centres the eight items |
+| Footer listed ΗΞΔŦ second while the nav ends on it | ΗΞΔŦ last in both rows |
 | Hard-coded inline palette in `404.html` | Loads `style.css` |
 | `XFG maxSupply: 800008` in `data/networks.json` | `8000008` |
 | Interior nav swapped R&D for GitHub, which the footer already had | Same eight items on every page |
