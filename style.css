@@ -1266,9 +1266,10 @@ footer {
   align-items: center;
 }
 
+/* Same mark as the nav: square, full strength. */
 .footer-left img {
-  border-radius: 50%;
-  opacity: 0.5;
+  border-radius: 0;
+  opacity: 1;
 }
 
 /* Eight links take the row the wordmark used to hold, spread evenly. */

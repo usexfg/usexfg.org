@@ -156,7 +156,7 @@ the scroll container differently.
 
 - **One radius.** 2px for every panel, button, tag, overlay, and input. `0` for
   rules, table cells, and the metadata rows. `50%` only for circular marks
-  (logo, coin nodes, galaxy core, page dots).
+  (coin nodes, galaxy core, page dots); the brand mark is square in both rows.
 - Panels get the outer rim plus a `::after` inner hairline. That double bezel is
   the house edge and is not repeated on open columns.
 - Elevation: no drop shadows on content. The nav carries one soft shadow
@@ -236,7 +236,7 @@ Every page ships the same seven things. Divergence here is the bug that reads
 as "generated", because it is the chrome a reader sees first.
 
 1. `<body class="chiaroscuro">` — the house light.
-2. `style.css?v=37` on all four pages, one version number, bumped together.
+2. `style.css?v=38` on all four pages, one version number, bumped together.
 3. Fonts: the same Google Fonts request (Cormorant + EB Garamond + IBM Plex Mono
    + Golos). A page that drops EB Garamond breaks the ΗΞΔŦ glyph.
 4. Nav: identical eight items in identical order —
@@ -246,7 +246,8 @@ as "generated", because it is the chrome a reader sees first.
    the page title, the hero eyebrow and the `h1`. The links take the width the
    wordmark used to hold and spread evenly across it (`space-evenly` in the nav,
    `flex: 1` + `space-evenly` in the footer row).
-5. Footer: mark alone, the eight external links spread evenly across the row —
+5. Footer: mark alone, square and at full strength like the nav's, the eight
+   external links spread evenly across the row —
    GitHub · Discord · Explorer · Bitcointalk · 𝕏 · Answers · Docs · ΗΞΔŦ, with
    ΗΞΔŦ last, as in the nav — and `₲ 8,000,008` in mono. Both rows give the
    ΗΞΔŦ link EB Garamond at `--gold-dim`; only the nav sets its own size.
@@ -314,7 +315,7 @@ Fixes applied to the build (the "generated" tells, not the art direction):
 | Tell | Fix |
 |---|---|
 | Unterminated comment ate the `.card` rule, so panels had no border | Rebuilt as one `BEZEL SURFACES` rule; `.card` is no longer a dead selector |
-| Two card systems: 2px bezels under 24px "RESTORE CARD STYLES" overrides, plus a 40px pill nav and a 12px nav radius | One radius scale: 2px, `0` for rules and rows, `50%` for marks |
+| Two card systems: 2px bezels under 24px "RESTORE CARD STYLES" overrides, plus a 40px pill nav and a 12px nav radius | One radius scale: 2px, `0` for rules, rows and the brand mark, `50%` for circular marks |
 | Nine metadata rows of bordered pills | Unboxed middot rows, one shared rule |
 | Hero CTA and stat strip fell below the fold on a 640px-tall laptop, and the 7vw heading overran 700–820px-tall ones by wrapping to three lines | Height-aware hero: `min(7vw, 9.5vh)` heading, tighter rhythm under `(≤700px tall)` / `(≥1100px wide and ≤820px tall)`; 1440×900 and 1024×768 unchanged |
 | `.hero-glow` was a 700px box that clipped its own vignette into a faint rectangle | `inset: 0`; measured equal to the hero at 1440, 1024, and 1366 |
@@ -328,11 +329,12 @@ Fixes applied to the build (the "generated" tells, not the art direction):
 | Second palette (`#A8A080`, `#E4E0D8`, `#6F6B60`, four greys) layered as `.chiaroscuro` overrides | Folded into tokens; the class now holds only structural overrides |
 | Label gold at 5.6:1 under 10px caps | `--gold-dim` → `#A8A080`, 7.4:1 |
 | `#3D3D3D`-level footer text and 300-weight body | Three-level text ramp, minimum weight 400 |
-| `style.css?v=24` on two pages, `?v=33` on the third | All four pages at `?v=37` |
+| `style.css?v=24` on two pages, `?v=33` on the third | All four pages at `?v=38` |
 | Dead rules (`.spec-val`, `.swap-pairs`, `.swap-steps`, `.ef-arrow`), duplicated `.heat-title-svg`, `.nav-links a`, `.footer-links a` | Removed |
 | The footer's ΗΞΔŦ link carried `class="nav-heat"` with no rule matching it, so it rendered as a grey mono item beside seven like it | `.nav-heat` covers both rows: EB Garamond and `--gold-dim`, with the 16px size scoped to the nav |
 | `.footer-links a` split across two rules; the nav kept the wordmark's 48px left offset after the wordmark was gone | One `.footer-links a` rule; offset dropped so `space-evenly` centres the eight items |
 | Footer listed ΗΞΔŦ second while the nav ends on it | ΗΞΔŦ last in both rows |
+| The footer cropped the mark to a circle at 50% while the nav showed it square and solid; the footer's Answers link was root-absolute (`/answers.html`) where the nav's is relative | Both rows show the same mark; every Answers link is relative |
 | Hard-coded inline palette in `404.html` | Loads `style.css` |
 | `XFG maxSupply: 800008` in `data/networks.json` | `8000008` |
 | Interior nav swapped R&D for GitHub, which the footer already had | Same eight items on every page |
