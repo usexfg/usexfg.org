@@ -28,7 +28,7 @@
   wrapper.classList.add('galaxy-3d');
   wrapper.setAttribute('tabindex', '0');
   wrapper.setAttribute('role', 'button');
-  wrapper.setAttribute('aria-label', 'Private exchange galaxy. Press and hold, or press Enter, to open the flight overview.');
+  wrapper.setAttribute('aria-label', 'Private exchange galaxy. Press and hold, or press Enter, to enter the flight overview.');
 
   /* --- Palette --- */
   var GOLD   = 0xC5A059;
@@ -334,13 +334,16 @@
 
   function fuegoFlame(parent) {
     var mat = fuegoFlameMaterial();
+    var flameGroup = new THREE.Group();
+    flameGroup.scale.setScalar(0.75); /* shortened by 1/4 */
+    parent.add(flameGroup);
     var cards = [];
     var sizes = [[1.15, 4.0, 7.95], [0.6, 2.8, 7.5]];
     for (var i = 0; i < sizes.length; i++) {
       var card = new THREE.Mesh(new THREE.PlaneGeometry(sizes[i][0], sizes[i][1]), mat);
       card.position.y = sizes[i][2];
       card.renderOrder = 5 + i;
-      parent.add(card);
+      flameGroup.add(card);
       cards.push(card);
     }
 
@@ -351,7 +354,7 @@
     glow.position.y = 7.9;
     glow.scale.set(4.4, 6.4, 1);
     glow.renderOrder = 4;
-    parent.add(glow);
+    flameGroup.add(glow);
 
     var n = 42;
     var pos = new Float32Array(n * 3);
@@ -366,17 +369,17 @@
       blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, sizeAttenuation: true
     }));
     embers.renderOrder = 7;
-    parent.add(embers);
+    flameGroup.add(embers);
 
     /* fire light: warm, never neutral. The upper source throws the
        moving shadows; the lower one is the bounce on the gold hull. */
     var light = new THREE.PointLight(0xff6a24, 2.6, 26, 2);
     light.position.y = 7.0;
-    parent.add(light);
+    flameGroup.add(light);
 
     var bounce = new THREE.PointLight(0xff3d0d, 1.1, 13, 2);
     bounce.position.y = 5.7;
-    parent.add(bounce);
+    flameGroup.add(bounce);
 
     return {
       mat: mat, cards: cards, glow: glow,
@@ -808,7 +811,7 @@
   /* --- Hint chip + hold progress ring + tooltip --- */
   var hint = document.createElement('div');
   hint.className = 'galaxy-hint';
-  hint.textContent = 'Hold to open the galaxy';
+  hint.textContent = 'Hold to enter the galaxy';
   wrapper.appendChild(hint);
 
   var holdRing = document.createElement('div');
