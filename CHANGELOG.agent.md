@@ -9,6 +9,7 @@
 - [x] 5. Reserve G restored onto the Fuego nav house mark (gold sprite emblem) — agent, 2026-11-27, status: DONE
 - [x] 6. HEAT / HΞΔŦ page restored to the feat/private-exchange-galaxy-3d implementation (hearth.js, no 3D wood plaque) — agent, 2026-11-27, status: DONE
 - [x] 7. Galaxy Free Fly feature removed end-to-end (button, visor, F key, tick) — agent, 2026-11-27, status: DONE
+- [x] 8. Hold-to-enter wording + living flame shortened by 1/4 — agent, 2026-11-28, status: DONE
 
 ### Sign-off
 
@@ -18,4 +19,5 @@
 | Galaxy runtime error check (browser console) | PASS after G texture fix (2026-11-27) |
 | Dossier content check (in-browser) | PASS (2026-11-27) |
 | Free Fly removal check (grep + node --check + browser console) | PASS (2026-11-27) |
+| Hold-to-enter + flame scale check (node --check + browser console) | PASS (2026-11-28) |
 | All tasks done | YES |
