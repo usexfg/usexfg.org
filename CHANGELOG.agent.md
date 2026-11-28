@@ -7,6 +7,7 @@
 - [x] 3. Fuego dossier treatment (gold leaf, serif blurb, gold rules, host-network reserve) — agent, 2026-11-27, status: DONE
 - [x] 4. Chain facts: network `CryptoNote; Private Reserve`, status `Mothership`, inward swap privacy `ALL`, supplies `8,000,008` both rows — agent, 2026-11-27, status: DONE
 - [x] 5. Reserve G restored onto the Fuego nav house mark (gold sprite emblem) — agent, 2026-11-27, status: DONE
+- [x] 6. HEAT / HΞΔŦ page restored to the feat/private-exchange-galaxy-3d implementation (hearth.js, no 3D wood plaque) — agent, 2026-11-27, status: DONE
 
 ### Sign-off
 
