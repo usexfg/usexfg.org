@@ -699,7 +699,6 @@
       '<div class="gf-title"><span class="gf-eyebrow">deXFG — Private Exchange</span></div>' +
       '<button class="gf-close" type="button" aria-label="Collapse galaxy overview">Collapse</button>' +
       '<button class="gf-overview" type="button">Overview</button>' +
-      '<button class="gf-freefly" type="button">Free Fly</button>' +
       '<div class="gf-hint">Drag to fly &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Select a planet</div>' +
     '</div>';
   document.body.appendChild(overlay);
@@ -790,7 +789,7 @@
       /* The Fuego Reserve is the native network of facilitation, not a
          supported listing — and its supply figures are the reserve's own. */
       dossierSet(1, 'Mothership');
-      dossierSet(5, '8,000,008');
+      dossierSet(5, '7,700,000');
       dossierSet(6, '8,000,008');
       if (s && s.tvl != null) { dossierSet(4, DEXXFG_CHAINS.fmtUsd(s.tvl)); revealRow(4); }
       revealRow(5);
@@ -804,40 +803,6 @@
     if (s.tvl != null) revealRow(4);
     if (s.circulating != null) revealRow(5);
     if (s.max != null) revealRow(6);
-  }
-
-  /* --- Free Fly --- */
-  var freeFlyBtn = overlay.querySelector('.gf-freefly');
-  var visor = document.createElement('div');
-  visor.id = 'gf-visor';
-  overlay.insertBefore(visor, overlay.querySelector('.gf-hud'));
-  var freeFly = false;
-  var keyDir = new THREE.Vector3();
-  var KEYV = {
-    'w': [0, 0, 1], 's': [0, 0, -1], 'a': [-1, 0, 0], 'd': [1, 0, 0],
-    ' ': [0, 1, 0], 'shift': [0, 1, 0], 'e': [0, -1, 0]
-  };
-  var FFLY = 22;
-  function setFreeFly(on) {
-    freeFly = !!on;
-    freeFlyBtn.classList.toggle('on', on);
-    visor.classList.toggle('on', on);
-    goOverview();
-  }
-  function toggleFreeFly() { setFreeFly(!freeFly); }
-  function flyFrame(dt) {
-    if (!freeFly) { keyDir.set(0, 0, 0); return; }
-    var up = new THREE.Vector3(0, 1, 0);
-    var fwd = new THREE.Vector3().subVectors(tgt.look, galaxy.position);
-    if (fwd.length() > 1e-6) fwd.normalize(); else fwd.set(0, 0, 1);
-    var right = new THREE.Vector3().crossVectors(fwd, up).normalize();
-    if (right.length() < 0.1) right.set(1, 0, 0);
-    var upV = new THREE.Vector3().crossVectors(right, fwd).normalize();
-    tgt.look.addScaledVector(right, keyDir.x * FFLY * dt);
-    tgt.look.addScaledVector(upV, keyDir.y * FFLY * dt);
-    tgt.look.addScaledVector(fwd, keyDir.z * FFLY * dt);
-    if (tgt.look.y < -15) tgt.look.y = -15;
-    if (tgt.look.y > 30) tgt.look.y = 30;
   }
 
   /* --- Hint chip + hold progress ring + tooltip --- */
@@ -916,9 +881,6 @@
     follow = null;
     overviewBtn.classList.remove('on');
     closeDossier();
-    freeFlyBtn.classList.remove('on');
-    visor.classList.remove('on');
-    freeFly = false;
     mode = 'hero';
     overlay.classList.remove('on');
     document.body.classList.remove('galaxy-flight');
@@ -949,23 +911,13 @@
   document.addEventListener('keydown', function (e) {
     if (mode !== 'flight') return;
     if (e.key === 'Escape') { if (dCurrent) closeDossier(); else exitFlight(); return; }
-    if (e.key === 'f' && !freeFly) { toggleFreeFly(); return; }
-    if (freeFly) {
-      var v = KEYV[e.key.toLowerCase()];
-      if (v) { keyDir.set(v[0], v[1], v[2]); e.preventDefault(); }
-    } else {
-      hideDossierOnMove();
-      var step = 0.12;
-      if (e.key === 'ArrowLeft')  { tgt.theta -= step; e.preventDefault(); }
-      if (e.key === 'ArrowRight') { tgt.theta += step; e.preventDefault(); }
-      if (e.key === 'ArrowUp')    { tgt.phi = Math.max(0.30, tgt.phi - step * 0.6); e.preventDefault(); }
-      if (e.key === 'ArrowDown')  { tgt.phi = Math.min(1.46, tgt.phi + step * 0.6); e.preventDefault(); }
-    }
+    hideDossierOnMove();
+    var step = 0.12;
+    if (e.key === 'ArrowLeft')  { tgt.theta -= step; e.preventDefault(); }
+    if (e.key === 'ArrowRight') { tgt.theta += step; e.preventDefault(); }
+    if (e.key === 'ArrowUp')    { tgt.phi = Math.max(0.30, tgt.phi - step * 0.6); e.preventDefault(); }
+    if (e.key === 'ArrowDown')  { tgt.phi = Math.min(1.46, tgt.phi + step * 0.6); e.preventDefault(); }
   });
-  document.addEventListener('keyup', function (e) {
-    if (freeFly) keyDir.set(0, 0, 0);
-  });
-  overlay.querySelector('.gf-freefly').addEventListener('click', function () { toggleFreeFly(); });
 
   /* --- Pointer flight controls --- */
   var drag = { on: false, x: 0, y: 0, id: null, moved: 0, downT: 0 };
@@ -1254,9 +1206,6 @@
 
     dust.rotation.y += dt * 0.008;
     stars.rotation.y += dt * 0.002;
-
-    /* free fly */
-    flyFrame(dt);
 
     /* dossier: typewriter while focused */
     if (dCurrent && follow) {

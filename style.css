@@ -2122,59 +2122,6 @@ body.galaxy-flight { overflow: hidden; }
 .gf-dossier.fuego .gd-val { color: #f3ead8; }
 .gf-dossier.fuego .gd-val.private { color: #e7c98a; }
 
-/* --- visor (free fly) --- */
-#gf-visor {
-  position: absolute;
-  inset: 0;
-  display: none;
-  z-index: 1;
-  pointer-events: none;
-}
-#galaxy-flight #gf-visor.on,
-#galaxy-flight.on #gf-visor.on { display: block; }
-#gf-visor .visor-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  border-style: solid;
-  border-color: rgba(197, 160, 89, 0.22);
-}
-#gf-visor .visor-bar.top { top: 0; border-width: 1px 0 0; height: 12px; }
-#gf-visor .visor-bar.bottom { bottom: 0; border-width: 0 0 1px; height: 12px; }
-#gf-visor .visor-corner {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-style: solid;
-  border-color: rgba(197, 160, 89, 0.28);
-  opacity: 0.75;
-}
-#gf-visor .visor-corner.tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
-#gf-visor .visor-corner.tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
-#gf-visor .visor-corner.bl { bottom: 0; left: 0; border-width: 0 2px 2px 0; }
-#gf-visor .visor-corner.br { bottom: 0; right: 0; border-width: 2px 0 2px 2px; }
-
-/* --- free fly button (placed top right of HUD) --- */
-.gf-freefly {
-  position: absolute;
-  top: 70px;
-  right: 150px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--flame-white);
-  background: rgba(10, 10, 10, 0.5);
-  border: 1px solid rgba(197, 160, 89, 0.35);
-  border-radius: 999px;
-  padding: 8px 14px;
-  cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
-}
-.gf-freefly:hover,
-.gf-freefly.on { border-color: var(--gold); }
-.gf-freefly:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-
 /* --- gold text effects (rustic sheet + liquid gold) --- */
 @property --gold-angle { syntax: '<angle>'; inherits: true; initial-value: 0deg; }
 @keyframes goldRibbon {
@@ -2210,6 +2157,4 @@ body.galaxy-flight { overflow: hidden; }
 @media (max-width: 900px) {
   .gf-dossier { right: 18px; top: 60px; }
   .gf-dossier-inner { width: calc(80vw - 36px); padding: 34px 18px; }
-  .gf-visor .visor-bar { display: none; }
-  .gf-visor .visor-corner { display: none; }
 }
