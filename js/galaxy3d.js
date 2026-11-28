@@ -218,7 +218,7 @@
      throat. */
   function fuegoGEmblem(parent) {
     var group = new THREE.Group();
-    group.position.y = 7.15;
+    group.position.y = 7.0; /* moved down a tad */
     parent.add(group);
 
     var tex = new THREE.TextureLoader().load('assets/logo/fuego-nav.png');

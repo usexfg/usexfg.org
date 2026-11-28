@@ -11,6 +11,7 @@
 - [x] 7. Galaxy Free Fly feature removed end-to-end (button, visor, F key, tick) — agent, 2026-11-27, status: DONE
 - [x] 8. Hold-to-enter wording + flame shortened by 1/4 — agent, 2026-11-28, status: DONE
 - [x] 9. Flame scale retune to 0.9 — agent, 2026-11-28, status: DONE
+- [x] 10. G emblem moved down a tad — agent, 2026-11-28, status: DONE
 
 ### Sign-off
 
@@ -21,4 +22,5 @@
 | Dossier content check (in-browser) | PASS (2026-11-27) |
 | Free Fly removal check (grep + node --check + browser console) | PASS (2026-11-27) |
 | Hold-to-enter + flame scale check (node --check + browser console) | PASS (2026-11-28) |
+| G-down-a-tad check (node --check + grep) | PASS (2026-11-28) |
 | All tasks done | YES |
