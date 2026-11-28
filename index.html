@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet" />
     <script>document.documentElement.classList.add('js');</script>
     <!-- Bump the ?v= number after editing style.css, or browsers will serve the cached copy. -->
-    <link rel="stylesheet" href="style.css?v=33" />
+    <link rel="stylesheet" href="style.css?v=35" />
 
     <!-- Motion kill-switch (mirrored in style.css) -->
     <style>
@@ -124,9 +124,9 @@
     <!-- NAV -->
     <nav class="nav-surface">
       <div class="nav-inner">
-        <a href="#" class="nav-logo">
+        <a href="#hero" class="nav-logo">
           <img src="assets/logo/fuego-nav.png" alt="Fuego" width="28" height="28" />
-          <span></span>
+          <span>Fuego Reserve</span>
         </a>
         <div class="nav-links" id="nav-links">
           <a href="#why">Reserve</a>
@@ -190,7 +190,7 @@
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                   </svg>
                 </div>
-                <h3 class="fire-text">Rarity</h3>
+                <h3>Rarity</h3>
                 <p>Hard-capped at 8,000,008 XFG. No inflation schedule. No tail emission. Burned XFG returns to network block rewards — preserving scarcity across generations.</p>
                 <div class="pillar-detail"><span>Hard Cap</span><span>7 Decimals</span><span>Fair Launch</span></div>
               </article>
@@ -200,7 +200,7 @@
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                   </svg>
                 </div>
-              <h3 class="fire-text">Stealth Wealth</h3>
+              <h3>Stealth Wealth</h3>
                 <p>Dynamic ring signature sets mix every transaction with up to 32 decoys. Stealth one-time sub-addresses obscure recipients. Observers see cryptographic noise — not your business.</p>
                 <div class="pillar-detail"><span>min mixin ≥ 8</span><span>Stealth Addresses</span><span>Key Images</span></div>
               </article>
@@ -213,7 +213,7 @@
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                   </svg>
                 </div>
-              <h3 class="fire-text">Sovereign by design</h3>
+              <h3>Sovereign by design</h3>
               <p>No venture capital. No premine. No corporation. Just 8 years of community cooperation, mathematics, and open-source code. Fuego belongs to those who use it.</p>
                 <div class="pillar-detail"><span>Open Source</span><span>No Premine</span><span>Community Run</span></div>
               </article>
@@ -227,7 +227,6 @@
         <section class="scene section section-dark" id="vault" aria-labelledby="vault-title">
           <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
-            <div class="section-label">Banking Instruments</div>
             <h2 id="vault-title">The Vault.</h2>
             <p class="section-sub">Two instruments. One for the terminal, one for the desktop. Both private by default, yours by design.</p>
             <div class="wallet-grid">
@@ -348,7 +347,6 @@
 
             <div class="eco-grid two-cols">
               <article class="eco-card eco-heat" data-reveal>
-                <div class="eco-tag">Flatcoin</div>
                 <div class="card-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 200 200" fill="none">
                     <defs>
@@ -379,7 +377,6 @@
 
               <article class="eco-card eco-heat hearth-card" data-reveal>
                 <canvas class="hearth-canvas" aria-hidden="true"></canvas>
-                <div class="eco-tag">Mechanism</div>
                 <div class="card-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 200 200">
                     <circle cx="100" cy="100" r="14" fill="#C5A059"/>
@@ -412,11 +409,9 @@
         <section class="scene section section-dark" id="accrual" aria-labelledby="accrual-title">
           <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
-            <div class="section-label">Financial Flywheel</div>
             <h2 id="accrual-title">Accrual.</h2>
             <div class="eco-grid two-cols">
               <article class="eco-card eco-cd" data-reveal>
-                <div class="eco-tag">Variable-Rate &mdash; Rolling-Term</div>
                 <div class="card-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="16" rx="2"/>
@@ -429,17 +424,16 @@
                 <p>Term-locked Certificates of Deposit denominated in <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span>. Reserve your holdings and earn real accrual through Fuego's financial flywheel — protocol revenue from Private Exchange activity and Hearth fees. Your <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span> value remains stable to its inception rate, providing the economic environment for genuine wealth building.</p>
                 <div class="eco-detail"><span>Term-locked</span><span>Real Accrual</span><span>Certificates of Deposit</span></div>
               </article>
-              <article class="eco-card eco-hearth" data-reveal>
-                <div class="eco-tag">Liquidity</div>
+              <article class="eco-card eco-fees" data-reveal>
                 <div class="card-icon" aria-hidden="true">
                   <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2c-2.5 4-4 6.5-4 9a4 4 0 0 0 8 0c0-2.5-1.5-5-4-9z"/><path d="M12 12c-1 1.5-1.5 2.5-1.5 3.5a1.5 1.5 0 0 0 3 0c0-1-.5-2-1.5-3.5z"/><path d="M8 21h8"/>
+                    <circle cx="12" cy="8" r="4"/><path d="M12 12v6"/><path d="M9 15l3 3 3-3"/><path d="M5 21h14"/>
                   </svg>
                 </div>
-                <h3>The Hearth Floor</h3>
-                <div class="status-tag">Arriving with v11</div>
-                <p>User-owned liquidity pools with automated market making. Fuego users own their own liquidity; protocol-held reserves stand behind them as a backstop — private asset markets for permissionless price discovery.</p>
-                <div class="eco-detail"><span>Constant Product</span><span>Automated Market Making</span><span>User-Owned</span></div>
+                <h3>Where the accrual comes from</h3>
+                <div class="status-tag">Arriving with v12</div>
+                <p>Accrual is paid from protocol revenue: the fees the Hearth pools collect on trades and the fees Private Exchange activity generates. Each Hearth fee routes three ways — to the position that pairs <span class="heat-glyph" aria-label="HEAT">ΗΞΔŦ</span>, to the makers who supply depth, and to the certificates that hold a term. The Hearth and the Exchange produce the revenue; the CD is the claim on it.</p>
+                <div class="eco-detail"><span>Hearth Fees</span><span>Exchange Fees</span><span>Paid From Revenue</span></div>
               </article>
             </div>
           </div>
@@ -451,7 +445,6 @@
         <section class="scene section" id="specs" aria-labelledby="specs-title">
           <div class="section-atmos" data-depth="1" aria-hidden="true"></div>
           <div class="container">
-            <div class="section-label">Technical Specifications</div>
             <h2 id="specs-title">The numbers.</h2>
             <p class="section-sub">These are the parameters the network runs on. The source is one click away.</p>
             <table class="specs-table" data-reveal>
@@ -518,7 +511,7 @@
           <div class="container footer-inner">
             <div class="footer-left">
               <img src="assets/logo/fuego-nav.png" alt="Fuego" width="22" height="22" loading="lazy" />
-              <span></span>
+              <span>Fuego Reserve</span>
             </div>
             <div class="footer-links">
               <a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>

@@ -40,9 +40,9 @@ Designed to preserve purchasing power from the silent tax of fiat currency infla
 
 ### Accrual
 
-**The Hearth Floor.** Protocol-owned liquidity pools with automated market making. Fuego users own the liquidity, not outside venues. Private asset markets for permissionless price discovery. Arriving with v11.
-
 **ΗΞΔŦ Certificates of Deposit.** Term-locked certificates denominated in ΗΞΔŦ, earning real accrual from protocol revenue: private exchange activity and Hearth fees. Arriving with v12.
+
+**Where the accrual comes from.** Protocol revenue pays the certificates. Each Hearth fee routes three ways: to the ΗΞΔŦ pairing position, to the makers who supply depth, and to the certificates. Private Exchange fees join the same revenue. Arriving with v12.
 
 ### The numbers
 

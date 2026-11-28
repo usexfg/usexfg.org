@@ -33,7 +33,7 @@ body.answers-page {
 .qpage .lede {
   font-size: 17px;
   line-height: 1.7;
-  color: #9A9A9A;
+  color: var(--stone-300);
   max-width: 620px;
   margin: 0 0 72px;
 }
@@ -56,7 +56,7 @@ body.answers-page {
 .qpage section > p {
   font-size: 17px;
   line-height: 1.75;
-  color: #9A9A9A;
+  color: var(--stone-500);
   margin: 0;
   max-width: 64ch;
 }
@@ -70,10 +70,6 @@ body.answers-page {
 .qpage a:hover {
   color: var(--flame-white);
   border-bottom-color: var(--flame-white);
-}
-
-.qpage .section-label {
-  margin-bottom: 20px;
 }
 
 /* --- Where to check --- */
@@ -95,7 +91,7 @@ body.answers-page {
   padding: 14px 0;
   border-bottom: 1px solid rgba(197, 160, 89, 0.09);
   font-size: 14px;
-  color: #8E8E8E;
+  color: var(--stone-500);
 }
 .sources a {
   font-family: var(--font-mono);
@@ -107,7 +103,7 @@ body.answers-page {
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #8E8E8E;
+  color: var(--stone-500);
   margin: 72px 0 0;
   padding-top: 24px;
   border-top: 1px solid rgba(197, 160, 89, 0.12);

@@ -1,11 +1,19 @@
 /* ============================================================
    FUEGO RESERVE — Maison de XFG
-   Palette: Obsidian #0A0A0A / Champagne #C5A059 / Ember #E8622C / White Flame #EAF6F9
-   Typography: Cormorant Garamond (display) + Golos Text (body) + IBM Plex Mono
-   Depth model: depth-0 grain (::after), depth-1 atmosphere (canvas, .section-atmos),
-                depth-2 galaxy + HEAT title, depth-4 static content (default)
-   Scroll: native document scroll by default; full-screen pager only on
-           (min-width: 861px) and (pointer: fine) — see @media block at file end
+
+   Tokens below are the only palette. design-system.md records
+   how they are used; this file is the implementation.
+
+   Ground   #0A0A0A   Panel #111110   Nav #0C0C0B
+   Accent   Champagne #C5A059, label gold #A8A080, ember #E8622C
+   Text     flame-white / stone-300 / stone-500
+   Type     Cormorant Garamond (display) + Golos Text (body) + IBM Plex Mono
+   Edge     2px bezel, one gold-grey hairline, no glass
+
+   Depth: grain (::after), atmosphere (canvas, .section-atmos),
+          galaxy + HEAT title, static content last.
+   Scroll: native by default; full-screen pager only on
+           (min-width: 861px) and (pointer: fine) — see @media at file end.
    ============================================================ */
 
 /* --- Visually hidden, still read by machines --- */
@@ -35,117 +43,52 @@
 }
 
 :root {
-  /* Core Tones — Maison doctrine (exact values) */
-  --obsidian:       #0A0A0A;
-  --obsidian-soft:  #1C1C1C;
+  /* --- Surfaces: obsidian ground, one recessed panel face --- */
+  --obsidian:       #0A0A0A;   /* page ground */
+  --obsidian-soft:  #1C1C1C;   /* recessed fill (code, wells) */
+  --panel-bg:       #111110;   /* bezel face */
 
-  /* Champagne Gold */
+  /* --- Champagne: the only load-bearing accent --- */
   --gold:           #C5A059;
-  --gold-light:     #C5A059; /* no light-gold substitute — hover uses brightness() */
-  --gold-dim:       #9F8250;
+  --gold-dim:       #A8A080;   /* labels: cooler champagne, 7.4:1 on panel */
   --gold-glow:      rgba(197, 160, 89, 0.12);
   --gold-glow-soft: rgba(197, 160, 89, 0.06);
+  --ember:          #E8622C;   /* XFG fire; used by one card rule */
+  --flame-aqua:     #9FD4DE;   /* HEAT mechanism rule */
 
-  /* Ember Fire (XFG accent) */
-  --ember:          #E8622C;
-  --ember-glow:     rgba(232, 98, 44, 0.14);
+  /* --- Text ramp: four levels, no ad-hoc greys --- */
+  --flame-white:    #EAF6F9;   /* 1  display and headings */
+  --stone-300:      #B5B5B5;   /* 2  lede and body default */
+  --stone-500:      #9A9A9A;   /* 3  secondary body */
 
-  /* White Flame / HEAT accents */
-  --flame-white:    #EAF6F9;
-  --flame-aqua:     #9FD4DE;
-
-  /* Neutrals (warm creams — never pure white) */
-  --stone-300:      #B5B5B5;
-  --stone-500:      #8A8A8A;
-  --stone-700:      #3D3D3D;
-
-  /* Typography */
+  /* --- Type --- */
   --font-display:   'Cormorant Garamond', 'Georgia', serif;
   --font-body:      'Golos Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:      'IBM Plex Mono', 'SFMono-Regular', 'Fira Code', monospace;
 
-  /* Easing */
+  /* --- Easing --- */
   --ease-out:       cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out:    cubic-bezier(0.45, 0, 0.15, 1);
 
-  /* Bezel System — solid surfaces, no glass */
-  --bezel-outer:    1px solid rgba(197, 160, 89, 0.14);
-  --bezel-inner:    1px solid rgba(234, 246, 249, 0.06);
-  --bezel-radius:   3px;
-  --panel-bg:       #161616;
+  /* --- Bezel: solid faces, one 2px edge. 50% is reserved for marks. --- */
+  --bezel-outer:    1px solid rgba(150, 145, 135, 0.26);
+  --bezel-inner:    1px solid rgba(234, 246, 249, 0.03);
+  --bezel-radius:   2px;
 }
 
 /* ============================================================
-   CHIAROSCURO — Renaissance varnish over the maison
-   Deep obsidian, cooler gold-leaf edges, candle falloff.
-   Colors only — no borders, radius, padding, or type changes.
-   Copy and titles unchanged.
+   CHIAROSCURO — the house light
+   The varnish now lives in the :root tokens above, so the class
+   carries only the structural overrides the pages need. One
+   palette, one gold, one panel value, applied sitewide.
    ============================================================ */
 
-.chiaroscuro {
-  /* Deeper recessed panel black */
-  --panel-bg: #111110;
-  /* Cooler champagne rim — grayer gold, less amber */
-  --bezel-outer: 1px solid rgba(150, 145, 135, 0.26);
-  --bezel-inner: 1px solid rgba(234, 246, 249, 0.03);
-}
+/* The nav sits one step deeper than the ground it floats over */
+.chiaroscuro .nav-surface { background: #0C0C0B; }
 
-/* Nav surface: deeper, cooler gold-leaf rim */
-.chiaroscuro .nav-surface {
-  background: #0C0C0B;
-  border-color: rgba(150, 145, 135, 0.30);
-}
-
-/* Section surfaces: panel with gold-leaf edge (hero excluded) */
-.chiaroscuro .section {
-  background: var(--panel-bg);
-}
-
-.chiaroscuro .section-dark {
-  background: rgba(10, 10, 10, 0.45);
-}
-
-/* Hero: candle falloff vignette — cooler, deeper */
-.chiaroscuro .hero-glow {
-  background: radial-gradient(ellipse 70% 60% at 62% 26%, rgba(176, 152, 96, 0.10), transparent 66%),
-              radial-gradient(ellipse 120% 120% at 50% 130%, #030302 18%, transparent 68%);
-}
-.chiaroscuro .hero { background: #0A0A0A; }
-
-/* Hero text — candle against dark */
-.chiaroscuro .hero-eyebrow { color: #A8A080; }
-.chiaroscuro .hero-eyebrow::before,
-.chiaroscuro .hero-eyebrow::after {
-  background: linear-gradient(90deg, transparent, #A8A080, transparent);
-}
-.chiaroscuro .hero h1 { color: var(--flame-white); }
-.chiaroscuro .hero h1 em { color: #C5A059; }
-.chiaroscuro .hero-sub { color: #8A8A8A; }
-
-.chiaroscuro .btn-ghost { border-color: rgba(150, 145, 135, 0.26); color: #A8A080; }
-.chiaroscuro .btn-ghost:hover { border-color: #A8A080; color: var(--flame-white); }
-.chiaroscuro .btn-sm { border-color: rgba(150, 145, 135, 0.16); color: #6F6B60; }
-
-/* Stat separators */
-.chiaroscuro .stat { border-color: rgba(150, 145, 135, 0.14); }
-.chiaroscuro .stat-value { color: #E4E0D8; }
-.chiaroscuro .stat-label { color: #6F6B60; }
-
-/* Cards / bezel panels */
-.chiaroscuro .card,
-.chiaroscuro .rd-column,
-.chiaroscuro .pillar {
-  background: var(--panel-bg);
-}
-
-/* Section titles under chiaroscuro */
-.chiaroscuro .section h2 { color: #EAF6F9; }
-.chiaroscuro .section h2 em { color: #C5A059; }
-.chiaroscuro .section-sub { color: #9A9A9A; }
-
-/* Marquee softened under chiaroscuro */
-.chiaroscuro .marquee-line span { color: #6F6B60; }
-.chiaroscuro .marquee-line:nth-child(odd) span { color: #A8A080; }
+/* Sections are panels; the hero stays on the ground */
+.chiaroscuro .section { background: var(--panel-bg); }
+.chiaroscuro .section-dark { background: rgba(10, 10, 10, 0.45); }
 
 
 html {
@@ -157,7 +100,7 @@ html {
 body {
   font-family: var(--font-body);
   background: var(--obsidian);
-  color: #C6C6C6;
+  color: var(--stone-300);
   font-size: 16px;
   line-height: 1.7;
   overflow-x: hidden;
@@ -246,7 +189,7 @@ code {
   font-family: var(--font-mono);
   background: var(--obsidian-soft);
   padding: 0.15em 0.5em;
-  border-radius: 2px;
+  border-radius: var(--bezel-radius);
   font-size: 0.875em;
   color: var(--gold);
 }
@@ -308,8 +251,8 @@ code {
 /* --- SOLID NAV SURFACE (no glass, no blur) --- */
 .nav-surface {
   background: var(--panel-bg);
-  border-radius: 12px;
-  border: 1px solid rgba(197, 160, 89, 0.18); /* Gold rim */
+  border: var(--bezel-outer);
+  border-radius: var(--bezel-radius);
   box-shadow:
     inset 0 1px 0 rgba(234, 246, 249, 0.04),
     0 10px 30px rgba(0, 0, 0, 0.45);
@@ -324,7 +267,6 @@ nav {
   width: 90%;
   max-width: 1100px;
   z-index: 100;
-  border-radius: 40px;
 }
 
 /* Nav stays put: solid surface, no hover lift. */
@@ -372,9 +314,6 @@ nav {
   display: inline-flex;
   align-items: center;
   line-height: 1;
-}
-
-.nav-links a {
   color: var(--stone-500);
   transition: color 0.2s;
 }
@@ -431,23 +370,18 @@ nav {
   padding: 120px 32px 80px;
   position: relative;
   overflow: hidden;
+  background: var(--obsidian);
 }
 
+/* Full-bleed, not a 700px box: a sized box clipped its own vignette and
+   printed a faint rectangle across the hero. */
 .hero-glow {
   position: absolute;
-  top: -120px;
-  left: 50%;
-  margin-left: -350px; /* centered without transform, so GSAP owns transform */
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, var(--gold-glow-soft) 0%, rgba(197,160,89,0.04) 45%, transparent 70%);
+  inset: 0;
+  background:
+    radial-gradient(ellipse 46% 42% at 62% 24%, rgba(176, 152, 96, 0.10), transparent 66%),
+    radial-gradient(ellipse 90% 72% at 50% 118%, #030302 0%, transparent 64%);
   pointer-events: none;
-  animation: glowPulse 8s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.1); }
 }
 
 .hero-content {
@@ -494,14 +428,14 @@ nav {
 
 .hero h1 em {
   font-style: italic;
-  color: var(--gold-light);
+  color: var(--gold);
 }
 
 .hero-sub {
   font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.7;
-  color: #B5B5B5;
+  color: var(--stone-300);
   max-width: 500px;
   margin: 0 auto 48px;
   font-weight: 400;
@@ -514,6 +448,7 @@ nav {
   flex-wrap: wrap;
 }
 
+/* Four facts, grouped by space. No ruled strip, no divider hairline. */
 .hero-stats {
   display: flex;
   gap: 0;
@@ -523,28 +458,12 @@ nav {
   z-index: 2;
 }
 
-.hero-stats::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 320px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(197,160,89,0.2), transparent);
-}
-
 .stat {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   padding: 32px 40px;
-  border-right: 1px solid rgba(197, 160, 89, 0.08);
-}
-
-.stat:first-child {
-  border-left: 1px solid rgba(197, 160, 89, 0.08);
 }
 
 .stat-value {
@@ -557,10 +476,45 @@ nav {
 
 .stat-label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--gold-dim);
+}
+
+/* Two hero shapes overflow their screen: a short viewport at any desktop
+   width, and a wide one where the 7vw heading wraps to three lines. Both are
+   compressed here. 1440x900 and 1024x768 sit outside this query and keep the
+   taller composition; without it the CTA and stat strip fell below the fold
+   and the pager scrolled the section before advancing. */
+@media (min-width: 861px) and (max-height: 700px),
+       (min-width: 1100px) and (max-height: 820px) {
+  .hero {
+    padding: 96px 32px 32px;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, min(7vw, 9.5vh), 6rem);
+    margin-bottom: 20px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    max-width: 560px;
+    margin-bottom: 24px;
+  }
+
+  .hero-stats {
+    margin-top: 32px;
+  }
+
+  .stat {
+    padding: 16px 32px;
+  }
 }
 
 
@@ -599,13 +553,13 @@ nav {
 
 .btn-ghost {
   background: transparent;
-  color: var(--stone-300);
-  border: 1px solid rgba(197, 160, 89, 0.2);
+  color: var(--gold-dim);
+  border: 1px solid rgba(150, 145, 135, 0.26);
 }
 
 .btn-ghost:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: var(--gold-dim);
+  color: var(--flame-white);
   transform: translateY(-2px);
 }
 
@@ -616,7 +570,7 @@ nav {
   border-radius: var(--bezel-radius);
   background: transparent;
   color: var(--stone-500);
-  border: 1px solid rgba(197, 160, 89, 0.16);
+  border: 1px solid rgba(150, 145, 135, 0.16);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -660,7 +614,7 @@ nav {
 
 .section-sub {
   font-size: 16px;
-  color: #9A9A9A;
+  color: var(--stone-500);
   max-width: 520px;
   line-height: 1.7;
   margin-bottom: 64px;
@@ -669,9 +623,14 @@ nav {
 
 
 /* ============================================================
-   DOUBLE-BEZEL CARD SYSTEM
-   A card has an outer bezel (gold) and inner bezel (white flame 6%)
-   Solid surfaces only — no glass{
+   BEZEL SURFACES — one panel, one edge, one radius.
+   Outer gold-grey bezel plus an inner white-flame hairline
+   (the ::after on wallet and eco cards). Solid faces only.
+   ============================================================ */
+.card,
+.wallet-card,
+.eco-card,
+.rd-column {
   position: relative;
   border: var(--bezel-outer);
   border-radius: var(--bezel-radius);
@@ -694,7 +653,12 @@ nav {
 
 .pillar {
   padding: 0 8px;
+  display: flex;
+  flex-direction: column;
 }
+
+/* Cardless columns of unequal copy still land their metadata on one line. */
+.pillar-detail { margin-top: auto; }
 
 .pillar-icon {
   color: var(--gold);
@@ -714,36 +678,39 @@ nav {
 .pillar p {
   font-size: 15px;
   line-height: 1.7;
-  color: #9A9A9A;
+  color: var(--stone-500);
   margin-bottom: 24px;
   font-weight: 400;
 }
 
-.pillar-detail {
+/* Metadata rows: facts separated by a middot.
+   A row is a sentence about the card, not a set of pills. */
+.pillar-detail,
+.eco-detail,
+.wallet-features {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-}
-
-.pillar-detail span {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--gold-dim);
-  border: 1px solid rgba(197, 160, 89, 0.14);
-  padding: 4px 12px;
-  border-radius: 1px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--stone-500);
 }
 
-.fire-text {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--flame-white);
-  margin-bottom: 14px;
+.pillar-detail span,
+.eco-detail span,
+.wallet-features span {
+  white-space: nowrap;
 }
 
+/* The separator trails its own fact, so a wrap never starts a line with one. */
+.pillar-detail span:not(:last-child)::after,
+.eco-detail span:not(:last-child)::after,
+.wallet-features span:not(:last-child)::after {
+  content: '·';
+  color: var(--gold-dim);
+  margin: 0 7px;
+}
 
 /* ============================================================
    VAULT (Wallets)
@@ -800,31 +767,13 @@ nav {
 .wallet-card > p:not(.wallet-type) {
   font-size: 15px;
   line-height: 1.7;
-  color: #9A9A9A;
-  margin-bottom: 24px;
-  font-weight: 400;
-}
+      color: var(--stone-500);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
 
-.wallet-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
+  .wallet-features {
   margin-bottom: 28px;
-}
-
-.wallet-features span {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--stone-500);
-  border: 1px solid rgba(234,246,249,0.06);
-  padding: 3px 10px;
-  border-radius: 1px;
-  letter-spacing: 0.06em;
-}
-
-.heat-title-svg {
-  max-width: 100%;
-  margin-bottom: 48px;
 }
 
 /* --- XFG GALAXY (PRIVATE EXCHANGES) --- */
@@ -994,7 +943,7 @@ nav {
   font-family: var(--font-mono);
   font-size: 11px;
   padding: 6px 10px;
-  border-radius: 6px;
+  border-radius: var(--bezel-radius);
   opacity: 0;
   pointer-events: none;
   transition: all 0.2s ease;
@@ -1097,19 +1046,18 @@ nav {
   opacity: 0.4;
 }
 
+.eco-fees::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+
 .eco-card:hover {
   border-color: rgba(197, 160, 89, 0.26);
   box-shadow: 0 0 32px var(--gold-glow-soft);
-}
-
-/* Remove eco-tag pill (no boxes on HEAT) — use plain label text */
-.eco-tag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold-dim);
-  margin-bottom: 20px;
 }
 
 .card-icon {
@@ -1130,7 +1078,7 @@ nav {
 .eco-card > p {
   font-size: 15px;
   line-height: 1.7;
-  color: #9A9A9A;
+  color: var(--stone-500);
   margin-bottom: 24px;
   font-weight: 400;
 }
@@ -1139,17 +1087,6 @@ nav {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-}
-
-.eco-detail span {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--gold-dim);
-  border: 1px solid rgba(197, 160, 89, 0.12);
-  padding: 3px 10px;
-  border-radius: 1px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 
@@ -1168,7 +1105,7 @@ nav {
 
 .specs-table th {
   font-size: 14px;
-  color: #8E8E8E;
+  color: var(--stone-500);
   font-weight: 400;
   text-align: left;
   padding: 16px 24px 16px 0;
@@ -1196,7 +1133,7 @@ nav {
   border-bottom: 1px solid rgba(197, 160, 89, 0.3);
   transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
 }
-.spec-val a:hover {
+.specs-table td a:hover {
   color: var(--flame-white);
   border-bottom-color: var(--flame-white);
 }
@@ -1257,10 +1194,6 @@ nav {
   display: inline-block;
 }
 
-.marquee-line:nth-child(odd) span {
-  color: var(--stone-700);
-}
-
 .rd-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1299,7 +1232,7 @@ nav {
   font-size: 13px;
   line-height: 1.75;
   color: var(--stone-500);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .section h2.rd-section-headline {
@@ -1368,7 +1301,7 @@ footer {
 .footer-right {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--stone-700);
+  color: var(--stone-500);
   letter-spacing: 0.04em;
 }
 
@@ -1447,19 +1380,6 @@ footer {
 
   .eco-grid.two-cols {
     grid-template-columns: 1fr;
-  }
-
-  .swap-pairs {
-    grid-template-columns: 1fr;
-  }
-
-  .swap-steps {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .ef-arrow {
-    transform: rotate(90deg);
   }
 
   .section {
@@ -1555,18 +1475,7 @@ footer {
   color: var(--obsidian);
 }
 
-/* RESTORE CARD STYLES */
-.wallet-card, .eco-card, .rd-column {
-  background: var(--panel-bg);
-  border: 1px solid rgba(197, 160, 89, 0.15);
-  border-radius: 24px;
-}
-.rd-column { border-radius: 24px; }
-.footer-inner {
-  background: rgba(20, 20, 20, 0.6);
-  border: 1px solid rgba(197, 160, 89, 0.1);
-  border-radius: 24px;
-}
+/* The footer is a rule and a row, not a box inside a box. */
 
 @media (max-width: 900px) {
   .swaps-layout {

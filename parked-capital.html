@@ -15,19 +15,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=EB+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=24" />
+  <link rel="stylesheet" href="style.css?v=35" />
   <link rel="stylesheet" href="assets/css/answers.css" />
   <style>
 .pc-main{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:168px 24px 80px}
 .pc-article{padding-bottom:40px}
-.pc-kicker,.pc-audience,.pc-label,.pc-index,.pc-source,.pc-status{font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.12em}
+.pc-kicker,.pc-label,.pc-index,.pc-source,.pc-status{font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.12em}
 .pc-kicker{font-size:12px;color:var(--gold);margin:0 0 22px}
 .pc-intro{padding-bottom:48px;border-bottom:1px solid rgba(197,160,89,.16)}
 .pc-intro h1{font-family:var(--font-display);font-size:clamp(3rem,7vw,5.5rem);font-weight:300;color:var(--flame-white);line-height:1.02;letter-spacing:.01em;margin:0 0 24px;text-wrap:pretty}
-.pc-intro .lede{font-size:19px;line-height:1.65;color:#aaa;max-width:760px;margin:0 0 26px;text-wrap:pretty}
-.pc-audience{font-size:11px;color:#8e8e8e;margin:0}
+.pc-intro .lede{font-size:17px;line-height:1.65;color:var(--stone-300);max-width:760px;margin:0 0 26px;text-wrap:pretty}
 .pc-opening{padding:44px 0 36px;max-width:78ch}
-.pc-opening>p:not(.pc-label),.pc-rule>p:not(.pc-label),.pc-section>p,.pc-response>p,.pc-closing{font-size:16px;line-height:1.8;color:#aaa;margin:0 0 18px;text-wrap:pretty}
+.pc-opening>p:not(.pc-label),.pc-rule>p:not(.pc-label),.pc-section>p,.pc-response>p,.pc-closing{font-size:16px;line-height:1.8;color:var(--stone-500);margin:0 0 18px;text-wrap:pretty}
 .pc-label{font-size:11px;color:var(--gold);margin:0 0 16px}
 .pc-rule{padding:28px 0 30px;border-top:1px solid rgba(197,160,89,.3);border-bottom:1px solid rgba(197,160,89,.16);margin:0 0 64px;max-width:78ch}
 .pc-rule h2{font-family:var(--font-display);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:400;color:var(--flame-white);margin:0 0 12px;line-height:1.15}
@@ -36,24 +35,24 @@
 .pc-index{font-size:12px;color:var(--gold)}
 .pc-section h2{font-family:var(--font-display);font-size:clamp(1.75rem,3.8vw,2.5rem);font-weight:400;color:var(--flame-white);line-height:1.15;margin:0;text-wrap:pretty}
 .pc-section>p{max-width:78ch}
-.pc-list{padding-left:1.3rem;max-width:78ch;margin:0 0 22px;color:#aaa}
+.pc-list{padding-left:1.3rem;max-width:78ch;margin:0 0 22px;color:var(--stone-500)}
 .pc-list li{padding:0 0 12px 5px;line-height:1.75}
 .pc-list li::marker{color:var(--gold)}
 .pc-table-scroll{overflow-x:auto;overscroll-behavior-inline:contain;margin:28px 0 32px;border-top:1px solid rgba(197,160,89,.2);border-bottom:1px solid rgba(197,160,89,.12)}
 .pc-table{border-collapse:collapse;width:100%;min-width:680px;font-size:14px;line-height:1.65}
 .pc-table th,.pc-table td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid rgba(197,160,89,.1)}
 .pc-table thead th{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#c5a059}
-.pc-table tbody th{width:24%;font-weight:500;color:#e0ddd5}
-.pc-table td{color:#9c9c9c}
-.pc-response{margin:32px 0 24px;padding:20px 22px;border-left:1px solid rgba(197,160,89,.55);background:rgba(255,255,255,.018);max-width:78ch}
+.pc-table tbody th{width:24%;font-weight:500;color:var(--stone-300)}
+.pc-table td{color:var(--stone-500)}
+.pc-response{margin:32px 0 24px;padding:20px 22px;border-left:1px solid rgba(197,160,89,.55);background:rgba(234,246,249,.02);max-width:78ch}
 .pc-response .pc-label{margin:0 0 8px}
-.pc-response>p:not(.pc-label){margin:0 0 16px;font-size:15px;line-height:1.75;color:#aaa}
+.pc-response>p:not(.pc-label){margin:0 0 16px;font-size:15px;line-height:1.75;color:var(--stone-500)}
 .pc-response>p:last-child{margin-bottom:0}
-.pc-code{overflow-x:auto;padding:18px 20px;margin:18px 0 22px;background:#111110;border:1px solid rgba(197,160,89,.12);color:#d8c9a6;font:13px/1.7 var(--font-mono);white-space:pre}
+.pc-code{overflow-x:auto;padding:18px 20px;margin:18px 0 22px;background:#111110;border:1px solid rgba(197,160,89,.12);color:var(--stone-300);font:13px/1.7 var(--font-mono);white-space:pre}
 .pc-code code{font:inherit}
-.pc-source{font-size:11px!important;line-height:1.7!important;color:#777!important;letter-spacing:.02em;text-transform:none;margin-top:24px!important;overflow-wrap:anywhere}
+.pc-source{font-size:11px!important;line-height:1.7!important;color:var(--stone-500)!important;letter-spacing:.02em;text-transform:none;margin-top:24px!important;overflow-wrap:anywhere}
 .pc-source code{font:inherit;color:#9a9a9a}
-.pc-closing{padding-top:26px;border-top:1px solid rgba(197,160,89,.14);max-width:78ch;margin-top:34px!important;color:#d1cabb!important}
+.pc-closing{padding-top:26px;border-top:1px solid rgba(197,160,89,.14);max-width:78ch;margin-top:34px!important;color:var(--stone-300)!important}
 .pc-back{display:inline-block;margin-top:28px;color:var(--gold);font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-decoration:none;border-bottom:1px solid rgba(197,160,89,.35)}
 .pc-back:hover{color:var(--flame-white);border-color:var(--flame-white)}
 @media(max-width:768px){.pc-main{padding:140px 20px 56px}.pc-opening{padding-top:34px}.pc-section{margin-bottom:56px}.pc-table{min-width:620px}.pc-response{padding:18px}.pc-code{font-size:12px;padding:15px}}
@@ -70,13 +69,14 @@
   <meta name="twitter:image" content="https://usexfg.org/assets/og.png" />
 </head>
 <body class="answers-page chiaroscuro">
+<a class="skip-link" href="#main-content">Skip to content</a>
 <nav class="nav-surface">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><img src="assets/logo/fuego-nav.png" alt="Fuego" width="28" height="28" /><span>Fuego Reserve</span></a>
     <div class="nav-links" id="nav-links">
       <a href="index.html">Reserve</a><a href="index.html#vault">Vault</a><a href="index.html#swaps">Exchange</a>
       <a href="index.html#accrual">Accrual</a><a href="index.html#specs">Specs</a>
-      <a href="answers.html">Answers</a><a href="https://github.com/usexfg" target="_blank" rel="noopener">GitHub</a>
+      <a href="answers.html">Answers</a><a href="index.html#rd">R&amp;D</a>
       <a href="index.html#heat" class="nav-heat">ΗΞΔŦ</a>
     </div>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
@@ -88,7 +88,6 @@
   <p class="pc-kicker">FUEGO · XFG · HEAT</p>
   <h1>Parked Capital</h1>
   <p class="lede">What happens to the XFG a mint takes out of circulation, why it is the same idea as liquid staking, and the one part of liquid staking Fuego leaves out.</p>
-  <p class="pc-audience">AUDIENCE: AUDITORS, AGENTS, SKEPTICS</p>
 </header>
 <div class="pc-opening">
   <p class="pc-label">EVERY MECHANISM CARRIES A STATUS</p>

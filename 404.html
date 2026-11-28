@@ -11,22 +11,37 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Golos+Text:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css?v=35" />
 <style>
-  html, body { margin: 0; background: #0A0A0A; color: #EAF6F9; }
-  .fallback { min-height: 100vh; display: flex; flex-direction: column; align-items: center;
-              justify-content: center; gap: 18px; padding: 24px; text-align: center; }
-  .mark { width: 64px; height: 64px; }
-  h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 44px; margin: 0; }
-  h1 em { font-style: italic; color: #C5A059; }
-  p { font-family: 'Golos Text', sans-serif; font-size: 15px; color: #8A8A8A; margin: 0; }
-  a { color: #C5A059; text-decoration: none; border-bottom: 1px solid rgba(197,160,89,0.3); }
+  /* The fallback borrows the house stylesheet; only the centring lives here. */
+  .notfound {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 24px;
+    text-align: center;
+  }
+  .notfound img { width: 56px; height: 56px; }
+  .notfound h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    color: var(--flame-white);
+    margin: 0;
+  }
+  .notfound p { font-size: 15px; color: var(--stone-500); margin: 0; }
+  .notfound a { color: var(--gold-dim); border-bottom: 1px solid rgba(197, 160, 89, 0.3); }
+  .notfound a:hover { color: var(--flame-white); }
 </style>
 </head>
 <body class="chiaroscuro">
-  <div class="fallback">
-    <img class="mark" src="assets/logo/fuego-nav.png" alt="Fuego Reserve" width="64" height="64" />
-    <h1>This page has <em>moved.</em></h1>
+  <main class="notfound">
+    <img src="assets/logo/fuego-nav.png" alt="Fuego Reserve" width="56" height="56" />
+    <h1>This page has moved.</h1>
     <p><a href="/index.html">Fuego Reserve</a></p>
-  </div>
+  </main>
 </body>
 </html>
